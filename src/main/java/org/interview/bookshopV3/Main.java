@@ -1,11 +1,11 @@
-package org.interview.bookshopV2;
+package org.interview.bookshopV3;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
+/*
         final String FILE_PATH = "src/main/java/org/interview/bookshopV2/BookList.csv";
         Bookshop bookshop = new Bookshop();
         Scanner scanner = new Scanner(System.in);
@@ -96,7 +96,7 @@ public class Main {
             }
         }
 
-        scanner.close();
+        scanner.close();*/
     }
 }
 

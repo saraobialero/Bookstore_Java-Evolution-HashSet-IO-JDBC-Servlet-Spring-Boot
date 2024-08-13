@@ -1,4 +1,4 @@
-package org.interview.bookshopV2;
+package org.interview.bookshopV3.exception;
 
 public class BookException extends RuntimeException{
     public BookException() {
