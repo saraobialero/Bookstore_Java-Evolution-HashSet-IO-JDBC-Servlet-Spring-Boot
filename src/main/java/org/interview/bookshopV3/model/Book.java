@@ -24,4 +24,10 @@ public class Book implements Serializable {
     private String ISBN;
     private boolean available;
 
+    @Override
+    public String toString() {
+        return String.format("Book{id='%s', title='%s', author='%s', publication_year='%s' description='%s' ISBN='%s', available=%s}",
+                id, title, author, publicationYear,  description, ISBN, available);
+    }
+
 }
