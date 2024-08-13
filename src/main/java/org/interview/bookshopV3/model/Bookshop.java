@@ -6,6 +6,7 @@ import org.interview.bookshopV3.db.DatabaseManager;
 import java.io.*;
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Getter
@@ -34,7 +35,25 @@ public class Bookshop implements Serializable {
     }
 
     //TODO: methods
+    //GiveBook
+    public boolean giveBook(int id) {
+        return false;
+    }
 
+    //ReturnBook
+    public boolean returnBook(int id) {
+        return false;
+    }
+
+    //Found book by ISBN
+    public Optional<Book> searchBookById(int id) {
+        return Optional.of(null);
+    }
+
+    //verify if the book is available
+    private boolean isAvailable (int id) {
+        return false;
+    }
 
 
 }

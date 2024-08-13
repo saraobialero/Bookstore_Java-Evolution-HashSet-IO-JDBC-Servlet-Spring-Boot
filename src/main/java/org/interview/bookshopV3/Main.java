@@ -55,7 +55,7 @@ public class Main {
                         System.out.print("ISBN: ");
                         String searchISBN = scanner.nextLine();
                         try {
-                            Book foundBook = bookshop.searchBookByISBN(searchISBN)
+                            Book foundBook = bookshop.searchBookById(searchISBN)
                                     .orElseThrow(() -> new BookException("Book not found"));
                             System.out.println("Book Found: " + foundBook.getTitle() + " Author: " + foundBook.getAuthor());
                         } catch (BookException e) {
