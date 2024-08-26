@@ -172,6 +172,10 @@ public class DatabaseManager {
         return Optional.empty();
     }
     public boolean addBook(Book book) throws SQLException {
+        if (book == null || isInvalidBook(book)) {
+            throw new IllegalArgumentException("Invalid book data");
+        }
+
         String querySQL = "INSERT INTO books (title, author, publication_year, description, isbn, available) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(querySQL, Statement.RETURN_GENERATED_KEYS)) {
@@ -267,5 +271,12 @@ public class DatabaseManager {
             preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
         }
+    }
+
+    private boolean isInvalidBook(Book book) {
+        return book.getTitle() == null || book.getTitle().isEmpty() ||
+                book.getAuthor() == null || book.getAuthor().isEmpty() ||
+                book.getPublicationYear() == null ||
+                book.getISBN() == null || book.getISBN().isEmpty();
     }
 }

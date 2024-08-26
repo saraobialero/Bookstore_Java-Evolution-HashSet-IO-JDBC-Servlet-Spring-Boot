@@ -1,0 +1,51 @@
+2024-08-26 17:58:34.559 [main] INFO  DbManagerTest - Starting get all Books test with negative result for size and content of set
+2024-08-26 17:58:34.591 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.599 [main] INFO  DbManagerTest - Starting add book to bookstore test
+2024-08-26 17:58:34.607 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.610 [main] INFO  DbManagerTest - Starting delete all books test
+2024-08-26 17:58:34.613 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.616 [main] INFO  DbManagerTest - Starting delete book from bookstore test
+2024-08-26 17:58:34.620 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.624 [main] INFO  DbManagerTest - Starting get all Books test
+2024-08-26 17:58:34.665 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.715 [main] INFO  DbManagerTest - Update book title
+2024-08-26 17:58:34.716 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.724 [main] INFO  DbManagerTest - Update book author
+2024-08-26 17:58:34.724 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.728 [main] INFO  DbManagerTest - Update book publicationYear
+2024-08-26 17:58:34.728 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.731 [main] INFO  DbManagerTest - Update book description
+2024-08-26 17:58:34.732 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.735 [main] INFO  DbManagerTest - Update book ISBN
+2024-08-26 17:58:34.735 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.738 [main] INFO  DbManagerTest - Update book availability
+2024-08-26 17:58:34.738 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.747 [main] INFO  DbManagerTest - Starting delete non-existent book test for ID: 10
+2024-08-26 17:58:34.748 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.751 [main] INFO  DbManagerTest - Starting delete non-existent book test for ID: 20
+2024-08-26 17:58:34.751 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.755 [main] INFO  DbManagerTest - Starting delete non-existent book test for ID: 0
+2024-08-26 17:58:34.756 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.760 [main] INFO  DbManagerTest - Starting add book with invalid data test
+2024-08-26 17:58:34.767 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.770 [main] INFO  DbManagerTest - Testing adding a book with maximum length values
+2024-08-26 17:58:34.772 [main] INFO  DbManagerTest - Test passed
+
+2024-08-26 17:58:34.775 [main] INFO  DbManagerTest - Testing concurrent book updates
+2024-08-26 17:58:34.786 [main] INFO  DbManagerTest - Test passed
+
