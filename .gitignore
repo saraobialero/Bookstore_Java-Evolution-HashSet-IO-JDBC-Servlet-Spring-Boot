@@ -36,3 +36,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Configuration for sec ###
+/src/main/resources/*.properties

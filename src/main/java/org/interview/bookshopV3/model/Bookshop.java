@@ -2,6 +2,8 @@ package org.interview.bookshopV3.model;
 
 import lombok.*;
 import org.interview.bookshopV3.db.DatabaseManager;
+import org.interview.bookshopV3.exception.BookException;
+import org.interview.bookshopV3.exception.ErrorResponse;
 
 import java.io.*;
 import java.sql.SQLException;
@@ -13,10 +15,11 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
+
 //Class created to manage user functionalities
 public class Bookshop implements Serializable {
     private Set<Book> books;
-    private DatabaseManager dbManager;
+    private transient DatabaseManager dbManager;
 
     public Bookshop(DatabaseManager dbManager) {
         this.dbManager = dbManager;
@@ -34,25 +37,46 @@ public class Bookshop implements Serializable {
         return false;
     }
 
-    //TODO: methods
-    //GiveBook
-    public boolean giveBook(int id) {
-        return false;
+
+    public boolean giveBook(int id, boolean available) throws SQLException {
+        Book book = searchBookById(id);
+        if (!book.isAvailable()) {
+            return false;
+        }
+        dbManager.updateBookAvailability(id, available);
+        return true;
     }
 
-    //ReturnBook
-    public boolean returnBook(int id) {
-        return false;
+    public boolean returnBook(int id, boolean available) throws SQLException {
+        Book book = searchBookById(id);
+        if (book.isAvailable()) {
+            return false;
+        }
+        dbManager.updateBookAvailability(id, available);
+        return true;
     }
 
-    //Found book by ISBN
-    public Optional<Book> searchBookById(int id) {
-        return Optional.of(null);
-    }
-
-    //verify if the book is available
-    private boolean isAvailable (int id) {
-        return false;
+    public Book searchBookById(int id) throws SQLException {
+        try {
+            return dbManager.getBookById(id)
+                    .orElseThrow(() -> new BookException(
+                            new ErrorResponse(
+                                    "Book not found",
+                                    "No book found with ID: " + id,
+                                    404,
+                                    System.currentTimeMillis()
+                            )
+                    ));
+        } catch (SQLException e) {
+            throw new BookException(
+                    new ErrorResponse(
+                            "Database error",
+                            "Error occurred while searching for book with ID: " + id,
+                            500,
+                            System.currentTimeMillis()
+                    )
+            );
+        }
     }
 
 

@@ -7,10 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.sql.Date;
+import java.util.*;
 
 //Class created to manage principal CRUD operation to DB
 public class DatabaseManager {
@@ -24,6 +22,7 @@ public class DatabaseManager {
         return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
     }
 
+    //DB ENVIRONMENT
     public void initializeDatabase() {
         try {
             executeScript("schema.sql", URL);
@@ -35,7 +34,6 @@ public class DatabaseManager {
         }
 
     }
-
     private void executeScript(String scriptName, String url) throws SQLException {
         try(Connection conn = DriverManager.getConnection(url, USER, PASSWORD);
             Statement stmt = conn.createStatement()) {
@@ -50,7 +48,6 @@ public class DatabaseManager {
             throw new RuntimeException(e);
         }
     }
-
     private List<String> readSqlFile(String fileName) throws IOException {
         List<String> sqlStatements = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
@@ -74,44 +71,139 @@ public class DatabaseManager {
         return sqlStatements;
     }
 
+
+    //CRUD
     public Set<Book> getAllBooks() throws SQLException {
         Set<Book> books = new HashSet<>();
-        String sql = "SELECT * FROM books";
-        try (Connection conn = getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
+        String querySQL = "SELECT *" + " FROM books";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(querySQL);
+             ResultSet resultSet = preparedStatement.executeQuery(querySQL)) {
+            while (resultSet.next()) {
                 Book book = new Book(
-                        rs.getInt("id"),
-                        rs.getString("title"),
-                        rs.getString("author"),
-                        rs.getDate("publication_year"),
-                        rs.getString("description"),
-                        rs.getString("isbn"),
-                        rs.getBoolean("available")
+                        resultSet.getInt("id"),
+                        resultSet.getString("title"),
+                        resultSet.getString("author"),
+                        resultSet.getDate("publication_year"),
+                        resultSet.getString("description"),
+                        resultSet.getString("isbn"),
+                        resultSet.getBoolean("available")
                 );
                 books.add(book);
             }
         }
         return books;
     }
+    public Optional<Book> getBookById(int id) throws SQLException {
+        String querySQL = "SELECT *" + " FROM books WHERE id = ?";
+        try (Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
+            preparedStatement.setInt(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery(querySQL)) {
+                if (resultSet.next()) {
+                    return Optional.of(new Book(
+                            resultSet.getInt("id"),
+                            resultSet.getString("title"),
+                            resultSet.getString("author"),
+                            resultSet.getDate("publication_year"),
+                            resultSet.getString("description"),
+                            resultSet.getString("isbn"),
+                            resultSet.getBoolean("available")
+                    )
+                );
+              }
+            }
 
-    public boolean addBook(Book book) throws SQLException {
-        String sql = "INSERT INTO books (id, title, author, publication_year, description, isbn, available) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, book.getId());
-            pstmt.setString(2, book.getTitle());
-            pstmt.setString(3, book.getAuthor());
-            pstmt.setDate(4, book.getPublicationYear());
-            pstmt.setString(5, book.getDescription());
-            pstmt.setString(6, book.getISBN());
-            pstmt.setBoolean(7, book.isAvailable());
-            pstmt.executeUpdate();
         }
-        return true;
+        return Optional.empty();
     }
+    public boolean addBook(Book book) throws SQLException {
+        String querySQL = "INSERT INTO books (title, author, publication_year, description, isbn, available) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(querySQL, Statement.RETURN_GENERATED_KEYS)) {
+                preparedStatement.setString(1, book.getTitle());
+                preparedStatement.setString(2, book.getAuthor());
+                preparedStatement.setDate(3, book.getPublicationYear());
+                preparedStatement.setString(4, book.getDescription());
+                preparedStatement.setString(5, book.getISBN());
+                preparedStatement.setBoolean(6, book.isAvailable());
 
-
-    // Altri metodi per updateBook, deleteBook, ecc.
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        // Set the generated ID on the book object
+                        book.setId(generatedKeys.getInt(1));
+                        return true;
+                    } else {
+                        throw new SQLException("Creating book failed, no ID obtained.");
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    public boolean deleteBook(int id) throws  SQLException {
+        String querySQL = "DELETE FROM books WHERE id = ?";
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
+            preparedStatement.setInt(1, id);
+            int affectedRows = preparedStatement.executeUpdate();
+            return affectedRows > 0;
+        }
+    }
+    public void updateBookAvailability(int id, boolean available) throws  SQLException {
+        String querySQL = "UPDATE books SET available = ? WHERE id = ?";
+        try (Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
+            preparedStatement.setBoolean(1, available);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+        }
+    }
+    public void updateBookTitle(int id, String title) throws  SQLException {
+        String querySQL = "UPDATE books SET title = ? WHERE id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
+            preparedStatement.setString(1, title);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+        }
+    }
+    public void updateBookAuthor(int id, String author) throws  SQLException {
+        String querySQL = "UPDATE books SET author = ? WHERE id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
+            preparedStatement.setString(1, author);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+        }
+    }
+    public void updateBookPublicationYear(int id, Date publicationYear) throws  SQLException {
+        String querySQL = "UPDATE books SET publicationYear = ? WHERE id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
+            preparedStatement.setDate(1, publicationYear);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+        }
+    }
+    public void updateBookDescription(int id, String description) throws  SQLException {
+        String querySQL = "UPDATE books SET description = ? WHERE id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
+            preparedStatement.setString(1, description);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+        }
+    }
+    public void updateBookISBN(int id, String ISBN) throws  SQLException {
+        String querySQL = "UPDATE books SET ISBN = ? WHERE id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
+            preparedStatement.setString(1, ISBN);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+        }
+    }
 }

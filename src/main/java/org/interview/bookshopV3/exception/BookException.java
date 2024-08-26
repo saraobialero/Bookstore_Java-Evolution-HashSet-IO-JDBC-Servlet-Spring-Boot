@@ -1,22 +1,13 @@
 package org.interview.bookshopV3.exception;
 
-public class BookException extends RuntimeException{
-    public BookException() {
-    }
+import lombok.Getter;
 
-    public BookException(String message) {
-        super(message);
-    }
+@Getter
+public class BookException extends RuntimeException {
+    private final ErrorResponse errorResponse;
 
-    public BookException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public BookException(Throwable cause) {
-        super(cause);
-    }
-
-    public BookException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public BookException(ErrorResponse errorResponse) {
+        super(errorResponse.getMessage());
+        this.errorResponse = errorResponse;
     }
 }
