@@ -1,41 +1,89 @@
 package org.interview.bookshopV3.db;
 
+import org.interview.bookshopV3.exception.DatabaseException;
+import org.interview.bookshopV3.exception.ErrorResponse;
 import org.interview.bookshopV3.model.Book;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 //Class created to manage principal CRUD operation to DB
 public class DatabaseManager {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/";
-    private static final String DB_NAME = "bookshop_db";
-    private static final String USER = "root";
-    private static final String PASSWORD = "^Dvx&5hFzH&s#i";
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseManager.class);
 
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
+    //Create file for database properties and set details
+    private static final String PROP_FILE_PATH = "src/main/resources/database.properties";
+    private static String url;
+    private static String dbName;
+    private static String user;
+    private static String password;
+
+    //DB CONNECTION
+    static {
+        loadDatabaseProperties();
+    }
+    private static void loadDatabaseProperties() {
+        Properties prop = new Properties();
+        try (FileInputStream fis = new FileInputStream(PROP_FILE_PATH)) {
+            prop.load(fis);
+
+            url = prop.getProperty("db.url");
+            dbName = prop.getProperty("db.name");
+            user = prop.getProperty("db.user");
+
+            // Prioritize environment variable for password if available
+            password = System.getenv("DB_PASSWORD");
+            if (password == null || password.trim().isEmpty()) {
+                password = prop.getProperty("db.password");
+            }
+
+        } catch (IOException e) {
+            logger.error("Error loading database properties", e);
+            throw new DatabaseException(new ErrorResponse(
+                    "Database configuration error",
+                    "Failed to load database properties: " + e.getMessage(),
+                    500,
+                    System.currentTimeMillis()
+            ));
+        }
+    }
+    public Connection getConnection() throws DatabaseException {
+        try {
+            return DriverManager.getConnection(url + dbName, user, password);
+        } catch (SQLException e) {
+            logger.error("Error establishing database connection", e);
+            throw new DatabaseException(new ErrorResponse(
+                    "Database connection error",
+                    "Failed to establish database connection: " + e.getMessage(),
+                    500,
+                    System.currentTimeMillis()
+            ));
+        }
     }
 
     //DB ENVIRONMENT
     public void initializeDatabase() {
         try {
-            executeScript("schema.sql", URL);
-            String dbUrl = URL + DB_NAME;
+            executeScript("schema.sql", url);
+            String dbUrl = url + dbName;
             executeScript("data.sql", dbUrl);
         } catch (SQLException e) {
-            System.err.println("Error initializing database: " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Error initializing database", e);
+            throw new DatabaseException(new ErrorResponse(
+                    "Database initialization error",
+                    "Failed to initialize database: " + e.getMessage(),
+                    500,
+                    System.currentTimeMillis()
+            ));
         }
-
     }
     private void executeScript(String scriptName, String url) throws SQLException {
-        try(Connection conn = DriverManager.getConnection(url, USER, PASSWORD);
+        try(Connection conn = DriverManager.getConnection(url, user, password);
             Statement stmt = conn.createStatement()) {
 
             for (String sql : readSqlFile(scriptName)) {
@@ -44,8 +92,14 @@ public class DatabaseManager {
                  }
             }
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException | IOException e) {
+            logger.error("Error executing script", e);
+            throw new DatabaseException(new ErrorResponse(
+                    "Script error",
+                    "Failed to execute or read script: " + e.getMessage(),
+                    500,
+                    System.currentTimeMillis()
+            ));
         }
     }
     private List<String> readSqlFile(String fileName) throws IOException {
@@ -150,6 +204,14 @@ public class DatabaseManager {
             preparedStatement.setInt(1, id);
             int affectedRows = preparedStatement.executeUpdate();
             return affectedRows > 0;
+        }
+    }
+    public boolean deleteAll() throws  SQLException {
+        String querySQL = "DELETE *" + " FROM books";
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
+            int affectedRows = preparedStatement.executeUpdate();
+            return affectedRows == 0;
         }
     }
     public void updateBookAvailability(int id, boolean available) throws  SQLException {

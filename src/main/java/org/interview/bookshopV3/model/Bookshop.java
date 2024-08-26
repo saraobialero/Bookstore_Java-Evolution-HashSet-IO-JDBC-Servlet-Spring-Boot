@@ -8,8 +8,8 @@ import org.interview.bookshopV3.exception.ErrorResponse;
 import java.io.*;
 import java.sql.SQLException;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -30,13 +30,14 @@ public class Bookshop implements Serializable {
         this.books = new HashSet<>(dbManager.getAllBooks());
     }
 
-    public boolean addBook(Book book) throws SQLException {
-        if (dbManager.addBook(book)) {
-            return books.add(book);
+    public Set<PublicBookView> getPublicCatalog() throws SQLException {
+        if (books.isEmpty()) {
+            loadBooks();
         }
-        return false;
+        return books.stream()
+                .map(this::toPublicView)
+                .collect(Collectors.toSet());
     }
-
 
     public boolean giveBook(int id, boolean available) throws SQLException {
         Book book = searchBookById(id);
@@ -79,5 +80,13 @@ public class Bookshop implements Serializable {
         }
     }
 
-
+    private PublicBookView toPublicView(Book book) {
+        return new PublicBookView(
+                book.getTitle(),
+                book.getAuthor(),
+                book.getPublicationYear(),
+                book.getDescription(),
+                book.getISBN()
+        );
+    }
 }
