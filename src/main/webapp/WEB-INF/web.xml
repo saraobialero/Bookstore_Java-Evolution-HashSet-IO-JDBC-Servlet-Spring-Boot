@@ -17,6 +17,11 @@
         <servlet-class>org.evpro.bookshopV4.servlet.UserServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>TestLogServlet</servlet-name>
+        <servlet-class>org.evpro.bookshopV4.servlet.TestLogServlet</servlet-class>
+    </servlet>
+
     <!-- Servlet mappings -->
     <servlet-mapping>
         <servlet-name>BookshopServlet</servlet-name>
@@ -27,8 +32,16 @@
         <url-pattern>/users/*</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>TestLogServlet</servlet-name>
+        <url-pattern>/testlog/*</url-pattern>
+    </servlet-mapping>
 
-    <!-- Context parameters -->
+    <listener>
+        <listener-class>ch.qos.logback.classic.servlet.LogbackServletContextListener</listener-class>
+    </listener>
+
+   <!-- Context parameters -->
     <context-param>
         <param-name>dbUrl</param-name>
         <param-value>jdbc:mysql://localhost:3306/bookshop_v4</param-value>
