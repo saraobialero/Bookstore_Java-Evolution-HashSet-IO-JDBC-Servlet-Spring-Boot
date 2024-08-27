@@ -1,4 +1,4 @@
-package org.interview.bookshopV1;
+package org.evpro.bookshopV1;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

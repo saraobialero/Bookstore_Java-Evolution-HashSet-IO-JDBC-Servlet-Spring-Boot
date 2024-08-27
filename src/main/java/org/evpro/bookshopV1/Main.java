@@ -1,4 +1,4 @@
-package org.interview.bookshopV1;
+package org.evpro.bookshopV1;
 
 import java.util.HashSet;
 import java.util.Scanner;
