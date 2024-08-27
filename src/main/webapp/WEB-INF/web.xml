@@ -10,32 +10,23 @@
     <!-- Servlet definitions -->
     <servlet>
         <servlet-name>BookshopServlet</servlet-name>
-        <servlet-class>org.evpro.servlet.BookshopServlet</servlet-class>
+        <servlet-class>org.evpro.bookshopV4.servlet.BookshopServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserServlet</servlet-name>
-        <servlet-class>org.evpro.servlet.UserServlet</servlet-class>
+        <servlet-class>org.evpro.bookshopV4.servlet.UserServlet</servlet-class>
     </servlet>
 
     <!-- Servlet mappings -->
     <servlet-mapping>
         <servlet-name>BookshopServlet</servlet-name>
-        <url-pattern>/books/*</url-pattern>
+        <url-pattern>/book/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/users/*</url-pattern>
     </servlet-mapping>
 
-    <!-- Filters -->
-    <filter>
-        <filter-name>AuthenticationFilter</filter-name>
-        <filter-class>org.evpro.filter.AuthenticationFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>AuthenticationFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
 
     <!-- Context parameters -->
     <context-param>
