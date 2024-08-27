@@ -1,4 +1,4 @@
-package org.interview.bookshopV2;
+package org.evpro.bookshopV2;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;

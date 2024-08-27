@@ -1,6 +1,6 @@
-import org.interview.bookshopV2.Book;
-import org.interview.bookshopV2.BookException;
-import org.interview.bookshopV2.Bookshop;
+import org.evpro.bookshopV2.Book;
+import org.evpro.bookshopV2.BookException;
+import org.evpro.bookshopV2.Bookshop;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Rule;
