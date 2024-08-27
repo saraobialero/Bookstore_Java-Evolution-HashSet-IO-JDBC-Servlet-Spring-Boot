@@ -16,7 +16,7 @@ import java.util.Set;
 public class Bookshop implements Serializable {
     private Set<Book> books;
 
-    //Method to read the file
+    //File management
     public void readFile(String FILE_PATH) throws FileNotFoundException {
         books = new HashSet<>();
         try (Scanner scanner = new Scanner(new File(FILE_PATH))) {
@@ -40,15 +40,11 @@ public class Bookshop implements Serializable {
             }
         }
     }
-
-    //Add book to the bookshop
     private void addBookToFile(Book book, String FILE_PATH) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH, true))) {
             writer.println(bookToCsvString(book));
         }
     }
-
-    //Update csv file
     public void updateCsvFile(String FILE_PATH) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
             writer.println("title,author,ISBN,available");
@@ -57,8 +53,6 @@ public class Bookshop implements Serializable {
             }
         }
     }
-
-    //Convert data format in String
     private String bookToCsvString(Book book) {
         return String.format("%s,%s,%s,%b",
                 book.getTitle(),
@@ -74,57 +68,48 @@ public class Bookshop implements Serializable {
             try {
                 addBookToFile(book, FILE_PATH);
             } catch (IOException e) {
-                throw new FileException("File with file path" + FILE_PATH + "NOT_FOUND");
+                throw new FileException("File with file path " + FILE_PATH + " not found");
             }
         }
         return added;
     }
-
-    //GiveBook
     public boolean giveBook(String ISBN, String FILE_PATH) {
         if (!isAvailable(ISBN)) {
             return false;
         }
-        Book book = searchBookByISBN(ISBN).orElseThrow(() -> new BookException("Book with" + ISBN + "NOT_FOUND"));
+        Book book = searchBookByISBN(ISBN).orElseThrow(() -> new BookException("Book with" + ISBN + " not found"));
         book.setAvailable(false);
         try {
             updateCsvFile(FILE_PATH);
         } catch (IOException e) {
-            throw new FileException("File with file path" + FILE_PATH + "can't be updated");
+            throw new FileException("File with file path " + FILE_PATH + " can't be updated");
         }
         return true;
     }
-
-    //ReturnBook
     public boolean returnBook(String ISBN, String FILE_PATH) {
         if (isAvailable(ISBN)) {
             return false;
         }
-        Book book = searchBookByISBN(ISBN).orElseThrow(() -> new BookException("Book with" + ISBN + "NOT_FOUND"));
+        Book book = searchBookByISBN(ISBN).orElseThrow(() -> new BookException("Book with " + ISBN + " not found"));
         book.setAvailable(true);
         try {
             updateCsvFile(FILE_PATH);
         } catch (IOException e) {
-            throw new FileException("File with file path" + FILE_PATH + "can't be updated");
+            throw new FileException("File with file path " + FILE_PATH + " can't be updated");
         }
         return true;
     }
-
-
-    //Found book by ISBN
     public Optional<Book> searchBookByISBN(String ISBN) {
         for (Book book: books) {
             if (book.getISBN().equals(ISBN)) {
                 return Optional.of(book);
             }
         }
-        throw new BookException("Book with" + ISBN + "NOT_FOUND");
+        throw new BookException("Book with ISBN " + ISBN + " not found");
     }
-
-    //verify if the book is available
     private boolean isAvailable (String ISBN) {
         return searchBookByISBN(ISBN)
-                .orElseThrow(() -> new BookException("Book with" + ISBN + "NOT_FOUND"))
+                .orElseThrow(() -> new BookException("Book with ISBN " + ISBN + " not found"))
                 .isAvailable();
     }
 
