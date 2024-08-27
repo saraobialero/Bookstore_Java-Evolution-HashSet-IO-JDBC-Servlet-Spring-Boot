@@ -1,5 +1,7 @@
 package org.interview.bookshopV3.db;
 
+import lombok.extern.slf4j.Slf4j;
+import org.interview.bookshopV3.exception.BookException;
 import org.interview.bookshopV3.exception.DatabaseException;
 import org.interview.bookshopV3.exception.ErrorResponse;
 import org.interview.bookshopV3.model.Book;
@@ -12,9 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 //Class created to manage principal CRUD operation to DB
+@Slf4j
 public class DatabaseManager {
 
-    private static final Logger logger = LoggerFactory.getLogger(DatabaseManager.class);
 
     //Create file for database properties and set details
     private static final String PROP_FILE_PATH = "src/main/resources/database.properties";
@@ -43,7 +45,7 @@ public class DatabaseManager {
             }
 
         } catch (IOException e) {
-            logger.error("Error loading database properties", e);
+            log.error("Error loading database properties", e);
             throw new DatabaseException(new ErrorResponse(
                     "Database configuration error",
                     "Failed to load database properties: " + e.getMessage(),
@@ -56,7 +58,7 @@ public class DatabaseManager {
         try {
             return DriverManager.getConnection(url + dbName, user, password);
         } catch (SQLException e) {
-            logger.error("Error establishing database connection", e);
+            log.error("Error establishing database connection", e);
             throw new DatabaseException(new ErrorResponse(
                     "Database connection error",
                     "Failed to establish database connection: " + e.getMessage(),
@@ -73,7 +75,7 @@ public class DatabaseManager {
             String dbUrl = url + dbName;
             executeScript("data.sql", dbUrl);
         } catch (SQLException e) {
-            logger.error("Error initializing database", e);
+            log.error("Error initializing database", e);
             throw new DatabaseException(new ErrorResponse(
                     "Database initialization error",
                     "Failed to initialize database: " + e.getMessage(),
@@ -93,7 +95,7 @@ public class DatabaseManager {
             }
 
         } catch (SQLException | IOException e) {
-            logger.error("Error executing script", e);
+            log.error("Error executing script", e);
             throw new DatabaseException(new ErrorResponse(
                     "Script error",
                     "Failed to execute or read script: " + e.getMessage(),
@@ -168,7 +170,16 @@ public class DatabaseManager {
               }
             }
 
+        } catch (SQLException e) {
+            log.error("Error book not found", e);
+            throw new BookException(new ErrorResponse(
+                    "Book not found",
+                    "Failed to found book with id: " + id +  e.getMessage(),
+                    404,
+                    System.currentTimeMillis()
+            ));
         }
+        
         return Optional.empty();
     }
     public boolean addBook(Book book) throws SQLException {
