@@ -1,17 +1,15 @@
-package org.interview.bookshopV3.db;
+package org.evpro.bookshopV3.db;
 
 import lombok.extern.slf4j.Slf4j;
-import org.interview.bookshopV3.exception.BookException;
-import org.interview.bookshopV3.exception.DatabaseException;
-import org.interview.bookshopV3.exception.ErrorResponse;
-import org.interview.bookshopV3.model.Book;
+import org.evpro.bookshopV3.exception.BookException;
+import org.evpro.bookshopV3.exception.DatabaseException;
+import org.evpro.bookshopV3.exception.ErrorResponse;
+import org.evpro.bookshopV3.model.Book;
 
 import java.io.*;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 //Class created to manage principal CRUD operation to DB
 @Slf4j

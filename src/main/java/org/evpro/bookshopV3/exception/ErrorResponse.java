@@ -1,4 +1,4 @@
-package org.interview.bookshopV3.exception;
+package org.evpro.bookshopV3.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

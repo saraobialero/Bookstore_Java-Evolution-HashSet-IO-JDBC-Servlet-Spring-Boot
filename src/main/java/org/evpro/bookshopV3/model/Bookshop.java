@@ -1,9 +1,9 @@
-package org.interview.bookshopV3.model;
+package org.evpro.bookshopV3.model;
 
 import lombok.*;
-import org.interview.bookshopV3.db.DatabaseManager;
-import org.interview.bookshopV3.exception.BookException;
-import org.interview.bookshopV3.exception.ErrorResponse;
+import org.evpro.bookshopV3.exception.BookException;
+import org.evpro.bookshopV3.db.DatabaseManager;
+import org.evpro.bookshopV3.exception.ErrorResponse;
 
 import java.io.*;
 import java.sql.SQLException;

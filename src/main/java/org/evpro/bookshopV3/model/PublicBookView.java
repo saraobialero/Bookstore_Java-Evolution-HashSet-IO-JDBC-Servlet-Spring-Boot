@@ -1,4 +1,4 @@
-package org.interview.bookshopV3.model;
+package org.evpro.bookshopV3.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

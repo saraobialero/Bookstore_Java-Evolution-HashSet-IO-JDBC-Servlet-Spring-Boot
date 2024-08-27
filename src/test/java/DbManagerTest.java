@@ -1,5 +1,5 @@
 import lombok.extern.slf4j.Slf4j;
-import org.interview.bookshopV3.model.Bookshop;
+import org.evpro.bookshopV3.model.Bookshop;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -8,8 +8,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.interview.bookshopV3.db.DatabaseManager;
-import org.interview.bookshopV3.model.Book;
+import org.evpro.bookshopV3.db.DatabaseManager;
+import org.evpro.bookshopV3.model.Book;
 
 import java.sql.Date;
 import java.sql.SQLException;

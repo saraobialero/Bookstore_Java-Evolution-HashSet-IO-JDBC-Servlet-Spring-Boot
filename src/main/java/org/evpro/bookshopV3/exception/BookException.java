@@ -1,14 +1,13 @@
-package org.interview.bookshopV3.exception;
+package org.evpro.bookshopV3.exception;
 
 import lombok.Getter;
 
 @Getter
-public class DatabaseException extends RuntimeException {
+public class BookException extends RuntimeException {
     private final ErrorResponse errorResponse;
 
-    public DatabaseException(ErrorResponse errorResponse) {
+    public BookException(ErrorResponse errorResponse) {
         super(errorResponse.getMessage());
         this.errorResponse = errorResponse;
     }
 }
-

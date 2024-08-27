@@ -1,9 +1,9 @@
 import lombok.extern.slf4j.Slf4j;
-import org.interview.bookshopV3.db.DatabaseManager;
-import org.interview.bookshopV3.model.Book;
-import org.interview.bookshopV3.model.Bookshop;
-import org.interview.bookshopV3.model.PublicBookView;
-import org.interview.bookshopV3.exception.BookException;
+import org.evpro.bookshopV3.db.DatabaseManager;
+import org.evpro.bookshopV3.model.Book;
+import org.evpro.bookshopV3.model.Bookshop;
+import org.evpro.bookshopV3.model.PublicBookView;
+import org.evpro.bookshopV3.exception.BookException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
