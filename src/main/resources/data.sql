@@ -8,7 +8,7 @@ INSERT INTO books (title, author, publication_year, description, ISBN, quantity,
 ('The Great Gatsby', 'F. Scott Fitzgerald', '1925-04-10', 'A novel of the Jazz Age.', '9780743273565', 2, true),
 ('Moby-Dick', 'Herman Melville', '1851-10-18', 'The saga of Captain Ahab and his monomaniacal pursuit of the white whale.', '9780142437247', 3, true),
 ('The Catcher in the Rye', 'J.D. Salinger', '1951-07-16', 'A controversial novel originally published for adults, it has since become popular with adolescent readers for its themes of teenage angst and alienation.', '9780316769174', 4, true),
-('The Hobbit', 'J.R.R. Tolkien', '1937-09-21', 'A fantasy novel and children's book by English author J. R. R. Tolkien.', '9780547928227', 5, true);
+('The Hobbit', 'J.R.R. Tolkien', '1937-09-21', 'A fantasy novel and children''s book by English author J. R. R. Tolkien.', '9780547928227', 5, true);
 
 -- Inserimento degli utenti (password hashate con bcrypt per sicurezza)
 INSERT INTO users (name, surname, email, password) VALUES

@@ -37,9 +37,11 @@
         <url-pattern>/testlog/*</url-pattern>
     </servlet-mapping>
 
+
     <listener>
-        <listener-class>ch.qos.logback.classic.servlet.LogbackServletContextListener</listener-class>
+        <listener-class>org.evpro.bookshopV4.servlet.DatabaseInitializerListener</listener-class>
     </listener>
+
 
    <!-- Context parameters -->
     <context-param>

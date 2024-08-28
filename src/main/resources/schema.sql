@@ -1,7 +1,3 @@
-CREATE DATABASE IF NOT EXISTS bookshop_db_v4;
-
-USE bookshop_db_v4;
-
 CREATE TABLE IF NOT EXISTS books (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
