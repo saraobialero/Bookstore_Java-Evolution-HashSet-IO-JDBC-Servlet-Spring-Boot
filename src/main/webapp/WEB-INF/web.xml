@@ -9,17 +9,20 @@
 
     <!-- Servlet definitions -->
     <servlet>
-        <servlet-name>BookshopServlet</servlet-name>
+        <servlet-name>AuthenticationServlet</servlet-name>
+        <servlet-class>org.evpro.bookshopV4.servlet.AuthenticationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookServlet</servlet-name>
         <servlet-class>org.evpro.bookshopV4.servlet.BookServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserServlet</servlet-name>
         <servlet-class>org.evpro.bookshopV4.servlet.UserServlet</servlet-class>
     </servlet>
-
     <servlet>
-        <servlet-name>TestLogServlet</servlet-name>
-        <servlet-class>org.evpro.bookshopV4.servlet.TestLogServlet</servlet-class>
+        <servlet-name>UserHasBookServlet</servlet-name>
+        <servlet-class>org.evpro.bookshopV4.servlet.UserHasBookServlet</servlet-class>
     </servlet>
 
     <!-- Servlet mappings -->

@@ -1,22 +1,16 @@
 package org.evpro.bookshopV4.exception;
 
-public class DatabaseException extends RuntimeException{
-    public DatabaseException() {
-    }
+import lombok.Getter;
+import org.evpro.bookshopV4.model.enums.HttpStatusCode;
 
-    public DatabaseException(String message) {
+@Getter
+public class DatabaseException extends RuntimeException implements CustomException {
+    private final ErrorResponse errorResponse;
+    private final HttpStatusCode httpStatus;
+
+    public DatabaseException(String message, String details, HttpStatusCode httpStatus) {
         super(message);
-    }
-
-    public DatabaseException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public DatabaseException(Throwable cause) {
-        super(cause);
-    }
-
-    public DatabaseException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+        this.errorResponse = new ErrorResponse("Database Error", details, System.currentTimeMillis());
+        this.httpStatus = httpStatus;
     }
 }

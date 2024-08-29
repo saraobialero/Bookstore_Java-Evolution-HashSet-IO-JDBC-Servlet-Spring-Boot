@@ -2,6 +2,8 @@ package org.evpro.bookshopV4.utilities;
 
 import lombok.extern.slf4j.Slf4j;
 import org.evpro.bookshopV4.exception.DatabaseException;
+import org.evpro.bookshopV4.exception.ErrorResponse;
+import org.evpro.bookshopV4.model.enums.HttpStatusCode;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -20,7 +22,11 @@ public class DatabaseInitializer {
             log.info("Database initialization completed successfully.");
         } catch (Exception e) {
             log.error("Failed to initialize database", e);
-            throw new DatabaseException("Failed to initialize database", e);
+            throw new DatabaseException(
+                    "Database initialization error",
+                    "Failed to initialize database: " + e.getMessage(),
+                    HttpStatusCode.INTERNAL_SERVER_ERROR
+            );
         }
     }
 

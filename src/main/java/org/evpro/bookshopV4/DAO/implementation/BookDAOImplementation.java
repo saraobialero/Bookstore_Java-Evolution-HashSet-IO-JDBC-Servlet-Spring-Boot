@@ -15,27 +15,32 @@ public class BookDAOImplementation implements BookDAO {
     }
 
     @Override
-    public Optional<Book> findById(int id) {
+    public void save(org.evpro.bookshopV4.model.Book book) {
+
+    }
+
+    @Override
+    public Optional<org.evpro.bookshopV4.model.Book> findById(int id) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<Book> findByISBN(String ISBN) {
+    public Optional<org.evpro.bookshopV4.model.Book> findByISBN(String ISBN) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<Book> findByTitle(String title) {
+    public Optional<org.evpro.bookshopV4.model.Book> findByTitle(String title) {
         return Optional.empty();
     }
 
     @Override
-    public List<Book> findByAuthor(String author) {
+    public List<org.evpro.bookshopV4.model.Book> findByAuthor(String author) {
         return List.of();
     }
 
     @Override
-    public List<Book> findAll() {
+    public List<org.evpro.bookshopV4.model.Book> findAll() {
         return List.of();
     }
 
