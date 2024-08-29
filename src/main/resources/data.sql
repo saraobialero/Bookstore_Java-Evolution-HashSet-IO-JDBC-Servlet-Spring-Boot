@@ -11,11 +11,11 @@ INSERT INTO books (title, author, publication_year, description, ISBN, quantity,
 ('The Hobbit', 'J.R.R. Tolkien', '1937-09-21', 'A fantasy novel and children''s book by English author J. R. R. Tolkien.', '9780547928227', 5, true);
 
 -- Inserimento degli utenti (password hashate con bcrypt per sicurezza)
-INSERT INTO users (name, surname, email, password) VALUES
-('Mario', 'Rossi', 'mario.rossi@email.com', '$2a$10$51OJj1/YmoNSFPeJeh7VweEbnJf6O7KYA/bqbYS3Xg2dvA8EjB/Ky'),
-('Anna', 'Bianchi', 'anna.bianchi@email.com', '$2a$10$CwPtbVrLNHPNi6gK4lvXJu5oOGGPNM3IUyGEG1tIGCwEOlT2nTMEm'),
-('Luca', 'Verdi', 'luca.verdi@email.com', '$2a$10$Y9zd3s/uTT1Ff4tZ9.Ey2eFJRvb1YQD3mkhZ0CPlLcx4lojKh4aIG'),
-('Giulia', 'Neri', 'giulia.neri@email.com', '$2a$10$8.iubUNjOK5GQMNgBNuzBOLq5XbARsmsCaSY4Oo4Md5VDd4WZKPKy');
+INSERT INTO users (name, surname, email, password, role) VALUES
+('Mario', 'Rossi', 'mario.rossi@email.com', '$2a$10$51OJj1/YmoNSFPeJeh7VweEbnJf6O7KYA/bqbYS3Xg2dvA8EjB/Ky', 'ADMIN' ),
+('Anna', 'Bianchi', 'anna.bianchi@email.com', '$2a$10$CwPtbVrLNHPNi6gK4lvXJu5oOGGPNM3IUyGEG1tIGCwEOlT2nTMEm', 'ADMIN' ),
+('Luca', 'Verdi', 'luca.verdi@email.com', '$2a$10$Y9zd3s/uTT1Ff4tZ9.Ey2eFJRvb1YQD3mkhZ0CPlLcx4lojKh4aIG', 'USER'),
+('Giulia', 'Neri', 'giulia.neri@email.com', '$2a$10$8.iubUNjOK5GQMNgBNuzBOLq5XbARsmsCaSY4Oo4Md5VDd4WZKPKy', 'USER');
 
 -- Inserimento dei prestiti di libri
 INSERT INTO users_has_books (user_id, book_id, quantity, borrow_date, return_date) VALUES

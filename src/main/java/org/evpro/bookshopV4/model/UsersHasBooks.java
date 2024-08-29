@@ -1,4 +1,4 @@
 package org.evpro.bookshopV4.model;
 
-public class Bookshop {
+public class UsersHasBooks {
 }

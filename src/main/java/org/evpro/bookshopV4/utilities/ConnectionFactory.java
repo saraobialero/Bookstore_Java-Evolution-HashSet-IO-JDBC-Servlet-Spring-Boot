@@ -65,19 +65,22 @@ public class ConnectionFactory {
     }
 
     public static Connection getConnection() throws SQLException {
-        createDatabaseIfNotExists();
+        dropAndCreateDatabase();
         log.info("Attempting to establish database connection to {}...", dbName);
-        Connection conn = DriverManager.getConnection(url + "/" + dbName, user, password);
+        Connection connection = DriverManager.getConnection(url + "/" + dbName, user, password);
         log.info("Database connection established successfully.");
-        return conn;
+        return connection;
     }
 
-    private static void createDatabaseIfNotExists() throws SQLException {
-        log.info("Checking if database {} exists", dbName);
-        try (Connection conn = DriverManager.getConnection(url, user, password);
-             Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS " + dbName);
-            log.info("Database {} created or already exists", dbName);
+    private static void dropAndCreateDatabase() throws SQLException {
+        log.info("Dropping and recreating database {}", dbName);
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement())
+        {
+            statement.executeUpdate("DROP DATABASE IF EXISTS " + dbName);
+            statement.executeUpdate("CREATE DATABASE IF NOT EXISTS " + dbName);
+            log.info("Database {} dropped and created " + dbName);
         }
     }
+
 }

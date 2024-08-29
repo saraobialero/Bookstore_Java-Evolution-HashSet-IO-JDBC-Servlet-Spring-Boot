@@ -1,6 +1,8 @@
 package org.evpro.bookshopV4.utilities;
 
 import lombok.extern.slf4j.Slf4j;
+import org.evpro.bookshopV4.exception.DatabaseException;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -11,35 +13,35 @@ public class DatabaseInitializer {
 
     public static void initializeDatabase() {
         log.info("Starting database initialization...");
-        try (Connection conn = ConnectionFactory.getConnection()) {
+        try (Connection connection = ConnectionFactory.getConnection()) {
             log.info("Database connection established.");
-            executeScript(conn, "schema.sql");
-            executeScript(conn, "data.sql");
+            executeScript(connection, "schema.sql");
+            executeScript(connection, "data.sql");
             log.info("Database initialization completed successfully.");
         } catch (Exception e) {
             log.error("Failed to initialize database", e);
-            throw new RuntimeException("Failed to initialize database", e);
+            throw new DatabaseException("Failed to initialize database", e);
         }
     }
 
-    private static void executeScript(Connection conn, String scriptName) throws Exception {
+    private static void executeScript(Connection connection, String scriptName) throws Exception {
         log.info("Executing script: {}", scriptName);
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                DatabaseInitializer.class.getClassLoader().getResourceAsStream(scriptName)));
-             Statement stmt = conn.createStatement()) {
+            DatabaseInitializer.class.getClassLoader().getResourceAsStream(scriptName)));
+             Statement statement = connection.createStatement()) {
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder stringBuilder = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty() || line.trim().startsWith("--")) {
-                    continue; // Skip empty lines and comments
+                    continue;
                 }
-                sb.append(line);
+                stringBuilder.append(line);
                 if (line.trim().endsWith(";")) {
-                    String sql = sb.toString().trim();
+                    String sql = stringBuilder.toString().trim();
                     log.debug("Executing SQL: {}", sql);
-                    stmt.execute(sql);
-                    sb.setLength(0);
+                    statement.execute(sql);
+                    stringBuilder.setLength(0);
                 }
             }
         }
