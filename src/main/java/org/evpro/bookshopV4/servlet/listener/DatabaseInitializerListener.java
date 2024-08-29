@@ -1,4 +1,4 @@
-package org.evpro.bookshopV4.servlet;
+package org.evpro.bookshopV4.servlet.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

@@ -10,13 +10,11 @@ import java.sql.Date;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class Book {
+public class UserHasBook {
     private Integer id;
-    private String title;
-    private String author;
-    private Date publicationYear;
-    private String description;
-    private String ISBN;
+    private Integer userId;
+    private Integer bookId;
     private int quantity;
-    private boolean available;
+    private Date borrowDate;
+    private Date returnDate;
 }

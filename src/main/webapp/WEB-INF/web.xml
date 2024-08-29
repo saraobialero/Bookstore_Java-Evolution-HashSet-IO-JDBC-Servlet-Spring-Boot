@@ -10,7 +10,7 @@
     <!-- Servlet definitions -->
     <servlet>
         <servlet-name>BookshopServlet</servlet-name>
-        <servlet-class>org.evpro.bookshopV4.servlet.BookshopServlet</servlet-class>
+        <servlet-class>org.evpro.bookshopV4.servlet.BookServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserServlet</servlet-name>
@@ -24,22 +24,25 @@
 
     <!-- Servlet mappings -->
     <servlet-mapping>
-        <servlet-name>BookshopServlet</servlet-name>
-        <url-pattern>/book/*</url-pattern>
+        <servlet-name>AuthenticationServlet</servlet-name>
+        <url-pattern>/authentication/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookServlet</servlet-name>
+        <url-pattern>/books/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/users/*</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
-        <servlet-name>TestLogServlet</servlet-name>
-        <url-pattern>/testlog/*</url-pattern>
+        <servlet-name>UserHasBookServlet</servlet-name>
+        <url-pattern>/loans/*</url-pattern>
     </servlet-mapping>
 
 
     <listener>
-        <listener-class>org.evpro.bookshopV4.servlet.DatabaseInitializerListener</listener-class>
+        <listener-class>org.evpro.bookshopV4.servlet.listener.DatabaseInitializerListener</listener-class>
     </listener>
 
 

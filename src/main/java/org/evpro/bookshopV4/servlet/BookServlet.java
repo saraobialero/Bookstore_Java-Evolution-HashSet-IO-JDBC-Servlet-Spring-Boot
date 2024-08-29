@@ -4,5 +4,5 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
 @WebServlet("/books")
-public class BookshopServlet extends HttpServlet {
+public class BookServlet extends HttpServlet {
 }
