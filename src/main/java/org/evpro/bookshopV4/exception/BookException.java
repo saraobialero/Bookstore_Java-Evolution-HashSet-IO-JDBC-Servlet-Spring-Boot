@@ -8,9 +8,9 @@ public class BookException extends RuntimeException implements CustomException {
     private final ErrorResponse errorResponse;
     private final HttpStatusCode httpStatus;
 
-    public BookException(String message, String details, HttpStatusCode httpStatus) {
+    public BookException(String message, HttpStatusCode httpStatus) {
         super(message);
-        this.errorResponse = new ErrorResponse("Book Error", details, System.currentTimeMillis());
+        this.errorResponse = new ErrorResponse("Book Error", System.currentTimeMillis());
         this.httpStatus = httpStatus;
     }
 }

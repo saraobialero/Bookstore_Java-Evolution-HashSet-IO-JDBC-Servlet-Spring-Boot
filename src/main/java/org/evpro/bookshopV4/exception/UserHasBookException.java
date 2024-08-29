@@ -9,9 +9,9 @@ public class UserHasBookException extends RuntimeException implements CustomExce
     private final ErrorResponse errorResponse;
     private final HttpStatusCode httpStatus;
 
-    public UserHasBookException(String message, String details, HttpStatusCode httpStatus) {
+    public UserHasBookException(String message, HttpStatusCode httpStatus) {
         super(message);
-        this.errorResponse = new ErrorResponse("Loan Error", details, System.currentTimeMillis());
+        this.errorResponse = new ErrorResponse("Loan Error", System.currentTimeMillis());
         this.httpStatus = httpStatus;
     }
 }

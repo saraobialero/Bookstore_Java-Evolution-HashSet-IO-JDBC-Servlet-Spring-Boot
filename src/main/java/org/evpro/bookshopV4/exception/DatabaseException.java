@@ -10,7 +10,7 @@ public class DatabaseException extends RuntimeException implements CustomExcepti
 
     public DatabaseException(String message, String details, HttpStatusCode httpStatus) {
         super(message);
-        this.errorResponse = new ErrorResponse("Database Error", details, System.currentTimeMillis());
+        this.errorResponse = new ErrorResponse("Database Error", System.currentTimeMillis());
         this.httpStatus = httpStatus;
     }
 }
