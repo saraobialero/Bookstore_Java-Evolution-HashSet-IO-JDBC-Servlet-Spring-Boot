@@ -11,6 +11,10 @@ public class BookshopApplication {
         public static void main(String[] args) {
             logger.info("Test log message");
             logger.error("Test error message");
+
+            System.out.println("Classpath: " + System.getProperty("java.class.path"));
+            System.out.println("Logback config file: " + BookshopApplication.class.getClassLoader().getResource("logback.xml"));
         }
+
     }
 
