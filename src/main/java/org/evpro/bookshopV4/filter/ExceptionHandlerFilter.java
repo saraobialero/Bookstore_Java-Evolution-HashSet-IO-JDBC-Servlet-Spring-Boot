@@ -25,7 +25,6 @@ public class ExceptionHandlerFilter implements Filter {
             } else {
                 ErrorResponse errorResponse = new ErrorResponse(
                         "Internal Server Error",
-                        e.getMessage(),
                         System.currentTimeMillis()
                 );
                 handleException(response, errorResponse, HttpStatusCode.INTERNAL_SERVER_ERROR);

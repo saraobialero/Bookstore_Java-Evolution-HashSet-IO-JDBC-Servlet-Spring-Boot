@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookDAO {
-    void addBook(Book book);
     void save(Book book);
+    void saveBooks(List<Book> books);
     Optional<Book> findById(int id) throws SQLException;
     Optional<Book> findByISBN(String ISBN);
     Optional<Book> findByTitle(String title);
