@@ -18,3 +18,131 @@
 2024-08-31 12:54:05 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
 2024-08-31 12:54:05 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
 2024-08-31 12:54:09 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-08-31 14:49:20 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-08-31 14:49:20 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-08-31 14:49:20 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-08-31 14:49:20 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-08-31 14:49:29 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book added: org.evpro.bookshopV4.model.Book@afc8acfe
+2024-08-31 14:51:02 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-08-31 15:07:50 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-08-31 15:07:50 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-08-31 15:07:50 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-08-31 15:07:50 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-08-31 15:07:50 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-08-31 15:07:50 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-08-31 15:07:50 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-08-31 15:07:50 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-08-31 15:07:51 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-08-31 15:07:51 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-08-31 15:07:51 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-08-31 15:07:51 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-08-31 15:07:51 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-08-31 15:07:51 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-08-31 15:07:51 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-08-31 15:07:51 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-08-31 15:07:51 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-08-31 15:07:51 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-08-31 15:07:51 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-08-31 15:08:00 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book added: Book(id=null, title=Sample Title, author=Sample Author, publicationYear=2023-01-01, description=Sample Description, ISBN=1234567890, quantity=10, available=true)
+2024-08-31 15:08:47 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-08-31 15:11:58 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-08-31 15:11:58 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-08-31 15:11:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-08-31 15:11:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-08-31 15:11:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-08-31 15:11:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-08-31 15:11:58 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-08-31 15:11:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-08-31 15:11:59 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-08-31 15:11:59 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-08-31 15:11:59 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-08-31 15:11:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-08-31 15:11:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-08-31 15:11:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-08-31 15:11:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-08-31 15:11:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-08-31 15:11:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-08-31 15:11:59 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-08-31 15:11:59 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-08-31 15:13:33 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-08-31 15:15:55 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-08-31 15:15:55 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-08-31 15:15:55 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-08-31 15:15:55 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-08-31 15:15:55 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-08-31 15:15:55 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-08-31 15:15:55 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-08-31 15:15:55 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-08-31 15:15:56 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-08-31 15:15:56 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-08-31 15:15:56 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-08-31 15:15:56 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-08-31 15:15:56 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-08-31 15:15:56 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-08-31 15:15:56 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-08-31 15:15:56 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-08-31 15:15:56 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-08-31 15:15:56 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-08-31 15:15:56 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-08-31 15:18:50 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-08-31 15:18:58 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-08-31 15:18:58 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-08-31 15:18:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-08-31 15:18:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-08-31 15:18:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-08-31 15:18:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-08-31 15:18:58 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-08-31 15:18:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-08-31 15:18:59 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-08-31 15:18:59 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-08-31 15:18:59 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-08-31 15:18:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-08-31 15:18:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-08-31 15:18:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-08-31 15:18:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-08-31 15:18:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-08-31 15:18:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-08-31 15:18:59 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-08-31 15:18:59 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-08-31 15:19:05 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book added: Book(id=1, title=Sample Title, author=Sample Author, publicationYear=2023-01-01, description=Sample Description, ISBN=1234567890, quantity=10, available=true)
+2024-08-31 15:19:46 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book added: Book(id=3, title=Sample Title, author=Sample Author, publicationYear=2023-01-01, description=Sample Description, ISBN=1234567890, quantity=10, available=true)
+2024-08-31 15:21:59 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book exists, updated quantity: Book(id=null, title=Harper Lee, author=To Kill a Mockingbird, publicationYear=1960-07-11, description=The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it., ISBN=9780446310789, quantity=4, available=true)
+2024-08-31 15:22:40 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book exists, updated quantity: Book(id=null, title=Harper Lee, author=To Kill a Mockingbird, publicationYear=1960-07-11, description=The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it., ISBN=9780446310789, quantity=10, available=true)
+2024-08-31 15:24:20 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-08-31 15:24:29 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-08-31 15:24:29 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-08-31 15:24:29 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-08-31 15:24:29 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-08-31 15:24:38 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book exists, updated quantity: Book(id=null, title=Harper Lee, author=To Kill a Mockingbird, publicationYear=1960-07-11, description=The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it., ISBN=9780446310789, quantity=10, available=true)
+2024-08-31 15:34:44 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book exists, updated quantity: Book(id=null, title=Harper Lee, author=To Kill a Mockingbird, publicationYear=1960-07-11, description=The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it., ISBN=9780446310789, quantity=10, available=true)
+2024-08-31 15:35:18 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down

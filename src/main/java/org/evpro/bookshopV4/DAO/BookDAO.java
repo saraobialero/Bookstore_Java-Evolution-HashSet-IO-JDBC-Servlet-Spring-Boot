@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface BookDAO {
     void save(Book book);
+    void update(Book book);
     void saveBooks(List<Book> books);
     Optional<Book> findById(int id) throws SQLException;
     Optional<Book> findByISBN(String ISBN);

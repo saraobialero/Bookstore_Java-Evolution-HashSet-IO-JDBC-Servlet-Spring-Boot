@@ -43,8 +43,28 @@ public class BookDAOImplementation implements BookDAO {
     }
 
     @Override
+    public void update(Book book) {
+        String querySQL = "UPDATE books SET title = ?, author = ?, publication_year = ?, description = ?, ISBN = ?, quantity = ?, available = ? WHERE id = ?";
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            TransactionManager.executeInTransaction(connection, () -> {
+                try (PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
+                    mapPreparedStatement(preparedStatement, book);
+                    int affectedRows = preparedStatement.executeUpdate();
+                    if (affectedRows == 0) {
+                        throw new SQLException("Updating book failed, no rows affected.");
+                    }
+                    log.info("Book updated successfully: {}", book.getTitle());
+                }
+            });
+        } catch (SQLException e) {
+            log.error("Error updating book: {}", book.getTitle(), e);
+            throw new DatabaseException("Error updating book", e.getMessage(), HttpStatusCode.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
     public void saveBooks(List<Book> books) {
-        String querySQL = "INSERT INTO books (title, author, publication_year, description, isbn, available) VALUES (?, ?, ?, ?, ?, ?)";
+        String querySQL = "INSERT INTO books (title, author, publication_year, description, isbn, quantity, available) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = ConnectionFactory.getConnection()) {
             TransactionManager.executeInTransaction(connection, () -> {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(querySQL, Statement.RETURN_GENERATED_KEYS)) {
@@ -213,7 +233,8 @@ public class BookDAOImplementation implements BookDAO {
         preparedStatement.setDate(3, book.getPublicationYear());
         preparedStatement.setString(4, book.getDescription());
         preparedStatement.setString(5, book.getISBN());
-        preparedStatement.setBoolean(6, book.isAvailable());
+        preparedStatement.setInt(6, book.getQuantity());
+        preparedStatement.setBoolean(7, book.isAvailable());
     }
     private void generateId(PreparedStatement preparedStatement, Book book) throws SQLException {
         int affectedRows = preparedStatement.executeUpdate();
@@ -221,6 +242,7 @@ public class BookDAOImplementation implements BookDAO {
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     book.setId(generatedKeys.getInt(1));
+                    log.info("Book saved with ID: {}", book.getId());
                 } else {
                     throw new SQLException("Creating book failed, no ID obtained.");
                 }

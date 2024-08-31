@@ -10,6 +10,7 @@ import java.sql.Date;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Book {
     private Integer id;
     private String title;
