@@ -30,6 +30,11 @@ public class BookServlet extends HttpServlet {
     private BookService bookService;
     private ObjectMapper objectMapper;
 
+    private final String AJ_FORMAT = "application/json";
+    private final String ONF_CODE = "Operation not found";
+    private final String UE_CODE = "Unexpected error";
+    private final String ABF_CODE = "Any book found";
+    private final String EUB_CODE = "Error updating books";
 
     public BookServlet() {
         this.bookService = new BookService();
@@ -69,41 +74,38 @@ public class BookServlet extends HttpServlet {
                     getAllBooks(response);
                     break;
                 default:
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Operation not found");
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, ONF_CODE);
             }
         } catch (Exception e) {
-            log.error("Unexpected error", e);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected error");
+            log.error(UE_CODE, e);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, UE_CODE);
         }
     }
-
-
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String title = request.getParameter("title");
-        String author = request.getParameter("author");
-        String isbn = request.getParameter("isbn");
-        String description = request.getParameter("description");
-        LocalDate publicationYear = LocalDate.parse(request.getParameter("publication_year"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        boolean available = Boolean.parseBoolean(request.getParameter("available"));
-
-        Book book = initializeBook(title, author, isbn, description, publicationYear, quantity, available);
-
+        String pathInfo = request.getPathInfo();
         try {
-            boolean bookUpdated = bookService.updateBook(book);
-            if(!bookUpdated) {
-                log.error("Error updating book");
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                switch (pathInfo){
+                case "/update-book":
+                   handleUpdateOfBook(request, response);
+                   break;
+                case "/availability":
+                handleBookAvailability(request, response);
+                break;
+                case "/increase-quantity":
+                handleIncreaseBookQuantity(request, response);
+                break;
+                case "/decrease-quantity":
+                handleDecreaseBookQuantity(request, response);
+                break;
+                default:
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Operation not found");
             }
-            response.setStatus(HttpServletResponse.SC_OK);
-            log.info("Book updated:" + book);
-        } catch (SQLException e) {
-            log.error("Error updating book", e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
+        } catch (Exception e) {
+                log.error(UE_CODE, e);
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, UE_CODE);
+                }
     }
-
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pathInfo = request.getPathInfo();
@@ -119,16 +121,30 @@ public class BookServlet extends HttpServlet {
                     response.sendError(HttpServletResponse.SC_NOT_FOUND, "Operation not found");
             }
         } catch (Exception e) {
+            log.error(UE_CODE, e);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, UE_CODE);
+        }
+    }
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String pathInfo = request.getPathInfo();
+        try {
+            switch (pathInfo) {
+                case "book/delete":
+                    handleDeleteOfBook(request, response);
+                    break;
+                case "/delete/all":
+                    handleDeleteAll(response);
+                    break;
+                default:
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Operation not found");
+            }
+        } catch (Exception e) {
             log.error("Unexpected error", e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected error");
         }
     }
 
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
 
     //POST methods
     private void handleAddBook(HttpServletRequest request, HttpServletResponse response) {
@@ -174,15 +190,113 @@ public class BookServlet extends HttpServlet {
                     "addedBooks", addedBooks
             ));
 
-            response.setContentType("application/json");
+            response.setContentType(AJ_FORMAT);
             response.setStatus(HttpServletResponse.SC_CREATED);
             response.getWriter().write(jsonResponse);
         } catch (Exception e) {
             log.error("Error processing books", e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.setContentType("application/json");
+            response.setContentType(AJ_FORMAT);
             String errorJson = objectMapper.writeValueAsString(Map.of("error", e.getMessage()));
             response.getWriter().write(errorJson);
+        }
+    }
+
+    //PUT methods
+    private void handleUpdateOfBook(HttpServletRequest request, HttpServletResponse response) {
+        String title = request.getParameter("title");
+        String author = request.getParameter("author");
+        String isbn = request.getParameter("isbn");
+        String description = request.getParameter("description");
+        LocalDate publicationYear = LocalDate.parse(request.getParameter("publication_year"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        boolean available = Boolean.parseBoolean(request.getParameter("available"));
+
+        Book book = initializeBook(title, author, isbn, description, publicationYear, quantity, available);
+
+        try {
+            boolean bookUpdated = bookService.updateBook(book);
+            if(!bookUpdated) {
+                log.error("Error updating book");
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+            response.setStatus(HttpServletResponse.SC_OK);
+            log.info("Book updated:" + book);
+        } catch (SQLException e) {
+            log.error("Error updating book", e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+    private void handleBookAvailability(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String idString = request.getParameter("id");
+        String availableString = request.getParameter("available");
+        if (idString == null || availableString == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing search parameters");
+            return;
+        }
+        try {
+            int id = Integer.parseInt(idString);
+            boolean available = Boolean.parseBoolean(availableString);
+            boolean availabilityUpdated = bookService.updateBookAvailability(id, available);
+            if (!availabilityUpdated){
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, ABF_CODE);
+                log.info(ABF_CODE);
+            }
+            response.setStatus(HttpServletResponse.SC_OK);
+            log.info("Book updated");
+        }  catch (BookException e) {
+            response.sendError(e.getHttpStatus().getCode(), e.getMessage());
+        } catch (SQLException e) {
+            log.error("Error updating books", e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+    private void handleIncreaseBookQuantity(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String idString = request.getParameter("id");
+        String quantityString = request.getParameter("quantity");
+        if (idString == null || quantityString == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing search parameters");
+            return;
+        }
+        try {
+            int id = Integer.parseInt(idString);
+            int quantity = Integer.parseInt(quantityString);
+            boolean quantityUpdated = bookService.increaseBookQuantity(id, quantity);
+            if (!quantityUpdated){
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, ABF_CODE);
+                log.info(ABF_CODE);
+            }
+            response.setStatus(HttpServletResponse.SC_OK);
+            log.info("Book updated");
+        }  catch (BookException e) {
+            response.sendError(e.getHttpStatus().getCode(), e.getMessage());
+        } catch (SQLException e) {
+            log.error("Error updating Book", e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+    private void handleDecreaseBookQuantity(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String idString = request.getParameter("id");
+        String quantityString = request.getParameter("quantity");
+        if (idString == null || quantityString == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing search parameters");
+            return;
+        }
+        try {
+            int id = Integer.parseInt(idString);
+            int quantity = Integer.parseInt(quantityString);
+            boolean quantityUpdated = bookService.decreaseBookQuantity(id, quantity);
+            if (!quantityUpdated){
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, ABF_CODE);
+                log.info(ABF_CODE);
+            }
+            response.setStatus(HttpServletResponse.SC_OK);
+            log.info("Book updated");
+        }  catch (BookException e) {
+            response.sendError(e.getHttpStatus().getCode(), e.getMessage());
+        } catch (SQLException e) {
+            log.error("Error viewing books", e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -213,7 +327,7 @@ public class BookServlet extends HttpServlet {
                     return;
             }
             if (book != null) {
-                response.setContentType("application/json");
+                response.setContentType(AJ_FORMAT);
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write(objectMapper.writeValueAsString(book));
             }
@@ -234,7 +348,7 @@ public class BookServlet extends HttpServlet {
         }
         try {
             List<Book> booksByAuthor = bookService.getBooksByAuthor(author);
-            response.setContentType("application/json");
+            response.setContentType(AJ_FORMAT);
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(objectMapper.writeValueAsString(booksByAuthor));
         } catch (BookException e) {
@@ -262,7 +376,7 @@ public class BookServlet extends HttpServlet {
                 response.sendError(HttpServletResponse.SC_NO_CONTENT, "Any book found");
                 log.info("Any book found");
             }
-            response.setContentType("application/json");
+            response.setContentType(AJ_FORMAT);
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(objectMapper.writeValueAsString(books));
         }  catch (BookException e) {
@@ -278,7 +392,7 @@ public class BookServlet extends HttpServlet {
             if (availableBooks.isEmpty()) {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Any Book found");
             }
-            response.setContentType("application/json");
+            response.setContentType(AJ_FORMAT);
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(objectMapper.writeValueAsString(availableBooks));
         }
@@ -295,7 +409,7 @@ public class BookServlet extends HttpServlet {
             if (books.isEmpty()) {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Any Book found");
             }
-            response.setContentType("application/json");
+            response.setContentType(AJ_FORMAT);
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(objectMapper.writeValueAsString(books));
         }
@@ -308,6 +422,44 @@ public class BookServlet extends HttpServlet {
     }
 
     //DELETE methods
+    private void handleDeleteAll(HttpServletResponse response) throws IOException {
+        try {
+            boolean booksDeleted = bookService.deleteAll();
+            if (!booksDeleted) {
+                response.sendError(HttpServletResponse.SC_NO_CONTENT, ABF_CODE);
+                log.info(ABF_CODE);
+            }
+            response.setContentType(AJ_FORMAT);
+            response.setStatus(HttpServletResponse.SC_OK);
+        }  catch (BookException e) {
+            response.sendError(e.getHttpStatus().getCode(), e.getMessage());
+        } catch (SQLException e) {
+            log.error("Error viewing books", e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+    private void handleDeleteOfBook(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String idString = request.getParameter("id");
+        if (idString == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing search parameters");
+            return;
+        }
+        try {
+            int id = Integer.parseInt(idString);
+            boolean bookDeleted = bookService.deleteBookWithEntireQuantity(id);
+            if (!bookDeleted) {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, ABF_CODE);
+                log.info(ABF_CODE);
+            }
+            response.setContentType(AJ_FORMAT);
+            response.setStatus(HttpServletResponse.SC_OK);
+        }  catch (BookException e) {
+            response.sendError(e.getHttpStatus().getCode(), e.getMessage());
+        } catch (SQLException e) {
+            log.error("Error viewing books", e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
 
     //Utilities
     private Book initializeBook(String title, String author, String isbn, String description, LocalDate publicationYear, int quantity, boolean available) {

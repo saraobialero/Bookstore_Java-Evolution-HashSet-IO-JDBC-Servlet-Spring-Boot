@@ -1488,3 +1488,4 @@ java.lang.NullPointerException: Cannot invoke "String.hashCode()" because "<loca
 2024-09-02 17:31:19 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
 2024-09-02 17:31:19 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
 2024-09-02 17:31:19 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - [Book(id=1, title=To Kill a Mockingbird, author=Harper Lee, publicationYear=1960-07-11, description=The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it., ISBN=9780446310789, quantity=4, available=true)]
+2024-09-02 17:58:15 [Thread-1] INFO  o.e.b.s.l.LoggingInitializerListener - Application shutting down

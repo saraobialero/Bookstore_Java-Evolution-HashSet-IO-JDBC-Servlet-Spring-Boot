@@ -65,6 +65,27 @@ public class BookDAOImplementation implements BookDAO {
     }
 
     @Override
+    public void updateAvailability(int id, boolean available) {
+        String querySQL = "UPDATE books SET available = ? WHERE id = ?";
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            TransactionManager.executeInTransaction(connection, () -> {
+                try (PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
+                    preparedStatement.setBoolean(1, available);
+                    preparedStatement.setInt(2, id);
+                    int affectedRows = preparedStatement.executeUpdate();
+                    if (affectedRows == 0) {
+                        throw new SQLException("Updating book failed, no rows affected.");
+                    }
+                    log.info("Book availability updated successfully for book id: {}", id);
+                }
+            });
+        } catch (SQLException e) {
+            log.error("Error updating availability for book with id: {}", id, e);
+            throw new DatabaseException("Error updating book availability", e.getMessage(), HttpStatusCode.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
     public void saveBooks(List<Book> books) {
         String querySQL = "INSERT INTO books (title, author, publication_year, description, isbn, quantity, available) " +
                           "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -97,7 +118,7 @@ public class BookDAOImplementation implements BookDAO {
         String querySQL = "SELECT id, title, author, publication_year, description, ISBN, quantity, available " +
                           "FROM books WHERE id = ?";
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
             preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {

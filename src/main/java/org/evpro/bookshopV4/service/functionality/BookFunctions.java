@@ -18,6 +18,7 @@ public interface BookFunctions {
     List<Book> getAvailableBooks() throws SQLException;
     List<Book> getBooksByYearRange(LocalDate startYear, LocalDate endYear) throws SQLException;
     boolean updateBook(Book book) throws SQLException;
+    boolean updateBookAvailability(int id, boolean available) throws SQLException;
     boolean deleteBookWithEntireQuantity(int id) throws SQLException;
     boolean deleteAll() throws SQLException;
     boolean increaseBookQuantity(int bookId, int quantity) throws SQLException;
