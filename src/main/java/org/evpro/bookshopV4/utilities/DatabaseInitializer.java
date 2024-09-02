@@ -8,6 +8,8 @@ import org.evpro.bookshopV4.model.enums.HttpStatusCode;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 @Slf4j
@@ -18,7 +20,12 @@ public class DatabaseInitializer {
         try (Connection connection = ConnectionFactory.getConnection()) {
             log.info("Database connection established.");
             executeScript(connection, "schema.sql");
-            executeScript(connection, "data.sql");
+            if (isDatabaseEmpty(connection)) {
+                executeScript(connection, "data.sql");
+                log.info("Initial data inserted successfully.");
+            } else {
+                log.info("Database already contains data. Skipping initial data insertion.");
+            }
             log.info("Database initialization completed successfully.");
         } catch (Exception e) {
             log.error("Failed to initialize database", e);
@@ -29,6 +36,23 @@ public class DatabaseInitializer {
             );
         }
     }
+
+    private static boolean isDatabaseEmpty(Connection connection) throws SQLException {
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM books")) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) == 0;
+                }
+            }
+        } catch (SQLException e) {
+            if (e.getSQLState().equals("42S02")) {
+                return true;
+            }
+            throw e;
+        }
+        return true;
+    }
+
 
     private static void executeScript(Connection connection, String scriptName) throws Exception {
         log.info("Executing script: {}", scriptName);

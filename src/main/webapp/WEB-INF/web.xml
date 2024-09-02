@@ -45,10 +45,10 @@
 
 
     <listener>
-        <listener-class>org.evpro.bookshopV4.servlet.listener.DatabaseInitializer</listener-class>
+        <listener-class>org.evpro.bookshopV4.servlet.listener.DatabaseInitializerListener</listener-class>
     </listener>
     <listener>
-        <listener-class>org.evpro.bookshopV4.servlet.listener.LoggingInitializer</listener-class>
+        <listener-class>org.evpro.bookshopV4.servlet.listener.LoggingInitializerListener</listener-class>
     </listener>
 
 

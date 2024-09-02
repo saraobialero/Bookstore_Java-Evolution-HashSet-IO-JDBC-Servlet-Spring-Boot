@@ -9,6 +9,7 @@ import org.evpro.bookshopV4.utilities.ConnectionFactory;
 import org.evpro.bookshopV4.utilities.TransactionManager;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +21,8 @@ public class BookDAOImplementation implements BookDAO {
 
     @Override
     public void save(Book book) {
-        String querySQL = "INSERT INTO books (title, author, publication_year, description, isbn, available) VALUES (?, ?, ?, ?, ?, ?)";
+        String querySQL = "INSERT INTO books (title, author, publication_year, description, isbn, available) " +
+                          "VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = ConnectionFactory.getConnection()) {
             TransactionManager.executeInTransaction(connection, () -> {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(querySQL, Statement.RETURN_GENERATED_KEYS)) {
@@ -64,7 +66,8 @@ public class BookDAOImplementation implements BookDAO {
 
     @Override
     public void saveBooks(List<Book> books) {
-        String querySQL = "INSERT INTO books (title, author, publication_year, description, isbn, quantity, available) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String querySQL = "INSERT INTO books (title, author, publication_year, description, isbn, quantity, available) " +
+                          "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = ConnectionFactory.getConnection()) {
             TransactionManager.executeInTransaction(connection, () -> {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(querySQL, Statement.RETURN_GENERATED_KEYS)) {
@@ -90,8 +93,9 @@ public class BookDAOImplementation implements BookDAO {
 
 
     @Override
-    public Optional<Book> findById(int id) throws SQLException {
-        String querySQL = "SELECT id, title, author, publication_year, description, ISBN, quantity, available FROM books WHERE id = ?";
+    public Optional<Book> findById(int id) {
+        String querySQL = "SELECT id, title, author, publication_year, description, ISBN, quantity, available " +
+                          "FROM books WHERE id = ?";
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
             preparedStatement.setInt(1, id);
@@ -109,7 +113,8 @@ public class BookDAOImplementation implements BookDAO {
 
     @Override
     public Optional<Book> findByISBN(String ISBN) {
-        String querySQL = "SELECT id, title, author, publication_year, description, ISBN, quantity, available FROM books WHERE ISBN = ?";
+        String querySQL = "SELECT id, title, author, publication_year, description, ISBN, quantity, available " +
+                          "FROM books WHERE ISBN = ?";
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
             preparedStatement.setString(1, ISBN);
@@ -127,7 +132,8 @@ public class BookDAOImplementation implements BookDAO {
 
     @Override
     public Optional<Book> findByTitle(String title) {
-        String querySQL = "SELECT id, title, author, publication_year, description, ISBN, quantity, available FROM books WHERE title = ?";
+        String querySQL = "SELECT id, title, author, publication_year, description, ISBN, quantity, available " +
+                          "FROM books WHERE title = ?";
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
             preparedStatement.setString(1, title);
@@ -145,9 +151,10 @@ public class BookDAOImplementation implements BookDAO {
 
     @Override
     public List<Book> findByAuthor(String author) {
-        String querySQL = "SELECT id, title, author, publication_year, description, ISBN, quantity, available FROM books WHERE author = ?";
+        String querySQL = "SELECT id, title, author, publication_year, description, ISBN, quantity, available " +
+                          "FROM books WHERE author = ?";
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
             preparedStatement.setString(1, author);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 return mapResultSetToBooks(resultSet);
@@ -159,8 +166,45 @@ public class BookDAOImplementation implements BookDAO {
     }
 
     @Override
+    public List<Book> findByAvailability() {
+        String querySQL = "SELECT id, title, author, publication_year, description, ISBN, quantity, available " +
+                          "FROM books " +
+                          "WHERE available = 1";
+        try (Connection connection = ConnectionFactory.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return mapResultSetToBooks(resultSet);
+            }
+        } catch (SQLException e) {
+            log.error(DB_ERROR, e);
+            throw new DatabaseException(DB_ERROR, e.getMessage(), HttpStatusCode.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public List<Book> findByDates(LocalDate startYear, LocalDate endYear) {
+        String querySQL = "SELECT id, title, author, publication_year, description, ISBN, quantity, available " +
+                          "FROM books " +
+                          "WHERE publication_year BETWEEN ? AND ?";
+        try (Connection connection = ConnectionFactory.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
+            Date sqlStartDate = Date.valueOf(startYear);
+            Date sqlEndDate = Date.valueOf(endYear);
+            preparedStatement.setDate(1, sqlStartDate);
+            preparedStatement.setDate(2, sqlEndDate);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return mapResultSetToBooks(resultSet);
+            }
+        } catch (SQLException e) {
+            log.error(DB_ERROR, e);
+            throw new DatabaseException(DB_ERROR, e.getMessage(), HttpStatusCode.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
     public List<Book> findAll() {
-        String querySQL = "SELECT id, title, author, publication_year, description, ISBN, quantity, available FROM books";
+        String querySQL = "SELECT id, title, author, publication_year, description, ISBN, quantity, available " +
+                           "FROM books";
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -174,7 +218,9 @@ public class BookDAOImplementation implements BookDAO {
 
     @Override
     public void deleteById(int id) {
-        String querySQL = "DELETE FROM books WHERE id = ?";
+        String querySQL = "DELETE " +
+                          "FROM books " +
+                          "WHERE id = ?";
         try (Connection connection = ConnectionFactory.getConnection()) {
             TransactionManager.executeInTransaction(connection, () -> {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
@@ -194,7 +240,8 @@ public class BookDAOImplementation implements BookDAO {
 
     @Override
     public void deleteAll() {
-        String querySQL = "DELETE FROM books";
+        String querySQL = "DELETE " +
+                           "FROM books";
         try (Connection connection = ConnectionFactory.getConnection()) {
             TransactionManager.executeInTransaction(connection, () -> {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(querySQL)) {
@@ -213,7 +260,7 @@ public class BookDAOImplementation implements BookDAO {
                 resultSet.getInt("id"),
                 resultSet.getString("title"),
                 resultSet.getString("author"),
-                resultSet.getDate("publication_year"),
+                resultSet.getDate("publication_year").toLocalDate(),
                 resultSet.getString("description"),
                 resultSet.getString("ISBN"),
                 resultSet.getInt("quantity"),
@@ -230,7 +277,7 @@ public class BookDAOImplementation implements BookDAO {
     private void mapPreparedStatement(PreparedStatement preparedStatement, Book book) throws SQLException {
         preparedStatement.setString(1, book.getTitle());
         preparedStatement.setString(2, book.getAuthor());
-        preparedStatement.setDate(3, book.getPublicationYear());
+        preparedStatement.setDate(3, java.sql.Date.valueOf(book.getPublicationYear()));
         preparedStatement.setString(4, book.getDescription());
         preparedStatement.setString(5, book.getISBN());
         preparedStatement.setInt(6, book.getQuantity());

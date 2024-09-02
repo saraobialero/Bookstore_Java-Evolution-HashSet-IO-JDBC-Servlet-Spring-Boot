@@ -11,6 +11,7 @@ import java.util.Properties;
 
 @Slf4j
 public class ConnectionFactory {
+    private static boolean isDatabaseInitialized = false;
     private static final String PROP_FILE_NAME = "database.properties";
     private static String url;
     private static String user;
@@ -65,21 +66,23 @@ public class ConnectionFactory {
     }
 
     public static Connection getConnection() throws SQLException {
-        dropAndCreateDatabase();
+        if (!isDatabaseInitialized) {
+            createDatabaseIfNotExists();
+            isDatabaseInitialized = true;
+        }
         log.info("Attempting to establish database connection to {}...", dbName);
         Connection connection = DriverManager.getConnection(url + "/" + dbName, user, password);
         log.info("Database connection established successfully.");
         return connection;
     }
 
-    private static void dropAndCreateDatabase() throws SQLException {
-        log.info("Dropping and recreating database {}", dbName);
+    private static void createDatabaseIfNotExists() throws SQLException {
+        log.info("Creating database {} if not exists", dbName);
         try (Connection connection = DriverManager.getConnection(url, user, password);
              Statement statement = connection.createStatement())
         {
-            statement.executeUpdate("DROP DATABASE IF EXISTS " + dbName);
             statement.executeUpdate("CREATE DATABASE IF NOT EXISTS " + dbName);
-            log.info("Database {} dropped and created " + dbName);
+            log.info("Database {} created or already exists", dbName);
         }
     }
 
