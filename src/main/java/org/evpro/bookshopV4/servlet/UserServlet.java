@@ -1,6 +1,8 @@
 package org.evpro.bookshopV4.servlet;
 
 import lombok.extern.slf4j.Slf4j;
+import org.evpro.bookshopV4.utilities.HandlerMapping;
+import org.evpro.bookshopV4.utilities.RequireRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,10 +17,67 @@ import java.io.IOException;
 @WebServlet("/users")
 public class UserServlet extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Implement your logic here
-        response.getWriter().write("Hello from UserServlet");
-        log.info("starting application ...");
+    //TODO: Implements service here
+
+    @RequireRole("ADMIN")
+    @HandlerMapping(path = "user/add", method = "POST")
+    protected void handleAddUserAdmin(HttpServletRequest request, HttpServletResponse response) {
     }
+
+    @RequireRole("ADMIN")
+    @HandlerMapping(path = "user/delete", method = "DELETE")
+    protected void handleDeleteUser(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    @RequireRole("ADMIN")
+    @HandlerMapping(path = "/delete/all", method = "DELETE")
+    protected void handleDeleteAll(HttpServletResponse response) {
+    }
+
+    @RequireRole("ADMIN")
+    @HandlerMapping(path = "/user", method = "GET")
+    protected void handleGetUser(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    @RequireRole("ADMIN")
+    @HandlerMapping(path = "/user", method = "GET")
+    protected void handleGetUserByEmail(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    @RequireRole("ADMIN")
+    @HandlerMapping(path = "/user", method = "GET")
+    protected void handleGetUserByRole(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    @RequireRole("ADMIN")
+    @HandlerMapping(path = "/all", method = "GET")
+    protected void handleGetAllUsers(HttpServletResponse response) {
+    }
+
+    @RequireRole("ADMIN")
+    @HandlerMapping(path = "user/update/role", method = "PUT")
+    protected void handleUpdateUserRole(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    @RequireRole("ADMIN")
+    @HandlerMapping(path = "user/update", method = "PUT")
+    protected void handleUpdateUser(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    @RequireRole("USER")
+    @HandlerMapping(path = "user/update/info", method = "PUT")
+    protected void handleUpdateUserInfo(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    @RequireRole("USER")
+    @HandlerMapping(path = "user/update/pass", method = "PUT")
+    protected void handleUpdateUserPassword(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    @RequireRole("USER")
+    @HandlerMapping(path = "user/update/emal", method = "PUT")
+    protected void handleUpdateUserEmail(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+
 }

@@ -18,6 +18,11 @@ public class UserService implements UserFunctions {
     }
 
     @Override
+    public boolean deleteAllUsers() throws SQLException {
+        return false;
+    }
+
+    @Override
     public User getUserById(int id) throws SQLException {
         return null;
     }
@@ -25,6 +30,11 @@ public class UserService implements UserFunctions {
     @Override
     public User getUserByEmail(String email) throws SQLException {
         return null;
+    }
+
+    @Override
+    public List<User> getUserByRole(User.UserRole role) throws SQLException {
+        return List.of();
     }
 
     @Override

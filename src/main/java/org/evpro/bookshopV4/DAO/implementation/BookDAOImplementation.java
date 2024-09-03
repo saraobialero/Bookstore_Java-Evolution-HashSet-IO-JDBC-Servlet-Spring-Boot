@@ -112,7 +112,6 @@ public class BookDAOImplementation implements BookDAO {
         }
     }
 
-
     @Override
     public Optional<Book> findById(int id) {
         String querySQL = "SELECT id, title, author, publication_year, description, ISBN, quantity, available " +

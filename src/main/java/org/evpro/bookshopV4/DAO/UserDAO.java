@@ -7,6 +7,9 @@ import java.util.Optional;
 
 public interface UserDAO {
     void save(User user);
+    void saveUsers(List<User> users);
+    void update(User user);
+    void updateRole(int id, User.UserRole role);
     Optional<User> findById(int id);
     Optional<User> findByEmail(String email);
     List<User> findByRole(User.UserRole role);

@@ -29,6 +29,11 @@ public class UserHasBookDAOImplementation implements UserHasBookDAO {
     }
 
     @Override
+    public List<UserHasBook> findByQuantity(int id, int quantity) {
+        return List.of();
+    }
+
+    @Override
     public List<UserHasBook> findByRange(Date startDate, Date endDate) {
         return List.of();
     }

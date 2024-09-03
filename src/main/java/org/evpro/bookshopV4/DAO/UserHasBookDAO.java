@@ -11,6 +11,7 @@ public interface UserHasBookDAO {
     Optional<UserHasBook> findById(int id);
     List<UserHasBook> findByUserId(int userId);
     List<UserHasBook> findByBookId(int bookId);
+    List<UserHasBook> findByQuantity(int id, int quantity);
     List<UserHasBook> findByRange(Date startDate, Date endDate);
     List<UserHasBook> findAll();
     List<UserHasBook> findReturned(Date returnDate);

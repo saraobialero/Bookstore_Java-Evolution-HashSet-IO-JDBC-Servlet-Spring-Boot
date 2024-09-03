@@ -25,6 +25,11 @@ public class UserHasBookService implements UserHasBookFunctions {
     }
 
     @Override
+    public List<UserHasBook> getBorrowsForBook(int bookId) throws SQLException {
+        return List.of();
+    }
+
+    @Override
     public boolean returnBorrow(int id) throws SQLException {
         return false;
     }
