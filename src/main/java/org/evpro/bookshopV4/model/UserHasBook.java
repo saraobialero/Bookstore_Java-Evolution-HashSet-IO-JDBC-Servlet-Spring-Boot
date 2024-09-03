@@ -2,7 +2,8 @@ package org.evpro.bookshopV4.model;
 
 import lombok.*;
 
-import java.sql.Date;
+import java.time.LocalDate;
+
 
 //POJO (Plain Old Java Objects) class
 @Getter
@@ -15,6 +16,6 @@ public class UserHasBook {
     private Integer userId;
     private Integer bookId;
     private int quantity;
-    private Date borrowDate;
-    private Date returnDate;
+    private LocalDate borrowDate;
+    private LocalDate returnDate;
 }
