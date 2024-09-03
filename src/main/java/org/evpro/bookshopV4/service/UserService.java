@@ -1,6 +1,7 @@
 package org.evpro.bookshopV4.service;
 
 import org.evpro.bookshopV4.model.User;
+import org.evpro.bookshopV4.model.enums.UserRole;
 import org.evpro.bookshopV4.service.functionality.UserFunctions;
 
 import java.sql.SQLException;
@@ -33,7 +34,7 @@ public class UserService implements UserFunctions {
     }
 
     @Override
-    public List<User> getUserByRole(User.UserRole role) throws SQLException {
+    public List<User> getUserByRole(UserRole role) throws SQLException {
         return List.of();
     }
 
@@ -43,13 +44,18 @@ public class UserService implements UserFunctions {
     }
 
     @Override
+    public boolean changeUserRole(int id, UserRole userRole) throws SQLException {
+        return false;
+    }
+
+    @Override
     public void updateUserInfo(int id, String name, String surname) throws SQLException {
 
     }
 
     @Override
-    public void changeUserRole(int id, User.UserRole userRole) throws SQLException {
-
+    public boolean updateUser(User user) throws SQLException {
+        return false;
     }
 
     @Override

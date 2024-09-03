@@ -5,6 +5,7 @@ import org.evpro.bookshopV4.DAO.UserDAO;
 import org.evpro.bookshopV4.exception.DatabaseException;
 import org.evpro.bookshopV4.model.User;
 import org.evpro.bookshopV4.model.enums.HttpStatusCode;
+import org.evpro.bookshopV4.model.enums.UserRole;
 import org.evpro.bookshopV4.utilities.ConnectionFactory;
 import org.evpro.bookshopV4.utilities.TransactionManager;
 
@@ -91,7 +92,7 @@ public class UserDAOImplementation implements UserDAO {
     }
 
     @Override
-    public void updateRole(int id, User.UserRole role) {
+    public void updateRole(int id, UserRole role) {
         try (Connection connection = ConnectionFactory.getConnection()) {
             TransactionManager.executeInTransaction(connection, () -> {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_ROLE)) {
@@ -142,7 +143,7 @@ public class UserDAOImplementation implements UserDAO {
     }
 
     @Override
-    public List<User> findByRole(User.UserRole role) {
+    public List<User> findByRole(UserRole role) {
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USERS_BY_ROLE)) {
             preparedStatement.setString(1, role.toString());
@@ -223,7 +224,7 @@ public class UserDAOImplementation implements UserDAO {
     }
     private void mapPreparedStatementAdmin(PreparedStatement preparedStatement, User user) throws SQLException {
         mapPreparedStatement(preparedStatement, user);
-        preparedStatement.setString(5, User.UserRole.ADMIN.toString());
+        preparedStatement.setString(5, UserRole.ADMIN.toString());
     }
     private void mapPreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException {
         preparedStatement.setString(1, user.getName());
@@ -240,7 +241,7 @@ public class UserDAOImplementation implements UserDAO {
                 resultSet.getString("surname"),
                 resultSet.getString("email"),
                 resultSet.getString("password"),
-                User.UserRole.valueOf(resultSet.getString("role")),
+                UserRole.valueOf(resultSet.getString("role")),
                 resultSet.getDate("created_at").toLocalDate()
         ));
     }

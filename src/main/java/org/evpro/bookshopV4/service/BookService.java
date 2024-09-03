@@ -1,6 +1,7 @@
 package org.evpro.bookshopV4.service;
 
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.evpro.bookshopV4.DAO.BookDAO;
 import org.evpro.bookshopV4.DAO.implementation.BookDAOImplementation;
 import org.evpro.bookshopV4.exception.BookException;
@@ -16,18 +17,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
+@Slf4j
 public class BookService implements BookFunctions {
 
-    private BookDAO bookDAO;
-    private String NF_CODE = " Not found";
+    private final BookDAO bookDAO;
+    private final String NF_CODE = " Not found";
 
     public BookService(BookDAO bookDAO) {
         this.bookDAO = bookDAO;
     }
 
     public BookService() {
-        this.bookDAO = new BookDAOImplementation(); // Or use dependency injection
+        this.bookDAO = new BookDAOImplementation();
     }
 
     @Override
@@ -90,10 +91,11 @@ public class BookService implements BookFunctions {
     @Override
     public List<Book> getBooksByAuthor(String author) throws SQLException {
         List<Book> booksFromAuthor = bookDAO.findByAuthor(author);
-        if (booksFromAuthor.isEmpty())
+        if (booksFromAuthor.isEmpty()) {
             throw new BookException(
                     ("Books for the author " + author + NF_CODE),
                     HttpStatusCode.NOT_FOUND);
+        }
         return booksFromAuthor;
     }
 

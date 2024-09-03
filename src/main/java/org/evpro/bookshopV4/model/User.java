@@ -1,6 +1,7 @@
 package org.evpro.bookshopV4.model;
 
 import lombok.*;
+import org.evpro.bookshopV4.model.enums.UserRole;
 
 import java.time.LocalDate;
 
@@ -19,7 +20,5 @@ public class User {
     private UserRole role;
     private LocalDate createdAt;
 
-    public enum UserRole {
-        ADMIN, USER
-    }
+
 }

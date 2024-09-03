@@ -9,7 +9,10 @@ import java.util.Optional;
 
 public interface UserHasBookDAO {
     void save(UserHasBook userHasBook);
+    void updateQuantity(int id, int quantity);
+    void updateReturnDate(int id, LocalDate returnDate);
     Optional<UserHasBook> findById(int id);
+    Optional<UserHasBook> findByUserIdAndBookId(int userId, int bookId);
     List<UserHasBook> findByUserId(int userId);
     List<UserHasBook> findByBookId(int bookId);
     List<UserHasBook> findByQuantity(int quantity);

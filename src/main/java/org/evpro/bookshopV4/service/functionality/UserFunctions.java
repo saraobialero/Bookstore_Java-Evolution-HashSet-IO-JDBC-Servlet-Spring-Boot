@@ -1,6 +1,7 @@
 package org.evpro.bookshopV4.service.functionality;
 
 import org.evpro.bookshopV4.model.User;
+import org.evpro.bookshopV4.model.enums.UserRole;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,9 +13,9 @@ public interface UserFunctions {
     boolean deleteAllUsers() throws SQLException;
     User getUserById(int id) throws SQLException;
     User getUserByEmail(String email) throws SQLException;
-    List<User> getUserByRole(User.UserRole role) throws SQLException;
+    List<User> getUserByRole(UserRole role) throws SQLException;
     List<User> getAllUsers() throws SQLException;
-    boolean changeUserRole(int id, User.UserRole userRole) throws SQLException;
+    boolean changeUserRole(int id, UserRole userRole) throws SQLException;
     boolean updateUser(User user) throws SQLException;
 
     //User basic functionality

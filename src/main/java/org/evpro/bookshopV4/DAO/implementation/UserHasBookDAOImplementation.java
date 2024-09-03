@@ -21,6 +21,8 @@ public class UserHasBookDAOImplementation implements UserHasBookDAO {
 
     //SQL Queries
     private static final String INSERT_USERHASBOOK = "INSERT INTO users_has_books (user_id, book_id, quantity, borrow_date, return_date) VALUES (?, ?, ?, ?, ?)";
+    private static final String UPDATE_QUANTITY = "UPDATE users_has_books SET quantity = ? WHERE id = ?";
+    private static final String UPDATE_RETURN_DATE = "UPDATE users_has_books SET return_date = ? WHERE id = ?";
     private static final String SELECT_USERHASBOOK_BY_ID = "SELECT id, user_id, book_id, quantity, borrow_date, return_date FROM users_has_books WHERE id = ?";
     private static final String SELECT_USERHASBOOK_BY_USERID = "SELECT id, user_id, book_id, quantity, borrow_date, return_date FROM users_has_books WHERE user_id = ?";
     private static final String SELECT_USERHASBOOK_BY_BOOKID = "SELECT id, user_id, book_id, quantity, borrow_date, return_date FROM users_has_books WHERE book_id = ?";
@@ -52,6 +54,44 @@ public class UserHasBookDAOImplementation implements UserHasBookDAO {
     }
 
     @Override
+    public void updateQuantity(int id, int quantity) {
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            TransactionManager.executeInTransaction(connection, () -> {
+                try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUANTITY)) {
+                    preparedStatement.setInt(1, quantity);
+                    preparedStatement.setInt(2, id);
+                    int affectedRows = preparedStatement.executeUpdate();
+                    if (affectedRows == 0) {
+                        throw new SQLException("Updating loan quantity failed, no rows affected.");
+                    }
+                    log.info("Loan quantity updated successfully for book id: {}", id);
+                }
+            });
+        } catch (SQLException e) {
+            handleSQLException(e, "Error updating loan quantity", "Error updating loan quantity");
+        }
+    }
+
+    @Override
+    public void updateReturnDate(int id, LocalDate returnDate) {
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            TransactionManager.executeInTransaction(connection, () -> {
+                try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUANTITY)) {
+                    preparedStatement.setDate(1, Date.valueOf(returnDate));
+                    preparedStatement.setInt(2, id);
+                    int affectedRows = preparedStatement.executeUpdate();
+                    if (affectedRows == 0) {
+                        throw new SQLException("Updating loan date failed, no rows affected.");
+                    }
+                    log.info("Loan date updated successfully for book id: {}", id);
+                }
+            });
+        } catch (SQLException e) {
+            handleSQLException(e, "Error updating loan date", "Error updating loan date");
+        }
+    }
+
+    @Override
     public Optional<UserHasBook> findById(int id) {
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USERHASBOOK_BY_ID)) {
@@ -63,6 +103,23 @@ public class UserHasBookDAOImplementation implements UserHasBookDAO {
             }
         } catch (SQLException e) {
             handleSQLException(e, DB_ERROR, "Error finding loan by ID");
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<UserHasBook> findByUserIdAndBookId(int userId, int bookId) {
+        try (Connection connection = ConnectionFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USERHASBOOK_BY_ID)) {
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, bookId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapResultSetToUserHasBook(resultSet);
+                }
+            }
+        } catch (SQLException e) {
+            handleSQLException(e, DB_ERROR, "Error finding loan by IDs" + userId + bookId);
         }
         return Optional.empty();
     }

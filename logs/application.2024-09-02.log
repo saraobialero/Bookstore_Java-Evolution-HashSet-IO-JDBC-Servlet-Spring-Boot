@@ -1,0 +1,1491 @@
+2024-09-02 12:21:09 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Received JSON input: [{"id":null,"title":"Book 1","author":"Author 1","publicationYear":1672527600000,"description":"Description 1","quantity":5,"available":true,"isbn":"ISBN1"},{"id":null,"title":"Book 2","author":"Author 2","publicationYear":1675206000000,"description":"Description 2","quantity":3,"available":true,"isbn":"ISBN2"}]
+2024-09-02 12:21:09 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Deserialized books: null
+2024-09-02 12:21:09 [main] ERROR o.e.bookshopV4.servlet.BookServlet - Error processing books
+java.lang.IllegalArgumentException: No books provided or deserialization failed
+	at org.evpro.bookshopV4.servlet.BookServlet.handleAddBooks(BookServlet.java:102)
+	at org.evpro.bookshopV4.servlet.BookServlet.doPost(BookServlet.java:55)
+	at BookServletTest.testDoPostAddBooks(BookServletTest.java:143)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:766)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$8(TestMethodTestDescriptor.java:217)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:63)
+	at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:57)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
+	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:232)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55)
+2024-09-02 12:21:10 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 12:21:10 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 12:21:10 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 12:21:10 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 12:21:10 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 12:21:10 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 12:21:10 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 12:21:10 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 12:21:11 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 12:21:11 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 12:21:11 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 12:21:11 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 12:21:11 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 12:21:11 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 12:21:11 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 12:21:11 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 12:21:11 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 12:21:11 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 12:21:11 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 12:21:19 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Received JSON input: [{"id":null,"title":"Book 1","author":"Author 1","publicationYear":1672527600000,"description":"Description 1","quantity":5,"available":true,"isbn":"ISBN1"},{"id":null,"title":"Book 2","author":"Author 2","publicationYear":1675206000000,"description":"Description 2","quantity":3,"available":true,"isbn":"ISBN2"}]
+2024-09-02 12:21:19 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Deserialized books: null
+2024-09-02 12:21:19 [main] ERROR o.e.bookshopV4.servlet.BookServlet - Error processing books
+java.lang.IllegalArgumentException: No books provided or deserialization failed
+	at org.evpro.bookshopV4.servlet.BookServlet.handleAddBooks(BookServlet.java:102)
+	at org.evpro.bookshopV4.servlet.BookServlet.doPost(BookServlet.java:55)
+	at BookServletTest.testDoPostAddBooks(BookServletTest.java:143)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:766)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$8(TestMethodTestDescriptor.java:217)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:63)
+	at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:57)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
+	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:232)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55)
+2024-09-02 12:26:47 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 12:31:37 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 12:31:37 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 12:31:37 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 12:31:37 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 12:31:37 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 12:31:37 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 12:31:37 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 12:31:37 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 12:31:37 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 12:31:37 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 12:31:37 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 12:31:37 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 12:31:37 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 12:31:38 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 12:31:38 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 12:31:38 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 12:31:38 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 12:31:38 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 12:31:38 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 12:31:50 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book exists, updated quantity: Book(id=1, title=To Kill a Mockingbird, author=Harper Lee, publicationYear=1960-07-11, description=The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it., ISBN=9780446310789, quantity=14, available=true)
+2024-09-02 12:37:34 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 12:37:44 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 12:37:44 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 12:37:44 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 12:37:44 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 12:37:44 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 12:37:44 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 12:37:44 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 12:37:44 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 12:37:44 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 12:37:44 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 12:37:44 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 12:37:44 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 12:37:44 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 12:37:45 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 12:37:45 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 12:37:45 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 12:37:45 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 12:37:45 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 12:37:45 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 12:43:30 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 12:45:38 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book added: Book(id=1, title=Sample Title, author=Sample Author, publicationYear=2023-01-01, description=Sample Description, ISBN=1234567890, quantity=10, available=true)
+2024-09-02 12:45:39 [main] ERROR o.e.bookshopV4.servlet.BookServlet - Error adding book
+java.sql.SQLException: Database error
+	at org.evpro.bookshopV4.service.BookService.addBook(BookService.java:25)
+	at org.evpro.bookshopV4.servlet.BookServlet.handleAddBook(BookServlet.java:81)
+	at org.evpro.bookshopV4.servlet.BookServlet.doPost(BookServlet.java:54)
+	at BookServletTest.testDoPostSQLException(BookServletTest.java:186)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:766)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$8(TestMethodTestDescriptor.java:217)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+2024-09-02 12:47:15 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 12:47:15 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 12:47:15 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 12:47:15 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 12:49:21 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 12:49:32 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 12:49:32 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 12:49:32 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 12:49:32 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 12:49:46 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Received JSON input: [{"id":null,"title":"Book 1","author":"Author 1","publicationYear":"1960-07-11","description":"Description 1","quantity":5,"available":true,"isbn":"ISBN1"},{"id":null,"title":"Book 2","author":"Author 2","publicationYear":"1965-02-01","description":"Description 2","quantity":3,"available":true,"isbn":"ISBN2"}]
+2024-09-02 12:49:46 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Deserialized books: [Book(id=null, title=Book 1, author=Author 1, publicationYear=1960-07-11, description=Description 1, ISBN=ISBN1, quantity=5, available=true), Book(id=null, title=Book 2, author=Author 2, publicationYear=1965-02-01, description=Description 2, ISBN=ISBN2, quantity=3, available=true)]
+2024-09-02 12:51:13 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book added: Book(id=1, title=Sample Title, author=Sample Author, publicationYear=2023-01-01, description=Sample Description, ISBN=1234567890, quantity=10, available=true)
+2024-09-02 12:51:13 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Received JSON input: [{"id":null,"title":"Book 1","author":"Author 1","publicationYear":"1960-07-11","description":"Description 1","quantity":5,"available":true,"isbn":"ISBN1"},{"id":null,"title":"Book 2","author":"Author 2","publicationYear":"1965-02-01","description":"Description 2","quantity":3,"available":true,"isbn":"ISBN2"}]
+2024-09-02 12:51:13 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Deserialized books: [Book(id=null, title=Book 1, author=Author 1, publicationYear=1960-07-11, description=Description 1, ISBN=ISBN1, quantity=5, available=true), Book(id=null, title=Book 2, author=Author 2, publicationYear=1965-02-01, description=Description 2, ISBN=ISBN2, quantity=3, available=true)]
+2024-09-02 12:51:13 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book exists, updated quantity: Book(id=1, title=To Kill a Mockingbird, author=Harper Lee, publicationYear=1960-07-11, description=The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it., ISBN=9780446310789, quantity=14, available=true)
+2024-09-02 12:51:13 [main] ERROR o.e.bookshopV4.servlet.BookServlet - Error adding book
+java.sql.SQLException: Database error
+	at org.evpro.bookshopV4.service.BookService.addBook(BookService.java:25)
+	at org.evpro.bookshopV4.servlet.BookServlet.handleAddBook(BookServlet.java:81)
+	at org.evpro.bookshopV4.servlet.BookServlet.doPost(BookServlet.java:54)
+	at BookServletTest.testDoPostSQLException(BookServletTest.java:165)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:766)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$8(TestMethodTestDescriptor.java:217)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:63)
+	at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:57)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
+	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:232)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55)
+2024-09-02 12:51:49 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book added: Book(id=1, title=Sample Title, author=Sample Author, publicationYear=2023-01-01, description=Sample Description, ISBN=1234567890, quantity=10, available=true)
+2024-09-02 12:51:49 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Received JSON input: [{"id":null,"title":"Book 1","author":"Author 1","publicationYear":"1960-07-11","description":"Description 1","quantity":5,"available":true,"isbn":"ISBN1"},{"id":null,"title":"Book 2","author":"Author 2","publicationYear":"1965-02-01","description":"Description 2","quantity":3,"available":true,"isbn":"ISBN2"}]
+2024-09-02 12:51:49 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Deserialized books: [Book(id=null, title=Book 1, author=Author 1, publicationYear=1960-07-11, description=Description 1, ISBN=ISBN1, quantity=5, available=true), Book(id=null, title=Book 2, author=Author 2, publicationYear=1965-02-01, description=Description 2, ISBN=ISBN2, quantity=3, available=true)]
+2024-09-02 12:51:49 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book exists, updated quantity: Book(id=1, title=To Kill a Mockingbird, author=Harper Lee, publicationYear=1960-07-11, description=The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it., ISBN=9780446310789, quantity=14, available=true)
+2024-09-02 12:51:49 [main] ERROR o.e.bookshopV4.servlet.BookServlet - Error adding book
+java.sql.SQLException: Database error
+	at org.evpro.bookshopV4.service.BookService.addBook(BookService.java:25)
+	at org.evpro.bookshopV4.servlet.BookServlet.handleAddBook(BookServlet.java:81)
+	at org.evpro.bookshopV4.servlet.BookServlet.doPost(BookServlet.java:54)
+	at BookServletTest.testDoPostSQLException(BookServletTest.java:165)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:766)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$8(TestMethodTestDescriptor.java:217)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:63)
+	at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:57)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
+	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:232)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55)
+2024-09-02 12:52:33 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book added: Book(id=1, title=Sample Title, author=Sample Author, publicationYear=2023-01-01, description=Sample Description, ISBN=1234567890, quantity=10, available=true)
+2024-09-02 12:52:33 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Received JSON input: [{"id":null,"title":"Book 1","author":"Author 1","publicationYear":"1960-07-11","description":"Description 1","quantity":5,"available":true,"isbn":"ISBN1"},{"id":null,"title":"Book 2","author":"Author 2","publicationYear":"1965-02-01","description":"Description 2","quantity":3,"available":true,"isbn":"ISBN2"}]
+2024-09-02 12:52:33 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Deserialized books: [Book(id=null, title=Book 1, author=Author 1, publicationYear=1960-07-11, description=Description 1, ISBN=ISBN1, quantity=5, available=true), Book(id=null, title=Book 2, author=Author 2, publicationYear=1965-02-01, description=Description 2, ISBN=ISBN2, quantity=3, available=true)]
+2024-09-02 12:52:33 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book exists, updated quantity: Book(id=1, title=To Kill a Mockingbird, author=Harper Lee, publicationYear=1960-07-11, description=The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it., ISBN=9780446310789, quantity=14, available=true)
+2024-09-02 12:52:33 [main] ERROR o.e.bookshopV4.servlet.BookServlet - Error adding book
+java.sql.SQLException: Database error
+	at org.evpro.bookshopV4.service.BookService.addBook(BookService.java:25)
+	at org.evpro.bookshopV4.servlet.BookServlet.handleAddBook(BookServlet.java:81)
+	at org.evpro.bookshopV4.servlet.BookServlet.doPost(BookServlet.java:54)
+	at BookServletTest.testDoPostSQLException(BookServletTest.java:165)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:766)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$8(TestMethodTestDescriptor.java:217)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+2024-09-02 12:52:48 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book added: Book(id=1, title=Sample Title, author=Sample Author, publicationYear=2023-01-01, description=Sample Description, ISBN=1234567890, quantity=10, available=true)
+2024-09-02 12:52:49 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Received JSON input: [{"id":null,"title":"Book 1","author":"Author 1","publicationYear":"1960-07-11","description":"Description 1","quantity":5,"available":true,"isbn":"ISBN1"},{"id":null,"title":"Book 2","author":"Author 2","publicationYear":"1965-02-01","description":"Description 2","quantity":3,"available":true,"isbn":"ISBN2"}]
+2024-09-02 12:52:49 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Deserialized books: [Book(id=null, title=Book 1, author=Author 1, publicationYear=1960-07-11, description=Description 1, ISBN=ISBN1, quantity=5, available=true), Book(id=null, title=Book 2, author=Author 2, publicationYear=1965-02-01, description=Description 2, ISBN=ISBN2, quantity=3, available=true)]
+2024-09-02 12:52:49 [main] INFO  o.e.bookshopV4.servlet.BookServlet - Book exists, updated quantity: Book(id=1, title=To Kill a Mockingbird, author=Harper Lee, publicationYear=1960-07-11, description=The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it., ISBN=9780446310789, quantity=14, available=true)
+2024-09-02 12:52:49 [main] ERROR o.e.bookshopV4.servlet.BookServlet - Error adding book
+java.sql.SQLException: Database error
+	at org.evpro.bookshopV4.service.BookService.addBook(BookService.java:25)
+	at org.evpro.bookshopV4.servlet.BookServlet.handleAddBook(BookServlet.java:81)
+	at org.evpro.bookshopV4.servlet.BookServlet.doPost(BookServlet.java:54)
+	at BookServletTest.testDoPostSQLException(BookServletTest.java:165)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:766)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$8(TestMethodTestDescriptor.java:217)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:63)
+	at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:57)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
+	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:232)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55)
+2024-09-02 14:37:19 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 14:39:40 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 14:39:40 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 14:39:40 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 14:39:40 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 14:39:40 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 14:39:40 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 14:39:40 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 14:39:40 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 14:39:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 14:39:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 14:39:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 14:39:41 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 14:39:41 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 14:39:41 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 14:39:41 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 14:39:41 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 14:39:41 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 14:39:41 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 14:39:41 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 14:44:17 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 14:44:22 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 14:44:22 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 14:44:22 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 14:44:22 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 14:44:22 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 14:44:22 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 14:44:22 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 14:44:22 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 14:44:22 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 14:44:22 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 14:44:22 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 14:44:22 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 14:44:22 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 14:44:22 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 14:44:22 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 14:44:23 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 14:44:23 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 14:44:23 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 14:44:23 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 14:44:38 [http-nio-8080-exec-5] INFO  o.e.bookshopV4.servlet.UserServlet - starting application ...
+2024-09-02 14:46:00 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 14:46:22 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 14:46:22 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 14:46:22 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 14:46:22 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 14:46:22 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 14:46:22 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 14:46:22 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 14:46:22 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 14:46:23 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 14:46:23 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 14:46:23 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 14:46:23 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 14:46:23 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 14:46:23 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 14:46:23 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 14:46:23 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 14:46:23 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 14:46:23 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 14:46:23 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 14:47:17 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 14:47:32 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 14:47:32 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 14:47:32 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 14:47:32 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 14:47:32 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 14:47:32 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 14:47:32 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 14:47:32 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 14:47:32 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 14:47:33 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 14:47:33 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 14:47:33 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 14:47:33 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 14:47:33 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 14:47:33 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 14:47:33 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 14:47:33 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 14:47:33 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 14:47:33 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 14:47:38 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - BookServlet accessed
+2024-09-02 14:47:38 [http-nio-8080-exec-1] ERROR o.e.bookshopV4.servlet.BookServlet - Unexpected error
+java.lang.NullPointerException: Cannot invoke "String.hashCode()" because "<local4>" is null
+	at org.evpro.bookshopV4.servlet.BookServlet.doGet(BookServlet.java:56)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:199)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.evpro.bookshopV4.filter.ExceptionHandlerFilter.doFilter(ExceptionHandlerFilter.java:20)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:383)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:936)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-09-02 14:49:43 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 15:59:58 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 15:59:58 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 15:59:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 15:59:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 15:59:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 15:59:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 15:59:58 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 15:59:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 15:59:59 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 15:59:59 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 15:59:59 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 15:59:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 15:59:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 15:59:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 15:59:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 15:59:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 15:59:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 15:59:59 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 15:59:59 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 16:00:19 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 16:00:45 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 16:00:45 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 16:00:45 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 16:00:45 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 16:00:45 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 16:00:45 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 16:00:45 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 16:00:45 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 16:00:46 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 16:00:46 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:00:46 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:00:46 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 16:00:46 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 16:00:46 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 16:00:46 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 16:00:46 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 16:00:46 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 16:00:46 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 16:00:46 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 16:02:15 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - BookServlet accessed
+2024-09-02 16:02:15 [http-nio-8080-exec-1] ERROR o.e.bookshopV4.servlet.BookServlet - Unexpected error
+java.lang.NullPointerException: Cannot invoke "String.hashCode()" because "<local4>" is null
+	at org.evpro.bookshopV4.servlet.BookServlet.doGet(BookServlet.java:56)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:199)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.evpro.bookshopV4.filter.ExceptionHandlerFilter.doFilter(ExceptionHandlerFilter.java:20)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:383)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:936)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-09-02 16:02:24 [http-nio-8080-exec-2] INFO  o.e.bookshopV4.servlet.BookServlet - BookServlet accessed
+2024-09-02 16:02:24 [http-nio-8080-exec-2] ERROR o.e.bookshopV4.servlet.BookServlet - Unexpected error
+java.lang.NullPointerException: Cannot invoke "org.evpro.bookshopV4.service.BookService.getAllBooks()" because "this.bookService" is null
+	at org.evpro.bookshopV4.servlet.BookServlet.getAllBooks(BookServlet.java:217)
+	at org.evpro.bookshopV4.servlet.BookServlet.doGet(BookServlet.java:64)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:199)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.evpro.bookshopV4.filter.ExceptionHandlerFilter.doFilter(ExceptionHandlerFilter.java:20)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:383)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:936)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-09-02 16:02:50 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 16:02:56 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 16:02:56 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 16:02:56 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 16:02:56 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 16:02:56 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 16:02:56 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 16:02:56 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 16:02:56 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 16:02:57 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 16:02:57 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:02:57 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:02:57 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 16:02:57 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 16:02:57 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 16:02:57 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 16:02:57 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 16:02:57 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 16:02:57 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 16:02:57 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 16:06:35 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 16:06:41 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 16:06:41 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 16:06:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 16:06:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 16:06:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 16:06:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 16:06:41 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 16:06:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 16:06:42 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 16:06:42 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:06:42 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:06:42 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 16:06:42 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 16:06:42 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 16:06:42 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 16:06:42 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 16:06:42 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 16:06:42 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 16:06:42 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 16:06:46 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - BookServlet accessed
+2024-09-02 16:06:46 [http-nio-8080-exec-1] ERROR o.e.bookshopV4.servlet.BookServlet - Unexpected error
+java.lang.NullPointerException: Cannot invoke "String.hashCode()" because "<local4>" is null
+	at org.evpro.bookshopV4.servlet.BookServlet.doGet(BookServlet.java:63)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:199)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.evpro.bookshopV4.filter.ExceptionHandlerFilter.doFilter(ExceptionHandlerFilter.java:20)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:383)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:936)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-09-02 16:06:49 [http-nio-8080-exec-2] INFO  o.e.bookshopV4.servlet.BookServlet - BookServlet accessed
+2024-09-02 16:06:49 [http-nio-8080-exec-2] ERROR o.e.bookshopV4.servlet.BookServlet - Unexpected error
+java.lang.NullPointerException: Cannot invoke "org.evpro.bookshopV4.DAO.BookDAO.findAll()" because "this.bookDAO" is null
+	at org.evpro.bookshopV4.service.BookService.getAllBooks(BookService.java:90)
+	at org.evpro.bookshopV4.servlet.BookServlet.getAllBooks(BookServlet.java:224)
+	at org.evpro.bookshopV4.servlet.BookServlet.doGet(BookServlet.java:71)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:199)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.evpro.bookshopV4.filter.ExceptionHandlerFilter.doFilter(ExceptionHandlerFilter.java:20)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:383)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:936)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-09-02 16:11:01 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 16:11:09 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 16:11:09 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 16:11:09 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 16:11:09 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 16:11:09 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 16:11:09 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 16:11:09 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 16:11:09 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 16:11:10 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 16:11:10 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:11:10 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:11:10 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 16:11:10 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 16:11:10 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 16:11:10 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 16:11:10 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 16:11:10 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 16:11:10 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 16:11:10 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 16:11:30 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 16:11:36 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 16:11:36 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 16:11:36 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 16:11:36 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 16:11:46 [http-nio-8080-exec-5] INFO  o.e.bookshopV4.servlet.BookServlet - BookServlet accessed
+2024-09-02 16:11:46 [http-nio-8080-exec-5] INFO  o.e.bookshopV4.servlet.BookServlet - null
+2024-09-02 16:11:46 [http-nio-8080-exec-5] ERROR o.e.bookshopV4.servlet.BookServlet - Unexpected error
+java.lang.NullPointerException: Cannot invoke "String.hashCode()" because "<local4>" is null
+	at org.evpro.bookshopV4.servlet.BookServlet.doGet(BookServlet.java:65)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:199)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.evpro.bookshopV4.filter.ExceptionHandlerFilter.doFilter(ExceptionHandlerFilter.java:20)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:383)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:936)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-09-02 16:12:09 [http-nio-8080-exec-8] INFO  o.e.bookshopV4.servlet.BookServlet - BookServlet accessed
+2024-09-02 16:12:09 [http-nio-8080-exec-8] INFO  o.e.bookshopV4.servlet.BookServlet - /all
+2024-09-02 16:12:09 [http-nio-8080-exec-8] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 16:12:09 [http-nio-8080-exec-8] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 16:12:09 [http-nio-8080-exec-8] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:12:09 [http-nio-8080-exec-8] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:12:09 [http-nio-8080-exec-8] ERROR o.e.b.D.i.BookDAOImplementation - Error with database connection
+java.sql.SQLSyntaxErrorException: Table 'bookshop_db_v4.books' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:916)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:972)
+	at org.evpro.bookshopV4.DAO.implementation.BookDAOImplementation.findAll(BookDAOImplementation.java:210)
+	at org.evpro.bookshopV4.service.BookService.getAllBooks(BookService.java:95)
+	at org.evpro.bookshopV4.servlet.BookServlet.getAllBooks(BookServlet.java:226)
+	at org.evpro.bookshopV4.servlet.BookServlet.doGet(BookServlet.java:73)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:199)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.evpro.bookshopV4.filter.ExceptionHandlerFilter.doFilter(ExceptionHandlerFilter.java:20)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:383)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:936)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-09-02 16:12:09 [http-nio-8080-exec-8] ERROR o.e.bookshopV4.servlet.BookServlet - Unexpected error
+org.evpro.bookshopV4.exception.DatabaseException: Error with database connection
+	at org.evpro.bookshopV4.DAO.implementation.BookDAOImplementation.findAll(BookDAOImplementation.java:215)
+	at org.evpro.bookshopV4.service.BookService.getAllBooks(BookService.java:95)
+	at org.evpro.bookshopV4.servlet.BookServlet.getAllBooks(BookServlet.java:226)
+	at org.evpro.bookshopV4.servlet.BookServlet.doGet(BookServlet.java:73)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:199)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.evpro.bookshopV4.filter.ExceptionHandlerFilter.doFilter(ExceptionHandlerFilter.java:20)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:383)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:936)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-09-02 16:14:42 [Thread-1] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 16:14:49 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Initializing database...
+2024-09-02 16:14:49 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 16:14:49 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 16:14:49 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 16:14:49 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 16:14:49 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 16:14:49 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 16:14:49 [main] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 16:14:50 [main] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 16:14:50 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:14:50 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:14:50 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 16:14:50 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 16:14:50 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 16:14:50 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 16:14:50 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 16:14:50 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 16:14:50 [main] INFO  o.e.b.s.listener.DatabaseInitializer - Database initialized successfully.
+2024-09-02 16:14:50 [main] INFO  o.e.b.s.listener.LoggingInitializer - Initializing logging for the application
+2024-09-02 16:15:29 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - BookServlet accessed
+2024-09-02 16:15:29 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - /all
+2024-09-02 16:15:29 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Dropping and recreating database bookshop_db_v4
+2024-09-02 16:15:29 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Database {} dropped and created bookshop_db_v4
+2024-09-02 16:15:29 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:15:29 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:15:29 [http-nio-8080-exec-1] ERROR o.e.b.D.i.BookDAOImplementation - Error with database connection
+java.sql.SQLSyntaxErrorException: Table 'bookshop_db_v4.books' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:916)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:972)
+	at org.evpro.bookshopV4.DAO.implementation.BookDAOImplementation.findAll(BookDAOImplementation.java:210)
+	at org.evpro.bookshopV4.service.BookService.getAllBooks(BookService.java:95)
+	at org.evpro.bookshopV4.servlet.BookServlet.getAllBooks(BookServlet.java:226)
+	at org.evpro.bookshopV4.servlet.BookServlet.doGet(BookServlet.java:73)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:199)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.evpro.bookshopV4.filter.ExceptionHandlerFilter.doFilter(ExceptionHandlerFilter.java:20)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:383)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:936)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-09-02 16:15:29 [http-nio-8080-exec-1] ERROR o.e.bookshopV4.servlet.BookServlet - Unexpected error
+org.evpro.bookshopV4.exception.DatabaseException: Error with database connection
+	at org.evpro.bookshopV4.DAO.implementation.BookDAOImplementation.findAll(BookDAOImplementation.java:215)
+	at org.evpro.bookshopV4.service.BookService.getAllBooks(BookService.java:95)
+	at org.evpro.bookshopV4.servlet.BookServlet.getAllBooks(BookServlet.java:226)
+	at org.evpro.bookshopV4.servlet.BookServlet.doGet(BookServlet.java:73)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:199)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.evpro.bookshopV4.filter.ExceptionHandlerFilter.doFilter(ExceptionHandlerFilter.java:20)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:383)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:936)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-09-02 16:20:50 [Catalina-utility-2] INFO  o.e.b.s.listener.LoggingInitializer - Application shutting down
+2024-09-02 16:24:41 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Initializing database...
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Creating database bookshop_db_v4 if not exists
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Database bookshop_db_v4 created or already exists
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: data.sql
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script data.sql executed successfully
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.DatabaseInitializer - Initial data inserted successfully.
+2024-09-02 16:24:41 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 16:24:41 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Database initialized successfully.
+2024-09-02 16:24:41 [main] INFO  o.e.b.s.l.LoggingInitializerListener - Initializing logging for the application
+2024-09-02 16:24:55 [Thread-1] INFO  o.e.b.s.l.LoggingInitializerListener - Application shutting down
+2024-09-02 16:24:58 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Initializing database...
+2024-09-02 16:24:58 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 16:24:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 16:24:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 16:24:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 16:24:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 16:24:58 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 16:24:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Creating database bookshop_db_v4 if not exists
+2024-09-02 16:24:59 [main] INFO  o.e.b.utilities.ConnectionFactory - Database bookshop_db_v4 created or already exists
+2024-09-02 16:24:59 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:24:59 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:24:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 16:24:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 16:24:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 16:24:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database already contains data. Skipping initial data insertion.
+2024-09-02 16:24:59 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 16:24:59 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Database initialized successfully.
+2024-09-02 16:24:59 [main] INFO  o.e.b.s.l.LoggingInitializerListener - Initializing logging for the application
+2024-09-02 16:25:25 [http-nio-8080-exec-5] INFO  o.e.bookshopV4.servlet.BookServlet - BookServlet accessed
+2024-09-02 16:25:25 [http-nio-8080-exec-5] INFO  o.e.bookshopV4.servlet.BookServlet - /all
+2024-09-02 16:25:25 [http-nio-8080-exec-5] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:25:25 [http-nio-8080-exec-5] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:25:33 [http-nio-8080-exec-6] INFO  o.e.bookshopV4.servlet.BookServlet - BookServlet accessed
+2024-09-02 16:25:33 [http-nio-8080-exec-6] INFO  o.e.bookshopV4.servlet.BookServlet - null
+2024-09-02 16:25:33 [http-nio-8080-exec-6] ERROR o.e.bookshopV4.servlet.BookServlet - Unexpected error
+java.lang.NullPointerException: Cannot invoke "String.hashCode()" because "<local4>" is null
+	at org.evpro.bookshopV4.servlet.BookServlet.doGet(BookServlet.java:65)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:199)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.evpro.bookshopV4.filter.ExceptionHandlerFilter.doFilter(ExceptionHandlerFilter.java:20)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:383)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:936)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-09-02 16:25:41 [http-nio-8080-exec-9] INFO  o.e.bookshopV4.servlet.BookServlet - BookServlet accessed
+2024-09-02 16:25:41 [http-nio-8080-exec-9] INFO  o.e.bookshopV4.servlet.BookServlet - /all
+2024-09-02 16:25:41 [http-nio-8080-exec-9] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:25:41 [http-nio-8080-exec-9] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:27:17 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - BookServlet accessed
+2024-09-02 16:27:17 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - /author
+2024-09-02 16:29:01 [Thread-1] INFO  o.e.b.s.l.LoggingInitializerListener - Application shutting down
+2024-09-02 16:29:06 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Initializing database...
+2024-09-02 16:29:06 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 16:29:06 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 16:29:06 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 16:29:06 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 16:29:06 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 16:29:06 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 16:29:06 [main] INFO  o.e.b.utilities.ConnectionFactory - Creating database bookshop_db_v4 if not exists
+2024-09-02 16:29:07 [main] INFO  o.e.b.utilities.ConnectionFactory - Database bookshop_db_v4 created or already exists
+2024-09-02 16:29:07 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:29:07 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:29:07 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 16:29:07 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 16:29:07 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 16:29:07 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database already contains data. Skipping initial data insertion.
+2024-09-02 16:29:07 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 16:29:07 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Database initialized successfully.
+2024-09-02 16:29:07 [main] INFO  o.e.b.s.l.LoggingInitializerListener - Initializing logging for the application
+2024-09-02 16:29:11 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - /author
+2024-09-02 16:29:39 [http-nio-8080-exec-3] INFO  o.e.bookshopV4.servlet.BookServlet - /filter/author
+2024-09-02 16:30:07 [http-nio-8080-exec-4] INFO  o.e.bookshopV4.servlet.BookServlet - /filter/author
+2024-09-02 16:30:16 [http-nio-8080-exec-5] INFO  o.e.bookshopV4.servlet.BookServlet - /filter/author/name=Herper Lee
+2024-09-02 16:30:28 [http-nio-8080-exec-6] INFO  o.e.bookshopV4.servlet.BookServlet - /filter/author/Herper Lee
+2024-09-02 16:33:13 [http-nio-8080-exec-8] INFO  o.e.bookshopV4.servlet.BookServlet - /filter/author
+2024-09-02 16:33:13 [http-nio-8080-exec-8] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:33:13 [http-nio-8080-exec-8] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:34:20 [http-nio-8080-exec-10] INFO  o.e.bookshopV4.servlet.BookServlet - /book/filter/ISBN
+2024-09-02 16:34:42 [Thread-1] INFO  o.e.b.s.l.LoggingInitializerListener - Application shutting down
+2024-09-02 16:40:42 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Initializing database...
+2024-09-02 16:40:42 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 16:40:42 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 16:40:42 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 16:40:42 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 16:40:42 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 16:40:42 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 16:40:42 [main] INFO  o.e.b.utilities.ConnectionFactory - Creating database bookshop_db_v4 if not exists
+2024-09-02 16:40:42 [main] INFO  o.e.b.utilities.ConnectionFactory - Database bookshop_db_v4 created or already exists
+2024-09-02 16:40:43 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:40:43 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:40:43 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 16:40:43 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 16:40:43 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 16:40:43 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database already contains data. Skipping initial data insertion.
+2024-09-02 16:40:43 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 16:40:43 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Database initialized successfully.
+2024-09-02 16:40:43 [main] INFO  o.e.b.s.l.LoggingInitializerListener - Initializing logging for the application
+2024-09-02 16:40:46 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - /all
+2024-09-02 16:40:46 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:40:46 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:40:51 [http-nio-8080-exec-2] INFO  o.e.bookshopV4.servlet.BookServlet - /book/filter
+2024-09-02 16:40:51 [http-nio-8080-exec-2] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:40:51 [http-nio-8080-exec-2] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:51:50 [Thread-1] INFO  o.e.b.s.l.LoggingInitializerListener - Application shutting down
+2024-09-02 16:51:57 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Initializing database...
+2024-09-02 16:51:57 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 16:51:57 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 16:51:57 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 16:51:57 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 16:51:57 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 16:51:57 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 16:51:57 [main] INFO  o.e.b.utilities.ConnectionFactory - Creating database bookshop_db_v4 if not exists
+2024-09-02 16:51:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Database bookshop_db_v4 created or already exists
+2024-09-02 16:51:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:51:58 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:51:58 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 16:51:58 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 16:51:58 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 16:51:58 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database already contains data. Skipping initial data insertion.
+2024-09-02 16:51:58 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 16:51:58 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Database initialized successfully.
+2024-09-02 16:51:58 [main] INFO  o.e.b.s.l.LoggingInitializerListener - Initializing logging for the application
+2024-09-02 16:52:35 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - /book/filter/available
+2024-09-02 16:53:01 [http-nio-8080-exec-4] INFO  o.e.bookshopV4.servlet.BookServlet - /book/filter
+2024-09-02 16:53:01 [http-nio-8080-exec-4] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:53:01 [http-nio-8080-exec-4] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:53:18 [http-nio-8080-exec-5] INFO  o.e.bookshopV4.servlet.BookServlet - /filter/available
+2024-09-02 16:53:44 [Thread-1] INFO  o.e.b.s.l.LoggingInitializerListener - Application shutting down
+2024-09-02 16:53:51 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Initializing database...
+2024-09-02 16:53:51 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 16:53:51 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 16:53:51 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 16:53:51 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 16:53:51 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 16:53:51 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 16:53:51 [main] INFO  o.e.b.utilities.ConnectionFactory - Creating database bookshop_db_v4 if not exists
+2024-09-02 16:53:51 [main] INFO  o.e.b.utilities.ConnectionFactory - Database bookshop_db_v4 created or already exists
+2024-09-02 16:53:51 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:53:51 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 16:53:51 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 16:53:51 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 16:53:51 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 16:53:51 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database already contains data. Skipping initial data insertion.
+2024-09-02 16:53:51 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 16:53:51 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Database initialized successfully.
+2024-09-02 16:53:51 [main] INFO  o.e.b.s.l.LoggingInitializerListener - Initializing logging for the application
+2024-09-02 16:53:56 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - /filter/available
+2024-09-02 16:53:56 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 16:53:56 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 17:16:04 [Thread-1] INFO  o.e.b.s.l.LoggingInitializerListener - Application shutting down
+2024-09-02 17:16:15 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Initializing database...
+2024-09-02 17:16:15 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 17:16:15 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 17:16:15 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 17:16:15 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 17:16:15 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 17:16:15 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 17:16:15 [main] INFO  o.e.b.utilities.ConnectionFactory - Creating database bookshop_db_v4 if not exists
+2024-09-02 17:16:16 [main] INFO  o.e.b.utilities.ConnectionFactory - Database bookshop_db_v4 created or already exists
+2024-09-02 17:16:16 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 17:16:16 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 17:16:16 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 17:16:16 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 17:16:16 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 17:16:16 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database already contains data. Skipping initial data insertion.
+2024-09-02 17:16:16 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 17:16:16 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Database initialized successfully.
+2024-09-02 17:16:16 [main] INFO  o.e.b.s.l.LoggingInitializerListener - Initializing logging for the application
+2024-09-02 17:17:06 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - /filter/year_publication
+2024-09-02 17:27:21 [http-nio-8080-exec-2] INFO  o.e.bookshopV4.servlet.BookServlet - /filter/year_publication
+2024-09-02 17:27:21 [http-nio-8080-exec-2] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 17:27:22 [http-nio-8080-exec-2] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 17:27:44 [http-nio-8080-exec-4] INFO  o.e.bookshopV4.servlet.BookServlet - /filter/year_publication
+2024-09-02 17:27:44 [http-nio-8080-exec-4] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 17:27:44 [http-nio-8080-exec-4] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 17:27:50 [http-nio-8080-exec-5] INFO  o.e.bookshopV4.servlet.BookServlet - /filter/year_publication
+2024-09-02 17:27:50 [http-nio-8080-exec-5] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 17:27:50 [http-nio-8080-exec-5] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 17:27:52 [http-nio-8080-exec-6] INFO  o.e.bookshopV4.servlet.BookServlet - /filter/year_publication
+2024-09-02 17:27:52 [http-nio-8080-exec-6] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 17:27:52 [http-nio-8080-exec-6] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 17:28:17 [http-nio-8080-exec-8] INFO  o.e.bookshopV4.servlet.BookServlet - /filter/year_publication
+2024-09-02 17:28:17 [http-nio-8080-exec-8] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 17:28:17 [http-nio-8080-exec-8] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 17:29:36 [Thread-1] INFO  o.e.b.s.l.LoggingInitializerListener - Application shutting down
+2024-09-02 17:29:45 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Initializing database...
+2024-09-02 17:29:45 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 17:29:45 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 17:29:45 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 17:29:45 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 17:29:45 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 17:29:45 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 17:29:45 [main] INFO  o.e.b.utilities.ConnectionFactory - Creating database bookshop_db_v4 if not exists
+2024-09-02 17:29:45 [main] INFO  o.e.b.utilities.ConnectionFactory - Database bookshop_db_v4 created or already exists
+2024-09-02 17:29:45 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 17:29:45 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 17:29:45 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 17:29:45 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 17:29:45 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 17:29:45 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database already contains data. Skipping initial data insertion.
+2024-09-02 17:29:45 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 17:29:45 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Database initialized successfully.
+2024-09-02 17:29:45 [main] INFO  o.e.b.s.l.LoggingInitializerListener - Initializing logging for the application
+2024-09-02 17:29:50 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 17:29:50 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 17:29:50 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - [Book(id=1, title=To Kill a Mockingbird, author=Harper Lee, publicationYear=1960-07-11, description=The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it., ISBN=9780446310789, quantity=4, available=true)]
+2024-09-02 17:30:12 [Thread-1] INFO  o.e.b.s.l.LoggingInitializerListener - Application shutting down
+2024-09-02 17:30:17 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Initializing database...
+2024-09-02 17:30:17 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 17:30:17 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 17:30:17 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 17:30:17 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 17:30:17 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 17:30:17 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 17:30:17 [main] INFO  o.e.b.utilities.ConnectionFactory - Creating database bookshop_db_v4 if not exists
+2024-09-02 17:30:18 [main] INFO  o.e.b.utilities.ConnectionFactory - Database bookshop_db_v4 created or already exists
+2024-09-02 17:30:18 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 17:30:18 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 17:30:18 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 17:30:18 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 17:30:18 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 17:30:18 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database already contains data. Skipping initial data insertion.
+2024-09-02 17:30:18 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 17:30:18 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Database initialized successfully.
+2024-09-02 17:30:18 [main] INFO  o.e.b.s.l.LoggingInitializerListener - Initializing logging for the application
+2024-09-02 17:30:23 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 17:30:23 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 17:30:23 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - [Book(id=1, title=To Kill a Mockingbird, author=Harper Lee, publicationYear=1960-07-11, description=The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it., ISBN=9780446310789, quantity=4, available=true)]
+2024-09-02 17:31:11 [Thread-1] INFO  o.e.b.s.l.LoggingInitializerListener - Application shutting down
+2024-09-02 17:31:16 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Initializing database...
+2024-09-02 17:31:16 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-02 17:31:16 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-02 17:31:16 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-02 17:31:16 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-02 17:31:16 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-02 17:31:16 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-02 17:31:16 [main] INFO  o.e.b.utilities.ConnectionFactory - Creating database bookshop_db_v4 if not exists
+2024-09-02 17:31:16 [main] INFO  o.e.b.utilities.ConnectionFactory - Database bookshop_db_v4 created or already exists
+2024-09-02 17:31:16 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 17:31:16 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 17:31:16 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-02 17:31:16 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-02 17:31:16 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-02 17:31:16 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database already contains data. Skipping initial data insertion.
+2024-09-02 17:31:16 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-02 17:31:16 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Database initialized successfully.
+2024-09-02 17:31:16 [main] INFO  o.e.b.s.l.LoggingInitializerListener - Initializing logging for the application
+2024-09-02 17:31:19 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-02 17:31:19 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-02 17:31:19 [http-nio-8080-exec-1] INFO  o.e.bookshopV4.servlet.BookServlet - [Book(id=1, title=To Kill a Mockingbird, author=Harper Lee, publicationYear=1960-07-11, description=The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it., ISBN=9780446310789, quantity=4, available=true)]
+2024-09-02 17:58:15 [Thread-1] INFO  o.e.b.s.l.LoggingInitializerListener - Application shutting down
