@@ -2,7 +2,7 @@ package org.evpro.bookshopV4.model;
 
 import lombok.*;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 //POJO (Plain Old Java Objects) class
 @Getter
@@ -17,7 +17,7 @@ public class User {
     private String email;
     private String password;
     private UserRole role;
-    private Date createdAt;
+    private LocalDate createdAt;
 
     public enum UserRole {
         ADMIN, USER
