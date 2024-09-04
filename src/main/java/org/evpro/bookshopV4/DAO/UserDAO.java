@@ -3,6 +3,7 @@ package org.evpro.bookshopV4.DAO;
 import org.evpro.bookshopV4.model.User;
 import org.evpro.bookshopV4.model.enums.UserRole;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,4 +18,5 @@ public interface UserDAO {
     List<User> findAll();
     void deleteById(int id);
     void deleteAll();
+    boolean verifyPassword(int userId, String password);
 }

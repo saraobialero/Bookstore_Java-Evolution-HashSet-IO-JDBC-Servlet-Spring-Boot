@@ -158,11 +158,6 @@ public class BookService implements BookFunctions {
     @Override
     public boolean deleteAll() throws SQLException {
         List<Book> books = getAllBooks();
-        if (books.isEmpty()) {
-            throw new BookException(
-                    (NC_CODE + "No Books in the store"),
-                    HttpStatusCode.NO_CONTENT);
-        }
         bookDAO.deleteAll();
         log.info("Books deleted{}",books);
         return true;

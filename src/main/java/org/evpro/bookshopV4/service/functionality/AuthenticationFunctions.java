@@ -7,4 +7,8 @@ import java.sql.SQLException;
 public interface AuthenticationFunctions {
     boolean login(String email, String password) throws SQLException;
     boolean signup(User user) throws SQLException;
+
+    void changePassword(int id, String currentPassword, String newPassword) throws SQLException;
+
+    void changeEmail(int id, String newEmail, String password) throws SQLException;
 }

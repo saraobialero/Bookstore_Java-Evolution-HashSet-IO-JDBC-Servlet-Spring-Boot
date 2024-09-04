@@ -1,0 +1,21 @@
+2024-09-03 17:34:36 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Initializing database...
+2024-09-03 17:34:36 [main] INFO  o.e.b.utilities.DatabaseInitializer - Starting database initialization...
+2024-09-03 17:34:36 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading database properties from database.properties
+2024-09-03 17:34:36 [main] INFO  o.e.b.utilities.ConnectionFactory - Database properties loaded successfully. URL: jdbc:mysql://localhost:3306/bookshop_db_v4
+2024-09-03 17:34:36 [main] INFO  o.e.b.utilities.ConnectionFactory - Parsed database name: bookshop_db_v4
+2024-09-03 17:34:36 [main] INFO  o.e.b.utilities.ConnectionFactory - Loading MySQL JDBC Driver
+2024-09-03 17:34:36 [main] INFO  o.e.b.utilities.ConnectionFactory - MySQL JDBC Driver registered successfully
+2024-09-03 17:34:36 [main] INFO  o.e.b.utilities.ConnectionFactory - Creating database bookshop_db_v4 if not exists
+2024-09-03 17:34:37 [main] INFO  o.e.b.utilities.ConnectionFactory - Database bookshop_db_v4 created or already exists
+2024-09-03 17:34:37 [main] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-03 17:34:37 [main] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-03 17:34:37 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database connection established.
+2024-09-03 17:34:37 [main] INFO  o.e.b.utilities.DatabaseInitializer - Executing script: schema.sql
+2024-09-03 17:34:37 [main] INFO  o.e.b.utilities.DatabaseInitializer - Script schema.sql executed successfully
+2024-09-03 17:34:37 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database already contains data. Skipping initial data insertion.
+2024-09-03 17:34:37 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
+2024-09-03 17:34:37 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Database initialized successfully.
+2024-09-03 17:34:37 [main] INFO  o.e.b.s.l.LoggingInitializerListener - Initializing logging for the application
+2024-09-03 17:35:05 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Attempting to establish database connection to bookshop_db_v4...
+2024-09-03 17:35:05 [http-nio-8080-exec-1] INFO  o.e.b.utilities.ConnectionFactory - Database connection established successfully.
+2024-09-03 17:35:14 [Thread-1] INFO  o.e.b.s.l.LoggingInitializerListener - Application shutting down

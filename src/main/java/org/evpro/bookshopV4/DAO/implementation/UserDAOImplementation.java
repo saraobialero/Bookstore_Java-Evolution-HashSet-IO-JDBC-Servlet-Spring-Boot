@@ -8,6 +8,7 @@ import org.evpro.bookshopV4.model.enums.HttpStatusCode;
 import org.evpro.bookshopV4.model.enums.UserRole;
 import org.evpro.bookshopV4.utilities.ConnectionFactory;
 import org.evpro.bookshopV4.utilities.TransactionManager;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -198,6 +199,24 @@ public class UserDAOImplementation implements UserDAO {
         } catch (SQLException e) {
             handleSQLException(e, "Error deleting all users", "Error deleting all users");
         }
+    }
+
+    public boolean verifyPassword(int userId, String password) {
+        String sql = "SELECT password FROM users WHERE id = ?";
+        try (Connection connection = ConnectionFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, userId);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    String storedPassword = rs.getString("password");
+                    return BCrypt.checkpw(password, storedPassword);
+                }
+            }
+        }
+        catch (SQLException e) {
+            handleSQLException(e, "Error during verification of psw", "error");
+        }
+        return false;
     }
 
     //Utilities methods
