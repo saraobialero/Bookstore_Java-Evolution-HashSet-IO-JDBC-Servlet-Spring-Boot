@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
-@WebServlet("/loans")
+@WebServlet("/loans/*")
 public class UserHasBookServlet {
 
     //both?

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Slf4j
-@WebServlet("/users")
+@WebServlet("/users/*")
 public class UserServlet extends HttpServlet {
 
     //TODO: Implements service here

@@ -42,7 +42,6 @@ public class BookServletTest {
 
     private ObjectMapper objectMapper;
 
-    // Remove the mock for ObjectMapper and use a real instance
     @BeforeEach
     void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);

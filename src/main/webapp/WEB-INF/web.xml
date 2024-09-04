@@ -7,52 +7,7 @@
 
     <display-name>Bookshop Web Application</display-name>
 
-    <!-- Servlet definitions -->
-    <servlet>
-        <servlet-name>AuthenticationServlet</servlet-name>
-        <servlet-class>org.evpro.bookshopV4.servlet.AuthenticationServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>BookServlet</servlet-name>
-        <servlet-class>org.evpro.bookshopV4.servlet.BookServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UserServlet</servlet-name>
-        <servlet-class>org.evpro.bookshopV4.servlet.UserServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UserHasBookServlet</servlet-name>
-        <servlet-class>org.evpro.bookshopV4.servlet.UserHasBookServlet</servlet-class>
-    </servlet>
-
-    <!-- Servlet mappings -->
-    <servlet-mapping>
-        <servlet-name>AuthenticationServlet</servlet-name>
-        <url-pattern>/authentication/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>BookServlet</servlet-name>
-        <url-pattern>/books/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UserServlet</servlet-name>
-        <url-pattern>/users/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UserHasBookServlet</servlet-name>
-        <url-pattern>/loans/*</url-pattern>
-    </servlet-mapping>
-
-
-    <listener>
-        <listener-class>org.evpro.bookshopV4.servlet.listener.DatabaseInitializerListener</listener-class>
-    </listener>
-    <listener>
-        <listener-class>org.evpro.bookshopV4.servlet.listener.LoggingInitializerListener</listener-class>
-    </listener>
-
-
-   <!-- Context parameters -->
+    <!-- Context parameters -->
     <context-param>
         <param-name>dbUrl</param-name>
         <param-value>jdbc:mysql://localhost:3306/bookshop_v4</param-value>

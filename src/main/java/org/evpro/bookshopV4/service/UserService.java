@@ -10,10 +10,12 @@ import org.evpro.bookshopV4.model.enums.UserRole;
 import org.evpro.bookshopV4.service.functionality.UserFunctions;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static org.evpro.bookshopV4.model.enums.ErrorCode.NC_CODE;
-import static org.evpro.bookshopV4.model.enums.ErrorCode.NF_CODE;
+import static org.evpro.bookshopV4.model.enums.CodeAndFormat.NC_CODE;
+import static org.evpro.bookshopV4.model.enums.CodeAndFormat.NF_CODE;
 
 @Slf4j
 public class UserService implements UserFunctions {
@@ -22,6 +24,10 @@ public class UserService implements UserFunctions {
 
     public UserService() {
         this.userDAO = new UserDAOImplementation();
+    }
+
+    public UserService(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
     @Override
@@ -36,6 +42,25 @@ public class UserService implements UserFunctions {
                     log.info("Added new Admin User: {}", user.getEmail());
                     return user;
                 });
+    }
+
+    @Override
+    public List<User> addUsersAdmin(List<User> users) throws SQLException {
+        List<User> processedUsers = new ArrayList<>();
+        for (User user : users) {
+            User processedUser = userDAO.findByEmail(user.getEmail())
+                    .map(existingUser -> {
+                        log.info("User with this email already exists: {}", existingUser.getEmail());
+                        return existingUser;
+                    })
+                    .orElse(user);
+            processedUsers.add(processedUser);
+        }
+        userDAO.saveUsers(processedUsers.stream()
+                .filter(b -> b.getId() == null)
+                .collect(Collectors.toList()));
+        log.info("Added new users");
+        return processedUsers;
     }
 
     @Override

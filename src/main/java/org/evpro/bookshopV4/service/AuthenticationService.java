@@ -40,6 +40,16 @@ public class AuthenticationService implements AuthenticationFunctions {
             return false;
         }
 
+        if (!isValidEmail(user.getEmail())) {
+            log.info("Signup failed. Invalid email format: {}", user.getEmail());
+            throw new UserException("Invalid email format", HttpStatusCode.BAD_REQUEST);
+        }
+
+        if (!isValidPassword(user.getPassword())) {
+            log.info("Signup failed. Password does not meet security requirements for user: {}", user.getEmail());
+            throw new UserException("Password does not meet security requirements", HttpStatusCode.BAD_REQUEST);
+        }
+
         user.setPassword(hashPassword(user.getPassword()));
         userDAO.save(user);
         log.info("User signed up successfully: {}", user.getEmail());
@@ -100,7 +110,6 @@ public class AuthenticationService implements AuthenticationFunctions {
         }
         return true;
     }
-
     private boolean isValidPassword(String password) {
         if (password == null || password.length() < 8) {
             return false;
@@ -112,12 +121,9 @@ public class AuthenticationService implements AuthenticationFunctions {
 
         return hasUppercase && hasLowercase && hasDigit && hasSpecialChar;
     }
-
-
-    private String hashPassword(String plainTextPassword) {
+    public String hashPassword(String plainTextPassword) {
         return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
     }
-
     private boolean verifyPassword(String plainTextPassword, String hashedPassword) {
         return BCrypt.checkpw(plainTextPassword, hashedPassword);
     }

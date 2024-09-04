@@ -9,6 +9,7 @@ import java.util.List;
 public interface UserFunctions {
     //Administration functionality
     User addUserAdmin(User user) throws SQLException;
+    List<User> addUsersAdmin(List<User> users) throws SQLException;
     boolean deleteUser(int id) throws SQLException;
     boolean deleteAllUsers() throws SQLException;
     User getUserById(int id) throws SQLException;

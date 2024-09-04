@@ -15,8 +15,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.evpro.bookshopV4.model.enums.ErrorCode.NC_CODE;
-import static org.evpro.bookshopV4.model.enums.ErrorCode.NF_CODE;
+import static org.evpro.bookshopV4.model.enums.CodeAndFormat.NC_CODE;
+import static org.evpro.bookshopV4.model.enums.CodeAndFormat.NF_CODE;
 
 @Slf4j
 public class UserHasBookService implements UserHasBookFunctions {

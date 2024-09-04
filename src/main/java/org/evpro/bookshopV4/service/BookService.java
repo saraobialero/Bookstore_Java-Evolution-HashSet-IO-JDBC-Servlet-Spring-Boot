@@ -1,8 +1,6 @@
 package org.evpro.bookshopV4.service;
 
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.evpro.bookshopV4.DAO.BookDAO;
 import org.evpro.bookshopV4.DAO.implementation.BookDAOImplementation;
@@ -17,17 +15,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.evpro.bookshopV4.model.enums.ErrorCode.NC_CODE;
-import static org.evpro.bookshopV4.model.enums.ErrorCode.NF_CODE;
+import static org.evpro.bookshopV4.model.enums.CodeAndFormat.NC_CODE;
+import static org.evpro.bookshopV4.model.enums.CodeAndFormat.NF_CODE;
 
 @Slf4j
-@AllArgsConstructor
 public class BookService implements BookFunctions {
 
     private final BookDAO bookDAO;
 
     public BookService() {
         this.bookDAO = new BookDAOImplementation();
+    }
+
+    public BookService(BookDAO bookDAO) {
+        this.bookDAO = bookDAO;
     }
 
     @Override
