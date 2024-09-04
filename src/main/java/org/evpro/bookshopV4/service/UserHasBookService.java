@@ -1,8 +1,6 @@
 package org.evpro.bookshopV4.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.evpro.bookshopV4.DAO.BookDAO;
-import org.evpro.bookshopV4.DAO.UserDAO;
 import org.evpro.bookshopV4.DAO.UserHasBookDAO;
 import org.evpro.bookshopV4.exception.BookException;
 import org.evpro.bookshopV4.exception.UserException;
@@ -17,87 +15,57 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.evpro.bookshopV4.model.enums.ErrorCode.NC_CODE;
+import static org.evpro.bookshopV4.model.enums.ErrorCode.NF_CODE;
+
 @Slf4j
 public class UserHasBookService implements UserHasBookFunctions {
 
-    private BookDAO bookDAO;
-    private UserDAO userDAO;
     private UserHasBookDAO userHasBookDAO;
-    private final String NF_CODE = " Not found";
+    private BookService bookService;
+    private UserService userService;
 
 
     @Override
     public UserHasBook borrowBook(int userId, int bookId, int quantity) throws SQLException {
-        User user = userDAO.findById(userId).orElseThrow(()
-                -> new UserException(
-                ("User with id " + userId + NF_CODE),
-                HttpStatusCode.NOT_FOUND));
-
-        Book book = bookDAO.findById(bookId).orElseThrow(()
-                -> new BookException(
-                ("Book with id " + bookId + NF_CODE),
-                HttpStatusCode.NOT_FOUND));
-
-        if (quantity > book.getQuantity()) {
-            throw new BookException(
-                    ("There aren't enough books"),
-                    HttpStatusCode.BAD_REQUEST
-            );
-        }
-
-        book.setQuantity(book.getQuantity() - quantity);
-        bookDAO.update(book);
-        if (book.getQuantity() == 0) {
-            bookDAO.updateAvailability(bookId, false);
-        }
+        User user = userService.getUserById(userId);
+        Book book = bookService.getBookById(bookId);
+        bookService.checkQuantity(book, quantity);
+        bookService.setQuantityDecrease(book, quantity);
+        bookService.updateAvailability(book);
 
         return userHasBookDAO.findByUserIdAndBookId(userId, bookId)
                 .map(existingUserHasBook -> {
                     existingUserHasBook.setQuantity(existingUserHasBook.getQuantity() + quantity);
-                    userHasBookDAO.updateQuantity(existingUserHasBook.getId(), quantity);
+                    userHasBookDAO.updateQuantity(existingUserHasBook.getId(), existingUserHasBook.getQuantity());
+                    log.info("loan updated");
                     return existingUserHasBook;
                 })
                 .orElseGet(() -> {
-                    UserHasBook userHasBook = new UserHasBook();
-                    userHasBook.setUserId(user.getId());
-                    userHasBook.setBookId(book.getId());
-                    userHasBook.setQuantity(quantity);
-                    userHasBook.setBorrowDate(LocalDate.now());
-                    userHasBook.setReturnDate(null);
-                    userHasBookDAO.save(userHasBook);
-                    return userHasBook;
+                        log.info("loan created");
+                        return initializeUserHasBook(user, book, quantity);
                 });
-
-
     }
 
     @Override
     public List<UserHasBook> getBorrowsForUser(int userId) throws SQLException {
-        userDAO.findById(userId).orElseThrow(()
-                -> new UserException(
-                ("User with id " + userId + NF_CODE),
-                HttpStatusCode.NOT_FOUND));
-
+        userService.getUserById(userId);
         List<UserHasBook> userHasBooks = userHasBookDAO.findByUserId(userId);
         if(userHasBooks.isEmpty()) {
             throw new UserException(
-                    ("User haven't any books "),
+                    (NC_CODE),
                     HttpStatusCode.NO_CONTENT);
         }
         return userHasBooks;
     }
 
     @Override
-    public List<UserHasBook> getBorrowsForBook(int bookId) throws SQLException {
-        bookDAO.findById(bookId).orElseThrow(()
-                -> new UserException(
-                ("Book with id " + bookId + NF_CODE),
-                HttpStatusCode.NOT_FOUND));
-
+    public List<UserHasBook> getBorrowsForBook(int bookId) throws SQLException, BookException {
+        bookService.getBookById(bookId);
         List<UserHasBook> userHasBooks = userHasBookDAO.findByUserId(bookId);
         if(userHasBooks.isEmpty()) {
             throw new BookException(
-                    ("Book haven't any borrow "),
+                    (NC_CODE),
                     HttpStatusCode.NO_CONTENT);
         }
         return userHasBooks;
@@ -105,13 +73,30 @@ public class UserHasBookService implements UserHasBookFunctions {
 
     @Override
     public boolean returnBorrow(int id) throws SQLException {
-        UserHasBook userHasBook = userHasBookDAO.findById(id)
-                                                .orElseThrow(()
-                                                -> new UserHasBookException(
-                                                ("Loan with id " + id + NF_CODE),
-                                                HttpStatusCode.NOT_FOUND));
+        UserHasBook userHasBook = getUserHasBook(id);
         userHasBook.setReturnDate(LocalDate.now());
         userHasBookDAO.updateReturnDate(id, LocalDate.now());
+        log.info("Loan returned{}", userHasBook);
         return true;
     }
+
+
+    private UserHasBook getUserHasBook(int id) {
+        return userHasBookDAO.findById(id)
+                .orElseThrow(()
+                        -> new UserHasBookException(
+                        ("Loan with id " + id + NF_CODE),
+                        HttpStatusCode.NOT_FOUND));
+    }
+    private UserHasBook initializeUserHasBook(User user, Book book, int quantity) {
+        UserHasBook userHasBook = new UserHasBook();
+        userHasBook.setUserId(user.getId());
+        userHasBook.setBookId(book.getId());
+        userHasBook.setQuantity(quantity);
+        userHasBook.setBorrowDate(LocalDate.now());
+        userHasBook.setReturnDate(null);
+        userHasBookDAO.save(userHasBook);
+        return userHasBook;
+    }
+
 }
