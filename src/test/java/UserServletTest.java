@@ -1,9 +1,10 @@
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.evpro.bookshopV4.model.Book;
-import org.evpro.bookshopV4.service.BookService;
-import org.evpro.bookshopV4.servlet.BookServlet;
+import org.evpro.bookshopV4.exception.UserException;
+import org.evpro.bookshopV4.model.User;
+import org.evpro.bookshopV4.model.enums.HttpStatusCode;
+import org.evpro.bookshopV4.model.enums.UserRole;
+import org.evpro.bookshopV4.service.UserService;
+import org.evpro.bookshopV4.servlet.UserServlet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -20,164 +21,232 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.evpro.bookshopV4.utilities.CodeMsg.AJ_FORMAT;
+import static org.evpro.bookshopV4.utilities.CodeMsg.NUP_CODE;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class UserServletTest {
 
     @Mock
-    private BookService bookService;
-
+    private UserService userService;
     @Mock
     private HttpServletRequest request;
-
     @Mock
     private HttpServletResponse response;
 
-    private BookServlet bookServlet;
-
-    private PrintWriter printWriter;
-
+    private UserServlet userServlet;
     private ObjectMapper objectMapper;
+    private StringWriter stringWriter;
+    private PrintWriter writer;
 
-    // Remove the mock for ObjectMapper and use a real instance
     @BeforeEach
     void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
         objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        printWriter = mock(PrintWriter.class);
-        bookServlet = new BookServlet(bookService, objectMapper);
-        when(response.getWriter()).thenReturn(printWriter);
+        userServlet = new UserServlet(userService, objectMapper);
+        stringWriter = new StringWriter();
+        writer = new PrintWriter(stringWriter);
+        when(response.getWriter()).thenReturn(writer);
     }
 
-
     @Test
-    void testDoPostNewBookAdded() throws Exception {
-        when(request.getPathInfo()).thenReturn("/add");
+    void testAddUser() throws Exception {
+        User user = initializeUser(1);
+        when(request.getReader()).thenReturn(new BufferedReader(new StringReader(objectMapper.writeValueAsString(user))));
+        when(userService.addUserAdmin(any(User.class))).thenReturn(user);
 
-        when(request.getParameter("title")).thenReturn("Sample Title");
-        when(request.getParameter("author")).thenReturn("Sample Author");
-        when(request.getParameter("isbn")).thenReturn("1234567890");
-        when(request.getParameter("description")).thenReturn("Sample Description");
-        when(request.getParameter("publication_year")).thenReturn("2023-01-01");
-        when(request.getParameter("quantity")).thenReturn("10");
-        when(request.getParameter("available")).thenReturn("true");
+        userServlet.handleAddUserAdmin(request, response);
 
-        when(bookService.addBook(any(Book.class))).thenAnswer(invocation -> {
-            Book addedBook = invocation.getArgument(0);
-            addedBook.setId(1);
-            return addedBook;
-        });
-
-        bookServlet.doPost(request, response);
         verify(response).setStatus(HttpServletResponse.SC_CREATED);
-        verify(bookService).addBook(any(Book.class));
-        verify(printWriter, never()).write(anyString());
+        verify(userService).addUserAdmin(any(User.class));
+        verify(response).setContentType(AJ_FORMAT);
+
+        String responseContent = stringWriter.toString();
+        assertTrue(responseContent.contains(user.getName()), "Response should contain name");
+        assertTrue(responseContent.contains(user.getSurname()), "Response should contain surname");
+        assertTrue(responseContent.contains(user.getEmail()), "Response should contain email");
     }
 
     @Test
-    void testDoPostAddBookAlreadyExists() throws Exception {
-        when(request.getPathInfo()).thenReturn("/add");
+    void testAddExistingUser() throws Exception {
+        User existingUser = initializeUser(1);
+        when(request.getReader()).thenReturn(new BufferedReader(new StringReader(objectMapper.writeValueAsString(existingUser))));
+        when(userService.addUserAdmin(any(User.class))).thenReturn(null);
 
-        when(request.getParameter("title")).thenReturn("Harper Lee");
-        when(request.getParameter("author")).thenReturn("To Kill a Mockingbird");
-        when(request.getParameter("isbn")).thenReturn("9780446310789");
-        when(request.getParameter("description")).thenReturn("The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it.");
-        when(request.getParameter("publication_year")).thenReturn("1960-07-11");
-        when(request.getParameter("quantity")).thenReturn("10");
-        when(request.getParameter("available")).thenReturn("true");
+        userServlet.handleAddUserAdmin(request, response);
 
-        final Book existingBook = getBook();
+        verify(response).sendError(HttpServletResponse.SC_CONFLICT, "User already exists");
+        verify(userService).addUserAdmin(any(User.class));
+    }
 
-        when(bookService.addBook(any(Book.class))).thenReturn(existingBook);
+    @Test
+    void testAddNullUser() throws Exception {
+        User nullUser = new User();
+        when(request.getReader()).thenReturn(new BufferedReader(new StringReader(objectMapper.writeValueAsString(nullUser))));
 
-        bookServlet.doPost(request, response);
+        userServlet.handleAddUserAdmin(request, response);
+
+        verify(response).sendError(HttpServletResponse.SC_BAD_REQUEST, NUP_CODE);
+    }
+
+    @Test
+    void testAddEmptyInput() throws Exception {
+        when(request.getReader()).thenReturn(new BufferedReader(new StringReader("")));
+
+        userServlet.handleAddUserAdmin(request, response);
+
+        verify(response).sendError(HttpServletResponse.SC_BAD_REQUEST, NUP_CODE);
+    }
+
+    @Test
+    void testGetUser() throws Exception {
+        User user = initializeUser(1);
+        when(request.getParameter("search-type")).thenReturn("id");
+        when(request.getParameter("search-value")).thenReturn("1");
+        when(userService.getUserById(1)).thenReturn(user);
+
+        userServlet.handleGetUser(request, response);
 
         verify(response).setStatus(HttpServletResponse.SC_OK);
-        verify(bookService).addBook(any(Book.class));
-        verify(printWriter, never()).write(anyString());
+        verify(response).setContentType(AJ_FORMAT);
+        String responseContent = stringWriter.toString();
+        assertTrue(responseContent.contains(user.getEmail()), "Response should contain email");
     }
 
     @Test
-    void testDoPostAddBooks() throws Exception {
-        // Prepare test data
-        List<Book> inputBooks = Arrays.asList(
-                new Book(null, "Book 1", "Author 1", LocalDate.of(1960, 7, 11), "Description 1", "ISBN1", 5, true),
-                new Book(null, "Book 2", "Author 2", LocalDate.of(1965, 2, 1), "Description 2", "ISBN2", 3, true)
-        );
+    void testGetUserWithWrongId() throws Exception {
+        when(request.getParameter("search-type")).thenReturn("id");
+        when(request.getParameter("search-value")).thenReturn("999");
+        when(userService.getUserById(999)).thenThrow(new UserException("User not found", HttpStatusCode.NOT_FOUND));
 
-        List<Book> outputBooks = Arrays.asList(
-                new Book(1, "Book 1", "Author 1", LocalDate.of(1960, 7, 11), "Description 1", "ISBN1", 5, true),
-                new Book(2, "Book 2", "Author 2", LocalDate.of(1965, 2, 1), "Description 2", "ISBN2", 3, true)
-        );
+        userServlet.handleGetUser(request, response);
 
-        // Create actual JSON input
-        String jsonInput = objectMapper.writeValueAsString(inputBooks);
-
-        // Use the TypeReference directly
-        TypeReference<List<Book>> bookListTypeRef = new TypeReference<List<Book>>() {};
-
-        // Mock request
-        when(request.getReader()).thenReturn(new BufferedReader(new StringReader(jsonInput)));
-        when(request.getPathInfo()).thenReturn("/add-multiple");
-
-        // Mock response
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter writer = new PrintWriter(stringWriter);
-        when(response.getWriter()).thenReturn(writer);
-
-        // Mock service
-        when(bookService.addBooks(anyList())).thenReturn(outputBooks);
-
-        // Execute
-        bookServlet.doPost(request, response);
-
-        // Verify
-        verify(response).setContentType("application/json");
-        verify(response).setStatus(HttpServletResponse.SC_CREATED);
-        verify(bookService).addBooks(inputBooks);
-
-        // Check response body
-        writer.flush();
-        String responseBody = stringWriter.toString();
-        assertTrue(responseBody.contains("Books processed successfully"));
-        assertTrue(responseBody.contains("addedBooks"));
+        verify(response).sendError(HttpServletResponse.SC_NOT_FOUND, "User not found");
     }
-
 
     @Test
-    void testDoPostSQLException() throws Exception {
-        when(request.getPathInfo()).thenReturn("/add");
+    void testGetAllUser() throws Exception {
+        List<User> users = Arrays.asList(initializeUser(1), initializeUser(2));
+        when(userService.getAllUsers()).thenReturn(users);
 
-        when(request.getParameter("title")).thenReturn("Sample Title");
-        when(request.getParameter("author")).thenReturn("Sample Author");
-        when(request.getParameter("isbn")).thenReturn("1234567890");
-        when(request.getParameter("description")).thenReturn("Sample Description");
-        when(request.getParameter("publication_year")).thenReturn("2023-01-01");
-        when(request.getParameter("quantity")).thenReturn("10");
-        when(request.getParameter("available")).thenReturn("true");
+        userServlet.handleGetAllUsers(response);
 
-        when(bookService.addBook(any(Book.class))).thenThrow(new SQLException("Database error"));
-
-        bookServlet.doPost(request, response);
-
-        verify(response).setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        verify(printWriter, never()).write(anyString());
-
+        verify(response).setStatus(HttpServletResponse.SC_OK);
+        verify(response).setContentType(AJ_FORMAT);
+        String responseContent = stringWriter.toString();
+        assertTrue(responseContent.contains(users.get(0).getEmail()), "Response should contain first user's email");
+        assertTrue(responseContent.contains(users.get(1).getEmail()), "Response should contain second user's email");
     }
 
-    private static Book getBook() {
-        Book existingBook = new Book();
-        existingBook.setId(1);
-        existingBook.setTitle("To Kill a Mockingbird");
-        existingBook.setAuthor("Harper Lee");
-        existingBook.setISBN("9780446310789");
-        existingBook.setDescription("The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it.");
-        existingBook.setPublicationYear(LocalDate.of(1960, 07, 11));
-        existingBook.setQuantity(14);
-        existingBook.setAvailable(true);
-        return existingBook;
+    @Test
+    void testUpdateUserRole() throws Exception {
+        when(request.getParameter("id")).thenReturn("1");
+        when(request.getParameter("role")).thenReturn("ADMIN");
+        when(userService.updateUserRole(1, UserRole.ADMIN)).thenReturn(true);
+
+        userServlet.handleUpdateUserRole(request, response);
+
+        verify(response).setStatus(HttpServletResponse.SC_OK);
+        verify(response).setContentType(AJ_FORMAT);
+        String responseContent = stringWriter.toString();
+        assertTrue(responseContent.contains("User role updated successfully"), "Response should confirm role update");
     }
 
+    @Test
+    void testUpdateUserRoleFailed() throws Exception {
+        when(request.getParameter("id")).thenReturn("999");
+        when(request.getParameter("role")).thenReturn("ADMIN");
+        when(userService.updateUserRole(999, UserRole.ADMIN)).thenReturn(false);
+
+        userServlet.handleUpdateUserRole(request, response);
+
+        verify(response).sendError(HttpServletResponse.SC_NOT_FOUND, "Any user found ");
+    }
+
+    @Test
+    void testUpdateUser() throws Exception {
+        User user = initializeUser(1);
+        when(request.getReader()).thenReturn(new BufferedReader(new StringReader(objectMapper.writeValueAsString(user))));
+        when(userService.updateUser(any(User.class))).thenReturn(true);
+
+        userServlet.handleUpdateUser(request, response);
+
+        verify(response).setStatus(HttpServletResponse.SC_OK);
+        verify(response).setContentType(AJ_FORMAT);
+        String responseContent = stringWriter.toString();
+        assertTrue(responseContent.contains("User updated successfully"), "Response should confirm user update");
+    }
+
+    @Test
+    void testChangeInfoOfUser() throws Exception {
+        when(request.getParameter("id")).thenReturn("1");
+        when(request.getParameter("name")).thenReturn("NewName");
+        when(request.getParameter("surname")).thenReturn("NewSurname");
+        when(userService.changePersonalInfo(1, "NewName", "NewSurname")).thenReturn(true);
+
+        userServlet.handleUpdateUserInfo(request, response);
+
+        verify(response).setStatus(HttpServletResponse.SC_OK);
+        verify(response).setContentType(AJ_FORMAT);
+        String responseContent = stringWriter.toString();
+        assertTrue(responseContent.contains("User info updated successfully"), "Response should confirm info update");
+    }
+
+    @Test
+    void testChangeInfoOfUserWithInvalidParameters() throws Exception {
+        when(request.getParameter("id")).thenReturn("1");
+        when(request.getParameter("name")).thenReturn("");
+        when(request.getParameter("surname")).thenReturn("NewSurname");
+
+        userServlet.handleUpdateUserInfo(request, response);
+
+        verify(response).sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameter: name");
+    }
+
+    @Test
+    void testDeleteUser() throws Exception {
+        when(request.getParameter("id")).thenReturn("1");
+        when(userService.deleteUser(1)).thenReturn(true);
+
+        userServlet.handleDeleteUser(request, response);
+
+        verify(response).setStatus(HttpServletResponse.SC_OK);
+        verify(response).setContentType(AJ_FORMAT);
+        String responseContent = stringWriter.toString();
+        assertTrue(responseContent.contains("User deleted successfully"), "Response should confirm user deletion");
+    }
+
+    @Test
+    void testDeleteUserNotFounded() throws Exception {
+        when(request.getParameter("id")).thenReturn("999");
+        when(userService.deleteUser(999)).thenReturn(false);
+
+        userServlet.handleDeleteUser(request, response);
+
+        verify(response).sendError(HttpServletResponse.SC_NOT_FOUND, "Any user found ");
+    }
+
+    @Test
+    void testDeleteAll() throws Exception {
+        when(userService.deleteAllUsers()).thenReturn(true);
+
+        userServlet.handleDeleteAll(response);
+
+        verify(response).setStatus(HttpServletResponse.SC_OK);
+        verify(response).setContentType(AJ_FORMAT);
+        String responseContent = stringWriter.toString();
+        assertTrue(responseContent.contains("All users deleted"), "Response should confirm all users deletion");
+    }
+
+    private User initializeUser(int id) {
+        User user = new User();
+        user.setId(id);
+        user.setName("Admin");
+        user.setSurname("Test");
+        user.setPassword("Psw123");
+        user.setEmail("admin.test@example.com");
+        user.setCreatedAt(LocalDate.now());
+        return user;
+    }
 }

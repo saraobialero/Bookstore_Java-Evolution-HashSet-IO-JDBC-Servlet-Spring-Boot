@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.evpro.bookshopV4.model.enums.CodeAndFormat.NC_CODE;
-import static org.evpro.bookshopV4.model.enums.CodeAndFormat.NF_CODE;
+import static org.evpro.bookshopV4.utilities.CodeMsg.NC_CODE;
+import static org.evpro.bookshopV4.utilities.CodeMsg.NF_CODE;
 
 @Slf4j
 public class BookService implements BookFunctions {
@@ -32,18 +32,18 @@ public class BookService implements BookFunctions {
     }
 
     @Override
-    public Book addBook(Book book) throws SQLException {
+    public boolean addBook(Book book) throws SQLException {
         return bookDAO.findByISBN(book.getISBN())
                 .map(existingBook -> {
                     existingBook.setQuantity(existingBook.getQuantity() + book.getQuantity());
                     bookDAO.update(existingBook);
                     log.info("Updated quantity for existing book with ISBN: {}", existingBook.getISBN());
-                    return existingBook;
+                    return false;
                 })
                 .orElseGet(() -> {
                     bookDAO.save(book);
                     log.info("Added new book with ISBN: {}", book.getISBN());
-                    return book;
+                    return true;
         });
     }
 

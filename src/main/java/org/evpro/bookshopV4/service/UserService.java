@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.evpro.bookshopV4.model.enums.CodeAndFormat.NC_CODE;
-import static org.evpro.bookshopV4.model.enums.CodeAndFormat.NF_CODE;
+import static org.evpro.bookshopV4.utilities.CodeMsg.NC_CODE;
+import static org.evpro.bookshopV4.utilities.CodeMsg.NF_CODE;
 
 @Slf4j
 public class UserService implements UserFunctions {
@@ -32,10 +32,10 @@ public class UserService implements UserFunctions {
 
     @Override
     public User addUserAdmin(User user) throws SQLException {
-        return userDAO.findByEmail(user.getEmail())
+        return (User) userDAO.findByEmail(user.getEmail())
                 .map(existingUser -> {
                     log.info("User already exists: {}", existingUser.getEmail());
-                    return existingUser;
+                    throw new UserException("User already exists", HttpStatusCode.CONFLICT);
                 })
                 .orElseGet(() -> {
                     userDAO.save(user);
@@ -126,12 +126,13 @@ public class UserService implements UserFunctions {
     }
 
     @Override
-    public void changePersonalInfo(int id, String name, String surname) throws SQLException {
+    public boolean changePersonalInfo(int id, String name, String surname) throws SQLException {
         User user = getUserById(id);
         user.setName(name);
         user.setSurname(surname);
         userDAO.update(user);
         log.info("User{} name{} and surname{} updated", user, name, surname);
+        return true;
     }
 
     @Override

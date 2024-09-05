@@ -1,184 +1,206 @@
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.evpro.bookshopV4.model.Book;
 import org.evpro.bookshopV4.service.BookService;
 import org.evpro.bookshopV4.servlet.BookServlet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.io.*;
-import java.sql.Date;
-import java.sql.SQLException;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.evpro.bookshopV4.utilities.CodeMsg.AJ_FORMAT;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-public class BookServletTest {
+class BookServletTest {
 
     @Mock
     private BookService bookService;
-
     @Mock
     private HttpServletRequest request;
-
     @Mock
     private HttpServletResponse response;
 
     private BookServlet bookServlet;
-
-    private PrintWriter printWriter;
-
     private ObjectMapper objectMapper;
+    private StringWriter stringWriter;
+    private PrintWriter writer;
 
     @BeforeEach
     void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
         objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        printWriter = mock(PrintWriter.class);
         bookServlet = new BookServlet(bookService, objectMapper);
-        when(response.getWriter()).thenReturn(printWriter);
+        stringWriter = new StringWriter();
+        writer = new PrintWriter(stringWriter);
+        when(response.getWriter()).thenReturn(writer);
     }
 
+    @Test
+    void testGetBook() throws Exception {
+        when(request.getParameter("search-type")).thenReturn("id");
+        when(request.getParameter("search-value")).thenReturn("1");
+        Book mockBook = new Book();
+        mockBook.setId(1);
+        when(bookService.getBookById(1)).thenReturn(mockBook);
+
+        bookServlet.getBook(request, response);
+
+        verify(response).setContentType(AJ_FORMAT);
+        verify(response).setStatus(HttpServletResponse.SC_OK);
+        verify(bookService).getBookById(1);
+    }
 
     @Test
-    void testDoPostNewBookAdded() throws Exception {
-        when(request.getPathInfo()).thenReturn("/add");
+    void testGetAvailableBooks() throws Exception {
+        when(bookService.getAvailableBooks()).thenReturn(Arrays.asList(new Book(), new Book()));
 
-        when(request.getParameter("title")).thenReturn("Sample Title");
-        when(request.getParameter("author")).thenReturn("Sample Author");
-        when(request.getParameter("isbn")).thenReturn("1234567890");
-        when(request.getParameter("description")).thenReturn("Sample Description");
-        when(request.getParameter("publication_year")).thenReturn("2023-01-01");
-        when(request.getParameter("quantity")).thenReturn("10");
+        bookServlet.getAvailableBooks(response);
+
+        verify(response).setContentType(AJ_FORMAT);
+        verify(response).setStatus(HttpServletResponse.SC_OK);
+        verify(bookService).getAvailableBooks();
+    }
+
+    @Test
+    void testGetBooksByAuthor() throws Exception {
+        when(request.getParameter("author")).thenReturn("John Doe");
+        when(bookService.getBooksByAuthor("John Doe")).thenReturn(Arrays.asList(new Book(), new Book()));
+
+        bookServlet.getBooksByAuthor(request, response);
+
+        verify(response).setContentType(AJ_FORMAT);
+        verify(response).setStatus(HttpServletResponse.SC_OK);
+        verify(bookService).getBooksByAuthor("John Doe");
+    }
+
+    @Test
+    void testGetBooksByRange() throws Exception {
+        when(request.getParameter("start")).thenReturn("2022-01-01");
+        when(request.getParameter("end")).thenReturn("2023-01-01");
+        when(bookService.getBooksByYearRange(any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(Arrays.asList(new Book(), new Book()));
+
+        bookServlet.getBooksByRange(request, response);
+
+        verify(response).setContentType(AJ_FORMAT);
+        verify(response).setStatus(HttpServletResponse.SC_OK);
+        verify(bookService).getBooksByYearRange(any(LocalDate.class), any(LocalDate.class));
+    }
+
+    @Test
+    void testGetAllBooks() throws Exception {
+        when(bookService.getAllBooks()).thenReturn(Arrays.asList(new Book(), new Book()));
+
+        bookServlet.getAllBooks(response);
+
+        verify(response).setContentType(AJ_FORMAT);
+        verify(response).setStatus(HttpServletResponse.SC_OK);
+        verify(bookService).getAllBooks();
+    }
+
+    @Test
+    void testHandleUpdateOfBook() throws Exception {
+        Book book = new Book();
+        book.setId(1);
+        when(request.getReader()).thenReturn(new BufferedReader(new StringReader(objectMapper.writeValueAsString(book))));
+        when(bookService.updateBook(any(Book.class))).thenReturn(true);
+
+        bookServlet.handleUpdateOfBook(request, response);
+
+        verify(response).setStatus(HttpServletResponse.SC_OK);
+        verify(bookService).updateBook(any(Book.class));
+    }
+
+    @Test
+    void testHandleBookAvailability() throws Exception {
+        when(request.getParameter("id")).thenReturn("1");
         when(request.getParameter("available")).thenReturn("true");
+        when(bookService.updateBookAvailability(1, true)).thenReturn(true);
 
-        when(bookService.addBook(any(Book.class))).thenAnswer(invocation -> {
-            Book addedBook = invocation.getArgument(0);
-            addedBook.setId(1);
-            return addedBook;
-        });
+        bookServlet.handleBookAvailability(request, response);
 
-        bookServlet.doPost(request, response);
+        verify(response).setStatus(HttpServletResponse.SC_OK);
+        verify(bookService).updateBookAvailability(1, true);
+    }
+
+    @Test
+    void testHandleAddNewBook() throws Exception {
+        Book newBook = createFullyPopulatedBook(null); // null ID for new book
+
+        when(request.getReader()).thenReturn(new BufferedReader(new StringReader(objectMapper.writeValueAsString(newBook))));
+        when(bookService.addBook(any(Book.class))).thenReturn(true);
+
+        bookServlet.handleAddBook(request, response);
+
         verify(response).setStatus(HttpServletResponse.SC_CREATED);
         verify(bookService).addBook(any(Book.class));
-        verify(printWriter, never()).write(anyString());
+        verify(response).setContentType(AJ_FORMAT);
+
+        String responseContent = stringWriter.toString();
+        assertTrue(responseContent.contains(newBook.getISBN()), "Response should contain ISBN");
+        assertTrue(responseContent.contains(newBook.getTitle()), "Response should contain title");
+        assertTrue(responseContent.contains(newBook.getAuthor()), "Response should contain author");
     }
 
     @Test
-    void testDoPostAddBookAlreadyExists() throws Exception {
-        when(request.getPathInfo()).thenReturn("/add");
+    void testHandleAddExistingBook() throws Exception {
+        Book existingBook = createFullyPopulatedBook(1);
 
-        when(request.getParameter("title")).thenReturn("Harper Lee");
-        when(request.getParameter("author")).thenReturn("To Kill a Mockingbird");
-        when(request.getParameter("isbn")).thenReturn("9780446310789");
-        when(request.getParameter("description")).thenReturn("The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it.");
-        when(request.getParameter("publication_year")).thenReturn("1960-07-11");
-        when(request.getParameter("quantity")).thenReturn("10");
-        when(request.getParameter("available")).thenReturn("true");
+        when(request.getReader()).thenReturn(new BufferedReader(new StringReader(objectMapper.writeValueAsString(existingBook))));
+        when(bookService.addBook(any(Book.class))).thenReturn(false);
 
-        final Book existingBook = getBook();
-
-        when(bookService.addBook(any(Book.class))).thenReturn(existingBook);
-
-        bookServlet.doPost(request, response);
+        bookServlet.handleAddBook(request, response);
 
         verify(response).setStatus(HttpServletResponse.SC_OK);
         verify(bookService).addBook(any(Book.class));
-        verify(printWriter, never()).write(anyString());
+        verify(response).setContentType(AJ_FORMAT);
+
+        String responseContent = stringWriter.toString();
+        assertTrue(responseContent.contains(existingBook.getISBN()), "Response should contain ISBN");
+        assertTrue(responseContent.contains(existingBook.getTitle()), "Response should contain title");
+        assertTrue(responseContent.contains(existingBook.getAuthor()), "Response should contain author");
     }
 
     @Test
-    void testDoPostAddBooks() throws Exception {
-        // Prepare test data
-        List<Book> inputBooks = Arrays.asList(
-                new Book(null, "Book 1", "Author 1", LocalDate.of(1960, 7, 11), "Description 1", "ISBN1", 5, true),
-                new Book(null, "Book 2", "Author 2", LocalDate.of(1965, 2, 1), "Description 2", "ISBN2", 3, true)
-        );
+    void testHandleDeleteOfBook() throws Exception {
+        when(request.getParameter("id")).thenReturn("1");
+        when(bookService.deleteBookWithEntireQuantity(1)).thenReturn(true);
 
-        List<Book> outputBooks = Arrays.asList(
-                new Book(1, "Book 1", "Author 1", LocalDate.of(1960, 7, 11), "Description 1", "ISBN1", 5, true),
-                new Book(2, "Book 2", "Author 2", LocalDate.of(1965, 2, 1), "Description 2", "ISBN2", 3, true)
-        );
+        bookServlet.handleDeleteOfBook(request, response);
 
-        // Create actual JSON input
-        String jsonInput = objectMapper.writeValueAsString(inputBooks);
-
-        // Use the TypeReference directly
-        TypeReference<List<Book>> bookListTypeRef = new TypeReference<List<Book>>() {};
-
-        // Mock request
-        when(request.getReader()).thenReturn(new BufferedReader(new StringReader(jsonInput)));
-        when(request.getPathInfo()).thenReturn("/add-multiple");
-
-        // Mock response
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter writer = new PrintWriter(stringWriter);
-        when(response.getWriter()).thenReturn(writer);
-
-        // Mock service
-        when(bookService.addBooks(anyList())).thenReturn(outputBooks);
-
-        // Execute
-        bookServlet.doPost(request, response);
-
-        // Verify
-        verify(response).setContentType("application/json");
-        verify(response).setStatus(HttpServletResponse.SC_CREATED);
-        verify(bookService).addBooks(inputBooks);
-
-        // Check response body
-        writer.flush();
-        String responseBody = stringWriter.toString();
-        assertTrue(responseBody.contains("Books processed successfully"));
-        assertTrue(responseBody.contains("addedBooks"));
+        verify(response).setStatus(HttpServletResponse.SC_OK);
+        verify(bookService).deleteBookWithEntireQuantity(1);
     }
-
 
     @Test
-    void testDoPostSQLException() throws Exception {
-        when(request.getPathInfo()).thenReturn("/add");
+    void testHandleDeleteAll() throws Exception {
+        when(bookService.deleteAll()).thenReturn(true);
 
-        when(request.getParameter("title")).thenReturn("Sample Title");
-        when(request.getParameter("author")).thenReturn("Sample Author");
-        when(request.getParameter("isbn")).thenReturn("1234567890");
-        when(request.getParameter("description")).thenReturn("Sample Description");
-        when(request.getParameter("publication_year")).thenReturn("2023-01-01");
-        when(request.getParameter("quantity")).thenReturn("10");
-        when(request.getParameter("available")).thenReturn("true");
+        bookServlet.handleDeleteAll(response);
 
-        when(bookService.addBook(any(Book.class))).thenThrow(new SQLException("Database error"));
-
-        bookServlet.doPost(request, response);
-
-        verify(response).setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        verify(printWriter, never()).write(anyString());
-
+        verify(response).setStatus(HttpServletResponse.SC_OK);
+        verify(bookService).deleteAll();
     }
 
-    private static Book getBook() {
-        Book existingBook = new Book();
-        existingBook.setId(1);
-        existingBook.setTitle("To Kill a Mockingbird");
-        existingBook.setAuthor("Harper Lee");
-        existingBook.setISBN("9780446310789");
-        existingBook.setDescription("The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it.");
-        existingBook.setPublicationYear(LocalDate.of(1960, 07, 11));
-        existingBook.setQuantity(14);
-        existingBook.setAvailable(true);
-        return existingBook;
+    private Book createFullyPopulatedBook(Integer id) {
+        Book book = new Book();
+        book.setId(id);
+        book.setISBN("1234567890123");
+        book.setTitle("Test Book Title");
+        book.setAuthor("Test Author");
+        book.setPublicationYear(LocalDate.of(2023, 1, 1));
+        book.setDescription("This is a test book description");
+        book.setQuantity(10);
+        book.setAvailable(true);
+        return book;
     }
-
 }

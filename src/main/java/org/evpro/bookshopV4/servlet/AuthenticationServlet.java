@@ -17,7 +17,6 @@ import org.evpro.bookshopV4.utilities.RequireRole;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,7 +24,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import static org.evpro.bookshopV4.model.enums.CodeAndFormat.AJ_FORMAT;
+import static org.evpro.bookshopV4.utilities.CodeMsg.AJ_FORMAT;
 
 @Slf4j
 @WebServlet("/authentication/*")
@@ -91,7 +90,6 @@ public class AuthenticationServlet extends BaseServlet {
         }
     }
 
-    @RequireRole("USER")
     @HandlerMapping(path = "/logout", method = "POST")
     public void handleLogout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);

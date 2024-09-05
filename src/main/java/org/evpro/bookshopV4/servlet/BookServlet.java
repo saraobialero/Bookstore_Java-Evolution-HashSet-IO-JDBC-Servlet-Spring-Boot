@@ -5,25 +5,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
+import org.evpro.bookshopV4.exception.BadRequestException;
 import org.evpro.bookshopV4.exception.BookException;
+import org.evpro.bookshopV4.exception.ErrorResponse;
 import org.evpro.bookshopV4.model.Book;
+import org.evpro.bookshopV4.model.enums.HttpStatusCode;
 import org.evpro.bookshopV4.service.BookService;
 import org.evpro.bookshopV4.utilities.HandlerMapping;
 import org.evpro.bookshopV4.utilities.RequireRole;
+import org.evpro.bookshopV4.utilities.RequestParameterExtractor;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-import static org.evpro.bookshopV4.model.enums.CodeAndFormat.*;
+import static org.evpro.bookshopV4.utilities.CodeMsg.*;
 
 @Slf4j
 @WebServlet("/books/*")
@@ -38,11 +39,6 @@ public class BookServlet extends BaseServlet {
         this.objectMapper.registerModule(new JavaTimeModule());
         this.objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
-
-    public BookServlet(BookService bookService) {
-        this(bookService, new ObjectMapper());
-    }
-
     public BookServlet(BookService bookService, ObjectMapper objectMapper) {
         this.bookService = bookService;
         this.objectMapper = objectMapper;
@@ -51,17 +47,12 @@ public class BookServlet extends BaseServlet {
     }
 
     @HandlerMapping(path = "/book/filter", method = "GET")
-    public void getBook(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
-        String searchType = request.getParameter("search-type");
-        String searchValue = request.getParameter("search-value");
-        Book book;
-
-        if (searchType == null || searchValue == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing search parameters");
-            return;
-        }
-
+    public void getBook(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
+            String searchType = RequestParameterExtractor.extractStringParameter(request, "search-type");
+            String searchValue = RequestParameterExtractor.extractStringParameter(request, "search-value");
+            Book book;
+
             switch (searchType.toLowerCase()) {
                 case "id":
                     book = bookService.getBookById(Integer.parseInt(searchValue));
@@ -73,20 +64,15 @@ public class BookServlet extends BaseServlet {
                     book = bookService.getBookByTitle(searchValue);
                     break;
                 default:
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid search type");
-                    return;
+                    throw new BadRequestException("Invalid search type", HttpStatusCode.BAD_REQUEST);
             }
-            if (book != null) {
-                response.setContentType(AJ_FORMAT);
-                response.setStatus(HttpServletResponse.SC_OK);
-                response.getWriter().write(objectMapper.writeValueAsString(book));
-            } else {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Book not found");
-            }
-        } catch (BookException e) {
-            response.sendError(e.getHttpStatus().getCode(), e.getMessage());
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid ID format");
+
+            sendJsonResponse(response, HttpServletResponse.SC_OK, book);
+        } catch (BadRequestException | BookException e) {
+            sendErrorResponse(response, e.getHttpStatus().getCode(), e.getMessage());
+        } catch (SQLException e) {
+            log.error(DB_CODE, e);
+            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, DB_CODE);
         }
     }
 
@@ -94,190 +80,131 @@ public class BookServlet extends BaseServlet {
     public void getAvailableBooks(HttpServletResponse response) throws IOException {
         try {
             List<Book> availableBooks = bookService.getAvailableBooks();
-            if (availableBooks.isEmpty()) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "No books found");
-            } else {
-                response.setContentType(AJ_FORMAT);
-                response.setStatus(HttpServletResponse.SC_OK);
-                response.getWriter().write(objectMapper.writeValueAsString(availableBooks));
-            }
+            sendJsonResponse(response, HttpServletResponse.SC_OK, availableBooks);
         } catch (BookException e) {
-            response.sendError(e.getHttpStatus().getCode(), e.getMessage());
+            sendErrorResponse(response, e.getHttpStatus().getCode(), e.getMessage());
         } catch (SQLException e) {
-            log.error("Error viewing books", e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            log.error(EVB_CODE, e);
+            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, DB_CODE);
         }
     }
 
     @HandlerMapping(path = "/filter/author", method = "GET")
     public void getBooksByAuthor(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String author = request.getParameter("author");
-        if (author == null || author.trim().isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Author parameter is required");
-            return;
-        }
         try {
+            String author = RequestParameterExtractor.extractStringParameter(request, "author");
             List<Book> booksByAuthor = bookService.getBooksByAuthor(author);
-            response.setContentType(AJ_FORMAT);
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write(objectMapper.writeValueAsString(booksByAuthor));
-        } catch (BookException e) {
-            log.error("Error retrieving books by author: {}", author, e);
-            response.sendError(e.getHttpStatus().getCode(), e.getMessage());
+            sendJsonResponse(response, HttpServletResponse.SC_OK, booksByAuthor);
+        } catch (BadRequestException | BookException e) {
+            sendErrorResponse(response, e.getHttpStatus().getCode(), e.getMessage());
         } catch (SQLException e) {
-            log.error("Database error while retrieving books by author: {}", author, e);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error");
+            log.error("Database error while retrieving books by author", e);
+            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, DB_CODE);
         }
     }
 
     @HandlerMapping(path = "/filter/year_publication", method = "GET")
-    public void getBooksByRange(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
-        String startDateString = request.getParameter("start");
-        String endDateString = request.getParameter("end");
-
-        if (startDateString == null || endDateString == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing search parameters");
-            return;
-        }
-        LocalDate startDate = LocalDate.parse(startDateString);
-        LocalDate endDate = LocalDate.parse(endDateString);
+    public void getBooksByRange(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
+            LocalDate startDate = RequestParameterExtractor.extractLocalDateParameter(request, "start");
+            LocalDate endDate = RequestParameterExtractor.extractLocalDateParameter(request, "end");
             List<Book> books = bookService.getBooksByYearRange(startDate, endDate);
-            log.info(books.toString());
-            if (books.isEmpty()) {
-                response.sendError(HttpServletResponse.SC_NO_CONTENT, "No books found");
-            } else {
-                response.setContentType(AJ_FORMAT);
-                response.setStatus(HttpServletResponse.SC_OK);
-                response.getWriter().write(objectMapper.writeValueAsString(books));
-            }
-        } catch (BookException e) {
-            response.sendError(e.getHttpStatus().getCode(), e.getMessage());
+            sendJsonResponse(response, HttpServletResponse.SC_OK, books);
+        } catch (BadRequestException | BookException e) {
+            sendErrorResponse(response, e.getHttpStatus().getCode(), e.getMessage());
         } catch (SQLException e) {
-            log.error("Error viewing books", e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            log.error(EVB_CODE, e);
+            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, DB_CODE);
         }
     }
 
     @HandlerMapping(path = "/all", method = "GET")
-    public void getAllBooks(HttpServletResponse response) throws SQLException, IOException {
+    public void getAllBooks(HttpServletResponse response) throws IOException {
         try {
             List<Book> books = bookService.getAllBooks();
-            if (books.isEmpty()) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "No books found");
-            } else {
-                response.setContentType(AJ_FORMAT);
-                response.setStatus(HttpServletResponse.SC_OK);
-                response.getWriter().write(objectMapper.writeValueAsString(books));
-            }
+            sendJsonResponse(response, HttpServletResponse.SC_OK, books);
         } catch (BookException e) {
-            response.sendError(e.getHttpStatus().getCode(), e.getMessage());
+            sendErrorResponse(response, e.getHttpStatus().getCode(), e.getMessage());
         } catch (SQLException e) {
-            log.error("Error viewing books", e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            log.error(EVB_CODE, e);
+            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, DB_CODE);
         }
     }
 
     @RequireRole("ADMIN")
-    @HandlerMapping(path = "/update-book", method = "PUT")
+    @HandlerMapping(path = "/book/update", method = "PUT")
     public void handleUpdateOfBook(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             Book book = objectMapper.readValue(request.getReader(), Book.class);
             boolean bookUpdated = bookService.updateBook(book);
-            if (!bookUpdated) {
-                log.error("Error updating book");
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            if (bookUpdated) {
+                sendJsonResponse(response, HttpServletResponse.SC_OK, "Book updated successfully");
             } else {
-                response.setStatus(HttpServletResponse.SC_OK);
-                log.info("Book updated: {}", book);
+                sendErrorResponse(response, HttpServletResponse.SC_BAD_REQUEST, "Failed to update book");
             }
         } catch (SQLException e) {
             log.error("Error updating book", e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, DB_CODE);
         }
     }
 
     @RequireRole("ADMIN")
-    @HandlerMapping(path = "/availability", method = "PUT")
+    @HandlerMapping(path = "/book/update/availability", method = "PUT")
     public void handleBookAvailability(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String idString = request.getParameter("id");
-        String availableString = request.getParameter("available");
-        if (idString == null || availableString == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing parameters");
-            return;
-        }
         try {
-            int id = Integer.parseInt(idString);
-            boolean available = Boolean.parseBoolean(availableString);
+            int id = RequestParameterExtractor.extractIntParameter(request, "id");
+            boolean available = RequestParameterExtractor.extractBooleanParameter(request, "available");
             boolean availabilityUpdated = bookService.updateBookAvailability(id, available);
-            if (!availabilityUpdated) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, ABF_CODE);
-                log.info(ABF_CODE);
+            if (availabilityUpdated) {
+                sendJsonResponse(response, HttpServletResponse.SC_OK, "Book availability updated successfully");
             } else {
-                response.setStatus(HttpServletResponse.SC_OK);
-                log.info("Book availability updated");
+                sendErrorResponse(response, HttpServletResponse.SC_NOT_FOUND, ABF_CODE);
             }
-        } catch (BookException e) {
-            response.sendError(e.getHttpStatus().getCode(), e.getMessage());
+        } catch (BadRequestException | BookException e) {
+            sendErrorResponse(response, e.getHttpStatus().getCode(), e.getMessage());
         } catch (SQLException e) {
             log.error("Error updating book availability", e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, DB_CODE);
         }
     }
 
     @RequireRole("ADMIN")
     @HandlerMapping(path = "/increase-quantity", method = "PUT")
     public void handleIncreaseBookQuantity(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String idString = request.getParameter("id");
-        String quantityString = request.getParameter("quantity");
-        if (idString == null || quantityString == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing parameters");
-            return;
-        }
         try {
-            int id = Integer.parseInt(idString);
-            int quantity = Integer.parseInt(quantityString);
+            int id = RequestParameterExtractor.extractIntParameter(request, "id");
+            int quantity = RequestParameterExtractor.extractIntParameter(request, "quantity");
             boolean quantityUpdated = bookService.increaseBookQuantity(id, quantity);
-            if (!quantityUpdated) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, ABF_CODE);
-                log.info(ABF_CODE);
+            if (quantityUpdated) {
+                sendJsonResponse(response, HttpServletResponse.SC_OK, "Book quantity increased successfully");
             } else {
-                response.setStatus(HttpServletResponse.SC_OK);
-                log.info("Book quantity increased");
+                sendErrorResponse(response, HttpServletResponse.SC_NOT_FOUND, ABF_CODE);
             }
-        } catch (BookException e) {
-            response.sendError(e.getHttpStatus().getCode(), e.getMessage());
+        } catch (BadRequestException | BookException e) {
+            sendErrorResponse(response, e.getHttpStatus().getCode(), e.getMessage());
         } catch (SQLException e) {
             log.error("Error increasing book quantity", e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, DB_CODE);
         }
     }
 
     @RequireRole("ADMIN")
     @HandlerMapping(path = "/decrease-quantity", method = "PUT")
     public void handleDecreaseBookQuantity(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String idString = request.getParameter("id");
-        String quantityString = request.getParameter("quantity");
-        if (idString == null || quantityString == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing parameters");
-            return;
-        }
         try {
-            int id = Integer.parseInt(idString);
-            int quantity = Integer.parseInt(quantityString);
+            int id = RequestParameterExtractor.extractIntParameter(request, "id");
+            int quantity = RequestParameterExtractor.extractIntParameter(request, "quantity");
             boolean quantityUpdated = bookService.decreaseBookQuantity(id, quantity);
-            if (!quantityUpdated) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, ABF_CODE);
-                log.info(ABF_CODE);
+            if (quantityUpdated) {
+                sendJsonResponse(response, HttpServletResponse.SC_OK, "Book quantity decreased successfully");
             } else {
-                response.setStatus(HttpServletResponse.SC_OK);
-                log.info("Book quantity decreased");
+                sendErrorResponse(response, HttpServletResponse.SC_NOT_FOUND, ABF_CODE);
             }
-        } catch (BookException e) {
-            response.sendError(e.getHttpStatus().getCode(), e.getMessage());
+        } catch (BadRequestException | BookException e) {
+            sendErrorResponse(response, e.getHttpStatus().getCode(), e.getMessage());
         } catch (SQLException e) {
             log.error("Error decreasing book quantity", e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, DB_CODE);
         }
     }
 
@@ -286,72 +213,54 @@ public class BookServlet extends BaseServlet {
     public void handleAddBook(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             Book book = objectMapper.readValue(request.getReader(), Book.class);
-            Book addedOrUpdatedBook = bookService.addBook(book);
-            if (addedOrUpdatedBook.getId().equals(book.getId())) {
-                response.setStatus(HttpServletResponse.SC_CREATED);
-                log.info("Book added: {}", addedOrUpdatedBook);
-            } else {
-                response.setStatus(HttpServletResponse.SC_OK);
-                log.info("Book exists, updated quantity: {}", addedOrUpdatedBook);
+            boolean addedBook = bookService.addBook(book);
+            if (addedBook) {
+                sendJsonResponse(response, HttpServletResponse.SC_CREATED, book);
             }
-            response.setContentType(AJ_FORMAT);
-            response.getWriter().write(objectMapper.writeValueAsString(addedOrUpdatedBook));
+            sendJsonResponse(response, HttpServletResponse.SC_OK, "Book quantity updated " + book);
         } catch (SQLException e) {
-            log.error("Error adding book", e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
+              }
     }
 
     @RequireRole("ADMIN")
     @HandlerMapping(path = "/add-multiple", method = "POST")
     public void handleAddBooks(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            List<Book> books = objectMapper.readValue(request.getReader(), new TypeReference<List<Book>>() {
-            });
+            List<Book> books = objectMapper.readValue(request.getReader(), new TypeReference<List<Book>>() {});
             if (books == null || books.isEmpty()) {
-                throw new IllegalArgumentException("No books provided or deserialization failed");
+                throw new BadRequestException("No books provided or deserialization failed", HttpStatusCode.BAD_REQUEST);
             }
 
             List<Book> addedBooks = bookService.addBooks(books);
-            String jsonResponse = objectMapper.writeValueAsString(Map.of(
+            Map<String, Object> responseData = Map.of(
                     "message", "Books processed successfully",
                     "addedBooks", addedBooks
-            ));
-
-            response.setContentType(AJ_FORMAT);
-            response.setStatus(HttpServletResponse.SC_CREATED);
-            response.getWriter().write(jsonResponse);
+            );
+            sendJsonResponse(response, HttpServletResponse.SC_CREATED, responseData);
+        } catch (BadRequestException e) {
+            sendErrorResponse(response, e.getHttpStatus().getCode(), e.getMessage());
         } catch (Exception e) {
             log.error("Error processing books", e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.setContentType(AJ_FORMAT);
-            String errorJson = objectMapper.writeValueAsString(Map.of("error", e.getMessage()));
-            response.getWriter().write(errorJson);
+            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing books");
         }
     }
 
     @RequireRole("ADMIN")
     @HandlerMapping(path = "/book/delete", method = "DELETE")
     public void handleDeleteOfBook(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String idString = request.getParameter("id");
-        if (idString == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing book ID");
-            return;
-        }
         try {
-            int id = Integer.parseInt(idString);
+            int id = RequestParameterExtractor.extractIntParameter(request, "id");
             boolean bookDeleted = bookService.deleteBookWithEntireQuantity(id);
-            if (!bookDeleted) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, ABF_CODE);
-                log.info(ABF_CODE);
+            if (bookDeleted) {
+                sendJsonResponse(response, HttpServletResponse.SC_OK, "Book deleted successfully");
+            } else {
+                sendErrorResponse(response, HttpServletResponse.SC_NOT_FOUND, ABF_CODE);
             }
-            response.setContentType(AJ_FORMAT);
-            response.setStatus(HttpServletResponse.SC_OK);
-        } catch (BookException e) {
-            response.sendError(e.getHttpStatus().getCode(), e.getMessage());
+        } catch (BadRequestException | BookException e) {
+            sendErrorResponse(response, e.getHttpStatus().getCode(), e.getMessage());
         } catch (SQLException e) {
-            log.error("Error viewing books", e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            log.error(EVB_CODE, e);
+            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, DB_CODE);
         }
     }
 
@@ -360,18 +269,25 @@ public class BookServlet extends BaseServlet {
     public void handleDeleteAll(HttpServletResponse response) throws IOException {
         try {
             boolean booksDeleted = bookService.deleteAll();
-            if (!booksDeleted) {
-                response.sendError(HttpServletResponse.SC_NO_CONTENT, ABF_CODE);
-                log.info(ABF_CODE);
+            if (booksDeleted) {
+                sendJsonResponse(response, HttpServletResponse.SC_OK, "All books deleted successfully");
+            } else {
+                sendErrorResponse(response, HttpServletResponse.SC_NO_CONTENT, ABF_CODE);
             }
-            response.setContentType(AJ_FORMAT);
-            response.setStatus(HttpServletResponse.SC_OK);
         } catch (BookException e) {
-            response.sendError(e.getHttpStatus().getCode(), e.getMessage());
+            sendErrorResponse(response, e.getHttpStatus().getCode(), e.getMessage());
         } catch (SQLException e) {
-            log.error("Error viewing books", e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            log.error(EVB_CODE, e);
+            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, DB_CODE);
         }
     }
 
+    private void sendJsonResponse(HttpServletResponse response, int status, Object data) throws IOException {
+        response.setContentType(AJ_FORMAT);
+        response.setStatus(status);
+        objectMapper.writeValue(response.getWriter(), data);
+    }
+    private void sendErrorResponse(HttpServletResponse response, int status, String message) throws IOException {
+        response.sendError(status, message);
+    }
 }

@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static org.evpro.bookshopV4.utilities.CodeMsg.AJ_FORMAT;
+
 @WebFilter("/*")
 public class ExceptionHandlerFilter implements Filter {
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -36,7 +38,7 @@ public class ExceptionHandlerFilter implements Filter {
             throws IOException {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setStatus(status.getCode());
-        httpResponse.setContentType("application/json");
+        httpResponse.setContentType(AJ_FORMAT);
         httpResponse.getWriter().write(convertToJson(errorResponse));
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public interface BookFunctions {
-    Book addBook(Book book) throws SQLException;
+    boolean addBook(Book book) throws SQLException;
     List<Book> addBooks(List<Book> books) throws SQLException;
     Book getBookById(int id) throws SQLException;
     Book getBookByISBN(String ISBN) throws SQLException;

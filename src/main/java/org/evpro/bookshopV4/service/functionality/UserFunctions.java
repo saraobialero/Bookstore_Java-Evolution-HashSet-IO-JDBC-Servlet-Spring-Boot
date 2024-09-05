@@ -20,5 +20,5 @@ public interface UserFunctions {
     boolean updateUser(User user) throws SQLException;
 
     //User basic functionality
-    void changePersonalInfo(int id, String name, String surname) throws SQLException;
+    boolean changePersonalInfo(int id, String name, String surname) throws SQLException;
 }

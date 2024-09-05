@@ -24,7 +24,7 @@ import java.io.StringWriter;
 import java.time.LocalDate;
 import java.sql.SQLException;
 
-import static org.evpro.bookshopV4.model.enums.CodeAndFormat.AJ_FORMAT;
+import static org.evpro.bookshopV4.utilities.CodeMsg.AJ_FORMAT;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

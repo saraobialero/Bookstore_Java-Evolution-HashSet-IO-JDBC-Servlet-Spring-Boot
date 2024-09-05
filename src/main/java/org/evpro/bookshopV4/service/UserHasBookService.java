@@ -15,8 +15,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.evpro.bookshopV4.model.enums.CodeAndFormat.NC_CODE;
-import static org.evpro.bookshopV4.model.enums.CodeAndFormat.NF_CODE;
+import static org.evpro.bookshopV4.utilities.CodeMsg.NC_CODE;
+import static org.evpro.bookshopV4.utilities.CodeMsg.NF_CODE;
 
 @Slf4j
 public class UserHasBookService implements UserHasBookFunctions {
@@ -27,7 +27,7 @@ public class UserHasBookService implements UserHasBookFunctions {
 
 
     @Override
-    public UserHasBook borrowBook(int userId, int bookId, int quantity) throws SQLException {
+    public boolean borrowBook(int userId, int bookId, int quantity) throws SQLException {
         User user = userService.getUserById(userId);
         Book book = bookService.getBookById(bookId);
         bookService.checkQuantity(book, quantity);
@@ -39,11 +39,12 @@ public class UserHasBookService implements UserHasBookFunctions {
                     existingUserHasBook.setQuantity(existingUserHasBook.getQuantity() + quantity);
                     userHasBookDAO.updateQuantity(existingUserHasBook.getId(), existingUserHasBook.getQuantity());
                     log.info("loan updated");
-                    return existingUserHasBook;
+                    return false;
                 })
                 .orElseGet(() -> {
                         log.info("loan created");
-                        return initializeUserHasBook(user, book, quantity);
+                        initializeUserHasBook(user, book, quantity);
+                        return true;
                 });
     }
 
