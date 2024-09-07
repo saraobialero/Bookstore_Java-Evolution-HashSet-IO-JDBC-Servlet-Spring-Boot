@@ -1,10 +1,13 @@
-# Bookshop Evolution Project
+# 📚 Bookshop Evolution Project
+
+[![Java Version](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 This project demonstrates the evolution of a Bookshop application through different implementations, each with a unique approach to data management and system architecture.
 
-## Overview
+## 🚀 Project Evolution
 
-The project is divided into 5 main versions, each building upon the previous one:
+![Project Evolution](path/to/evolution-diagram.png)
 
 1. V1 - Basic management with HashSet
 2. V2 - Reading and writing to CSV file
@@ -12,15 +15,22 @@ The project is divided into 5 main versions, each building upon the previous one
 4. V4 - Servlet implementation and DAO pattern
 5. V5 - RESTful API with Spring Boot (in development)
 
-## Project Structure
+## 🛠 Technologies Used
+##### Backend:
+- Java 17
+- JDBC
+- Servlets
+- Apache Tomcat 9
+- Spring Boot 3.3.1
 
-Each version of the project is contained in a separate branch:
+##### Database:
+- MySQL
+- Hibernate
 
-- `V1-hashset`
-- `V2-IO`
-- `V3-jdbc`
-- `V4-Servlet`
-- `V5-SpringBoot` (in development)
+##### Testing: 
+- JUnit 5
+- Mockito
+
 
 ## Main Features
 
@@ -28,15 +38,6 @@ Each version of the project is contained in a separate branch:
 - User management
 - Book lending system
 
-## Technologies Used
-
-- Java17
-- JDBC
-- Servlets
-- SpringBoot3.3.1
-- MySQL
-- JUnit5
-- Mockito
 
 ## Getting Started
 
@@ -46,23 +47,23 @@ Each version of the project is contained in a separate branch:
 
 ## Project Versions
 
-### V1 - Basic management with HashSet
+### [V1 - Basic management with HashSet](https://github.com/saraobialero/Java17-ApacheTomcat-SpringBoot-Java_Evolution_Project/tree/v1-hashset)
 
 Basic implementation of the bookshop using HashSet for in-memory data management.
 
-### V2 - Reading and writing to CSV file
+### [V2 - Reading and writing to CSV file](https://github.com/saraobialero/Java17-ApacheTomcat-SpringBoot-Java_Evolution_Project/tree/v2-io)
 
 Evolution that introduces data persistence using CSV files.
 
-### V3 - Database integration with JDBC
+### [V3 - Database integration with JDBC](https://github.com/saraobialero/Java17-ApacheTomcat-SpringBoot-Java_Evolution_Project/tree/v3-jdbc)
 
 Implementation that uses JDBC for connection and data management with MySQL database.
 
-### V4 - Servlet implementation and DAO pattern
+### [V4 - Servlet implementation and DAO pattern](https://github.com/saraobialero/Java17-ApacheTomcat-SpringBoot-Java_Evolution_Project/tree/v4-servlet)
 
 Introduction of the MVC pattern with Servlets and implementation of the DAO pattern for data access.
 
-### V5 - RESTful API with Spring Boot
+### [V5 - RESTful API with Spring Boot](../../tree/V5-SpringBoot)
 
 (In development) Implementation of RESTful API using the Spring Boot framework.
 
