@@ -27,7 +27,6 @@ Each version of the project is contained in a separate branch:
 - Book catalog management
 - User management
 - Book lending system
-- (Add other main features)
 
 ## Technologies Used
 
