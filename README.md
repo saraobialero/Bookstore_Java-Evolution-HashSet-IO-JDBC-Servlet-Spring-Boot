@@ -31,12 +31,13 @@ Each version of the project is contained in a separate branch:
 
 ## Technologies Used
 
-- Java
+- Java17
 - JDBC
 - Servlets
-- CSV
+- SpringBoot3.3.1
 - MySQL
-- (Add other relevant technologies)
+- JUnit5
+- Mockito
 
 ## Getting Started
 
