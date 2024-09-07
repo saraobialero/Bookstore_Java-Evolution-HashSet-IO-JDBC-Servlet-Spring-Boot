@@ -16,34 +16,71 @@ This project demonstrates the evolution of a Bookshop application through differ
 ### 🚀📸 Project evolution
 ![Project Structure: v1|](src/main/resources/diagram.png)
 
+## 📚 Main Features
+
+### 1. Book Catalog Management
+- Add, edit, and remove books from the catalog
+- Search books by title, author, or ISBN
+- View detailed book information
+- Track book availability and quantity
+
+### 2. User Management
+- User registration and authentication
+- User roles (e.g., Admin, Librarian, Member)
+- User profile management
+- Password reset functionality
+
+### 3. Book Lending System
+- Check out books to users
+- Track due dates and overdue books
+- Implement reservation system for popular books
+- Generate lending reports and statistics
+
+### 4. Advanced Features (varies by version)
+- Data persistence (CSV, Database)
+- Web interface for easy access
+- RESTful API for integration with other systems
+- Scalable architecture for growing libraries
+
 ## 🛠 Technologies Used
-##### Backend:
-- Java 17
-- JDBC
-- Servlets
-- Apache Tomcat 9
-- Spring Boot 3.3.1
 
-##### Database:
-- MySQL
-- Hibernate
+<table>
+  <tr>
+    <th>Category</th>
+    <th>Technologies</th>
+  </tr>
+  <tr>
+    <td>Backend</td>
+    <td>
+      <img src="https://img.shields.io/badge/Java-17-orange?style=flat-square&logo=java" alt="Java 17">
+      <img src="https://img.shields.io/badge/JDBC-007396?style=flat-square&logo=java" alt="JDBC">
+      <img src="https://img.shields.io/badge/Servlets-007396?style=flat-square&logo=java" alt="Servlets">
+      <img src="https://img.shields.io/badge/Apache%20Tomcat-F8DC75?style=flat-square&logo=apache-tomcat&logoColor=black" alt="Apache Tomcat 9">
+      <img src="https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat-square&logo=spring-boot" alt="Spring Boot 3.3.1">
+    </td>
+  </tr>
+  <tr>
+    <td>Database</td>
+    <td>
+      <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL">
+      <img src="https://img.shields.io/badge/Hibernate-59666C?style=flat-square&logo=hibernate&logoColor=white" alt="Hibernate">
+    </td>
+  </tr>
+  <tr>
+    <td>Testing</td>
+    <td>
+      <img src="https://img.shields.io/badge/JUnit5-25A162?style=flat-square&logo=junit5&logoColor=white" alt="JUnit 5">
+      <img src="https://img.shields.io/badge/Mockito-C5D9C8?style=flat-square" alt="Mockito">
+    </td>
+  </tr>
+</table>
 
-##### Testing: 
-- JUnit 5
-- Mockito
-
-
-## Main Features
-
-- Book catalog management
-- User management
-- Book lending system
 
 
 ## 🚀 Quick Start
 
 ```bash
-git clone https://github.com/yourusername/bookshop-evolution.git
+git clone https://github.com/saraobialero/Java17-ApacheTomcat-SpringBoot-Java_Evolution_Project.git
 cd bookshop-evolution
 git checkout v1-hashset  # or any other version you want to try
 # Follow the README instructions in the specific branch
@@ -81,14 +118,11 @@ Introduction of the MVC pattern with Servlets and implementation of the DAO patt
 | Complexity       |     Low     |   Low   | Moderate |    High     |    Moderate     |
 
 
-## Testing
+## ⚙️ Testing
 
 Each version includes a test suite to verify the correct functionality of the implemented features.
 
 ## 📚 Learning Outcomes
-
-This project demonstrates:
-
 - Evolution of a simple application into a full-fledged web service
 - Different data persistence strategies
 - Transition from monolithic to layered architecture
@@ -96,6 +130,10 @@ This project demonstrates:
 - Integration of frameworks and libraries
 - Best practices in Java development across different paradigms
 
-## Contributing
+## 🫶 Contributing
 
 Contributions are welcome! Please read the contribution guidelines before getting started.
+
+## 📎 License
+
+This project is distributed under the [MIT License](LICENSE).
