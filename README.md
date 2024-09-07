@@ -63,7 +63,7 @@ Implementation that uses JDBC for connection and data management with MySQL data
 
 Introduction of the MVC pattern with Servlets and implementation of the DAO pattern for data access.
 
-### [V5 - RESTful API with Spring Boot](../../tree/V5-SpringBoot)
+### [V5 - RESTful API with Spring Boot](https://github.com/saraobialero/Java17-ApacheTomcat-SpringBoot-Java_Evolution_Project/tree/v5-springboot)
 
 (In development) Implementation of RESTful API using the Spring Boot framework.
 
