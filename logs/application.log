@@ -252,3 +252,4 @@ java.sql.SQLException: Database error
 2024-09-05 16:21:20 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database already contains data. Skipping initial data insertion.
 2024-09-05 16:21:20 [main] INFO  o.e.b.utilities.DatabaseInitializer - Database initialization completed successfully.
 2024-09-05 16:21:20 [main] INFO  o.e.b.s.l.DatabaseInitializerListener - Database initialized successfully.
+2024-09-05 16:24:22 [Thread-1] INFO  o.e.b.s.l.LoggingInitializerListener - Application shutting down
