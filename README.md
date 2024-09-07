@@ -151,7 +151,7 @@ The `test` directory contains unit tests for services, DAOs, and servlets. Run t
 
 ## Future Improvements
 
-- Implement a modern front-end (e.g., React, Angular)
+- Implement a modern front-end (e.g., Vue, React, Angular)
 - Add caching mechanisms for improved performance
 - Implement more advanced security features (e.g., JWT)
 - Consider moving to a more robust framework like Spring Boot (addressed in V5)
@@ -164,4 +164,3 @@ Contributions are welcome! Please ensure your code follows the existing structur
 
 - This version requires a servlet container like Tomcat to run.
 - Ensure all required dependencies are properly configured in the `pom.xml` file.
-- The `web.xml` file in the `webapp/WEB-INF` directory is crucial for servlet mapping and filter configuration.
