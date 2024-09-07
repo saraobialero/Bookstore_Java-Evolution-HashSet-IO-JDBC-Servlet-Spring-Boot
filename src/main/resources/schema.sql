@@ -1,9 +1,5 @@
-DROP DATABASE IF EXISTS bookshop_db;
-
--- Create the database if it doesn't exist
-CREATE DATABASE IF NOT EXISTS bookshop_db;
-
--- Switch to the newly created database
+DROP DATABASE IF EXISTS bookshop_db_v3;
+CREATE DATABASE IF NOT EXISTS bookshop_db_v3;
 USE bookshop_db;
 
 CREATE TABLE IF NOT EXISTS books (
