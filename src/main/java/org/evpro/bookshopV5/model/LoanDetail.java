@@ -3,9 +3,7 @@ package org.evpro.bookshopV5.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
-import org.evpro.bookshopV5.model.enums.LoanStatus;
 
-import java.time.LocalDate;
 
 @Getter
 @Setter
