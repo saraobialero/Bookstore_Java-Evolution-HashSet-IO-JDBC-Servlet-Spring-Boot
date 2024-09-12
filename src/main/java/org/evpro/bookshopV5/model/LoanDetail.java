@@ -1,25 +1,29 @@
 package org.evpro.bookshopV5.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.evpro.bookshopV5.model.enums.LoanStatus;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
 @AllArgsConstructor
-@Data
+@NoArgsConstructor
 @Builder
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "loans_details")
 public class LoanDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @EqualsAndHashCode.Include
     private Integer id;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "loan_id", nullable = false)
     private Loan loan;

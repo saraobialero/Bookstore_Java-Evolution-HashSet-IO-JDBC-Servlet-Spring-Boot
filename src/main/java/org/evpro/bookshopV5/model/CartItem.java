@@ -1,16 +1,17 @@
 package org.evpro.bookshopV5.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.evpro.bookshopV5.model.enums.CartStatus;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Getter
+@Setter
+@EqualsAndHashCode
 @AllArgsConstructor
-@Data
+@NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "carts_items")

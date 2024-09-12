@@ -1,15 +1,14 @@
 package org.evpro.bookshopV5.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.evpro.bookshopV5.model.enums.RoleCode;
 
+@Getter
+@Setter
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Builder
 @Entity
 @Table(name = "roles")

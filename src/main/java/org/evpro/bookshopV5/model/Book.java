@@ -1,16 +1,16 @@
 package org.evpro.bookshopV5.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.evpro.bookshopV5.model.enums.RoleCode;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+@Getter
+@Setter
+@EqualsAndHashCode
 @AllArgsConstructor
-@Data
+@NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "books")

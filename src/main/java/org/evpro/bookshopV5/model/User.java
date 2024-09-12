@@ -1,10 +1,7 @@
 package org.evpro.bookshopV5.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,9 +10,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Builder
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
