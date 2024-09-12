@@ -9,6 +9,8 @@ import org.evpro.bookshopV5.model.enums.LoanStatus;
 import org.evpro.bookshopV5.model.enums.RoleCode;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @Data
@@ -19,15 +21,15 @@ public class Loan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
-    //@ManyToOne
-    //@JoinColumn(name = "user_id", nullable = false)
-    //private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    //@ManyToOne
-    //@JoinColumn(name = "book_id", nullable = false)
-    //private Book book;
+    @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<LoanDetail> loanDetails;
 
     @Column(name = "loan_date", nullable = false)
     private LocalDate loanDate;

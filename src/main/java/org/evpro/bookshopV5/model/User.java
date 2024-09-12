@@ -43,6 +43,12 @@ public class User implements UserDetails {
                 inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Cart cart;
+
+    @OneToMany(mappedBy = "user")
+    private List<Loan> loans;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
