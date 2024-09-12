@@ -1,9 +1,9 @@
 package org.evpro.bookshopV5.exception;
 
-import com.project.response.ErrorResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.evpro.bookshopV5.data.response.ErrorResponse;
 
 @AllArgsConstructor
 @Setter

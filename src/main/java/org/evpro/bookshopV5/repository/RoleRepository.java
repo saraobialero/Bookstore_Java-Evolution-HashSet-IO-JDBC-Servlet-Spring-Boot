@@ -1,7 +1,8 @@
 package org.evpro.bookshopV5.repository;
 
-import com.project.model.Role;
-import com.project.model.enums.RoleCode;
+
+import org.evpro.bookshopV5.model.Role;
+import org.evpro.bookshopV5.model.enums.RoleCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

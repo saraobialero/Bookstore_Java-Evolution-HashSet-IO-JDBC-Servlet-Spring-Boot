@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 
 @Builder
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
@@ -39,8 +38,9 @@ public class User implements UserDetails {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    @JoinTable(name = "user_role",
+                joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+                inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
 
@@ -49,7 +49,7 @@ public class User implements UserDetails {
         return List.of(new SimpleGrantedAuthority(
                 roles.stream()
                         .map(role -> new SimpleGrantedAuthority(
-                                role.getRole().name())).collect(Collectors.toList()).toString()));
+                                role.getRole().name())).toList().toString()));
     }
 
     @Override

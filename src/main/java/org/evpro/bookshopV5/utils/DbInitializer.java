@@ -1,10 +1,10 @@
 package org.evpro.bookshopV5.utils;
 
-import com.project.model.Role;
-import com.project.model.User;
-import com.project.model.enums.RoleCode;
-import com.project.repository.RoleRepository;
-import com.project.repository.UserRepository;
+import org.evpro.bookshopV5.model.Role;
+import org.evpro.bookshopV5.model.User;
+import org.evpro.bookshopV5.model.enums.RoleCode;
+import org.evpro.bookshopV5.repository.RoleRepository;
+import org.evpro.bookshopV5.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,12 +34,12 @@ public class DbInitializer implements CommandLineRunner {
             roleRepository.save(Role.builder().role(RoleCode.ROLE_ADMIN).build());
         }
         Role roleAdmin = roleRepository.findByRoleCode(RoleCode.ROLE_ADMIN).orElseThrow();
-        if(userRepository.findByEmail("pippo@mail.it").isEmpty()) {
+        if(userRepository.findByEmail("test@mail.it").isEmpty()) {
             userRepository.save(User.builder()
-                    .email("pippo@mail.com")
-                    .password(passwordEncoder.encode("1234"))
-                    .name("Pippo")
-                    .surname("Rossi")
+                    .email("test@mail.com")
+                    .password(passwordEncoder.encode("psw1234"))
+                    .name("Test")
+                    .surname("LastName")
                     .roles(List.of(roleAdmin))
                     .build());
         }
