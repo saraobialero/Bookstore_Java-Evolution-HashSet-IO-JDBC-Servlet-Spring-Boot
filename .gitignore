@@ -1,21 +1,23 @@
+# Ignora la cartella target, ma mantieni alcuni file specifici
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+
+# Ignora i file di log, ma mantieni .gitkeep
 src/logs/*
 !src/logs/.gitkeep
 
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
+# IntelliJ IDEA
+.idea/
 *.iws
 *.iml
 *.ipr
 
-### Mac OS ###
+# Mac OS
 .DS_Store
 
-### Configuration for sec ###
+# Configuration files
 /src/main/resources/application-dev.properties
+/src/main/resources/application-prod.properties
+/src/main/resources/application-test.properties
