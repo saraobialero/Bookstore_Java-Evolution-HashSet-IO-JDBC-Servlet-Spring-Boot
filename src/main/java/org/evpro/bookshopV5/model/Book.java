@@ -2,6 +2,7 @@ package org.evpro.bookshopV5.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.evpro.bookshopV5.model.enums.BookGenre;
 import org.evpro.bookshopV5.model.enums.RoleCode;
 
 import java.math.BigDecimal;
@@ -35,6 +36,10 @@ public class Book {
 
     @Column(name = "award")
     private String award;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "genre")
+    private BookGenre genre;
 
     @Column(name = "isbn", nullable = false)
     private String ISBN;

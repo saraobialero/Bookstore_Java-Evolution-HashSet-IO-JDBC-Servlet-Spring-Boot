@@ -2,6 +2,7 @@ package org.evpro.bookshopV5.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.evpro.bookshopV5.model.*;
+import org.evpro.bookshopV5.model.enums.BookGenre;
 import org.evpro.bookshopV5.model.enums.CartStatus;
 import org.evpro.bookshopV5.model.enums.LoanStatus;
 import org.evpro.bookshopV5.model.enums.RoleCode;
@@ -84,6 +85,7 @@ public class DbInitializer implements CommandLineRunner {
                             .name("Admin")
                             .surname("User")
                             .roles(List.of(roleAdmin))
+                            .active(true)
                             .build(),
                     User.builder()
                             .email("john@example.com")
@@ -91,6 +93,7 @@ public class DbInitializer implements CommandLineRunner {
                             .name("John")
                             .surname("Doe")
                             .roles(List.of(roleUser))
+                            .active(true)
                             .build(),
                     User.builder()
                             .email("jane@example.com")
@@ -98,6 +101,7 @@ public class DbInitializer implements CommandLineRunner {
                             .name("Jane")
                             .surname("Smith")
                             .roles(List.of(roleUser))
+                            .active(false)
                             .build(),
                     User.builder()
                             .email("bob@example.com")
@@ -105,6 +109,7 @@ public class DbInitializer implements CommandLineRunner {
                             .name("Bob")
                             .surname("Johnson")
                             .roles(List.of(roleUser))
+                            .active(true)
                             .build()
             );
             userRepository.saveAll(users);
@@ -124,6 +129,7 @@ public class DbInitializer implements CommandLineRunner {
                             .ISBN("9780446310789")
                             .quantity(20)
                             .available(true)
+                            .genre(BookGenre.THRILLER)
                             .build(),
                     Book.builder()
                             .author("George Orwell")
@@ -133,6 +139,7 @@ public class DbInitializer implements CommandLineRunner {
                             .ISBN("9780451524935")
                             .quantity(15)
                             .available(true)
+                            .genre(BookGenre.NOVEL)
                             .build(),
                     Book.builder()
                             .author("J.K. Rowling")
@@ -142,6 +149,7 @@ public class DbInitializer implements CommandLineRunner {
                             .ISBN("9780747532699")
                             .quantity(25)
                             .available(true)
+                            .genre(BookGenre.NOVEL)
                             .build(),
                     Book.builder()
                             .author("J.R.R. Tolkien")
@@ -160,6 +168,7 @@ public class DbInitializer implements CommandLineRunner {
                             .ISBN("9780141439518")
                             .quantity(12)
                             .available(true)
+                            .genre(BookGenre.NOVEL)
                             .build()
             );
             bookRepository.saveAll(books);

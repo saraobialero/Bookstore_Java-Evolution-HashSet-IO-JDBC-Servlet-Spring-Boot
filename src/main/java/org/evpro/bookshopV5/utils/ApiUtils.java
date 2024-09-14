@@ -18,7 +18,7 @@ public class ApiUtils {
                 "/webjars/**",
                 "/v3/api-docs",
                 "/v3/api-docs/swagger-config",
-                "/api/auth/login",
-                "/api/auth/signup"};
+                "/api/authentication/login",
+                "/api/authentication/signup"};
 
 }

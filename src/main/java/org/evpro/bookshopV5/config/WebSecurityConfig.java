@@ -4,7 +4,7 @@ package org.evpro.bookshopV5.config;
 
 import lombok.RequiredArgsConstructor;
 import org.evpro.bookshopV5.data.response.ErrorResponse;
-import org.evpro.bookshopV5.filter.JwtAuthFilter;
+import org.evpro.bookshopV5.filter.JwtAuthorizationFilter;
 import org.evpro.bookshopV5.model.enums.ErrorCode;
 import org.evpro.bookshopV5.model.enums.RoleCode;
 import org.evpro.bookshopV5.utils.ApiUtils;
@@ -16,6 +16,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -32,13 +33,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig implements WebMvcConfigurer {
 
     @Autowired
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private JwtAuthFilter jwtAuthFilter;
+    private JwtAuthorizationFilter jwtAuthorizationFilter;
 
 
     @Bean
@@ -48,7 +50,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         http.sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider());
 
-        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeHttpRequests(request ->
                 request.requestMatchers(ApiUtils.PERMIT_ALL).permitAll()

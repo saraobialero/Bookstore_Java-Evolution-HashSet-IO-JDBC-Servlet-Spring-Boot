@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 @Component
-public class JwtAuthFilter extends OncePerRequestFilter {
+public class JwtAuthorizationFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtils jwtUtils;
 

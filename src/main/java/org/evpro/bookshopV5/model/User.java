@@ -37,6 +37,9 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "active", nullable = false)
+    private boolean active;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "user_role",
                 joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
