@@ -1317,3 +1317,6 @@ Caused by: java.lang.IllegalStateException: For queries with named parameters yo
 2024-09-14 12:51:41 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Loan with details created for user: bob@example.com
 2024-09-14 12:51:41 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Database initialization completed.
 2024-09-14 12:51:41 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.evpro.bookshopV5.utils.DbInitializer.run]
+2024-09-14 12:57:17 [] [INFO ]: o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-14 12:57:18 [] [INFO ]: com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-09-14 12:57:18 [] [INFO ]: com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

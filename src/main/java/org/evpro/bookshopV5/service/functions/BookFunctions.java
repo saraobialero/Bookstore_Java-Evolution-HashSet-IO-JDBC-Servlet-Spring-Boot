@@ -13,5 +13,4 @@ public interface BookFunctions {
     List<Book> getAvailableBooks();
     void updateBookQuantity(Integer bookId, int quantityChange);
     List<Book> getBooksByGenre(BookGenre genre);
-    List<Book> getNewArrivals();
 }

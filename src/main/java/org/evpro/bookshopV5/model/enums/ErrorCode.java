@@ -31,7 +31,10 @@ public enum ErrorCode {
 
 
     CNF("Cart not found", HttpStatus.NOT_FOUND, ExitCode.KO),
+
+    //Books
     BNF("Book not found", HttpStatus.NOT_FOUND, ExitCode.KO),
+    NCB("Any books founded in store", HttpStatus.NO_CONTENT, ExitCode.KO)
     ;
 
 
