@@ -7,11 +7,7 @@ import org.evpro.bookshopV5.model.enums.RoleCode;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-@Getter
-@Setter
-@EqualsAndHashCode
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Builder
 @Entity
 @Table(name = "books")
