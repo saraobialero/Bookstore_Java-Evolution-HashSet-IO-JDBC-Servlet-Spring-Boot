@@ -55,11 +55,11 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(
-                roles.stream()
-                        .map(role -> new SimpleGrantedAuthority(
-                                role.getRole().name())).toList().toString()));
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRole().name()))
+                .collect(Collectors.toList());
     }
+
 
     @Override
     public String getUsername() {
