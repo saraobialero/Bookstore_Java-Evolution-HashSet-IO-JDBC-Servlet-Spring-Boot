@@ -14,7 +14,14 @@ This project demonstrates the evolution of a Bookshop application through differ
 5. [V5 - RESTful API with Spring Boot](#v5---restful-api-with-spring-boot)
 
 ### 🚀📸 Project evolution
-![Project Structure: v1|](src/main/resources/diagram.png)
+```mermaid
+graph TD;
+    V1["V1: HashSet Management"] --> V2["V2: CSV Integration"];
+    V2 --> V3["V3: JDBC Integration"];
+    V3 --> V4["V4: Servlet & DAO"];
+    V4 --> V5["V5: Spring Boot API"];
+```
+
 
 ## 📚 Main Features
 
