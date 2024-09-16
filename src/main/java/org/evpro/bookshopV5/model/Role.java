@@ -4,11 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.evpro.bookshopV5.model.enums.RoleCode;
 
-@Getter
-@Setter
-@EqualsAndHashCode
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "roles")

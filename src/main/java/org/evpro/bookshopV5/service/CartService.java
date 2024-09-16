@@ -6,7 +6,6 @@ import org.evpro.bookshopV5.service.functions.CartFunctions;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class CartService implements CartFunctions {
 
     @Override

@@ -8,6 +8,8 @@ import org.evpro.bookshopV5.model.enums.RoleCode;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "books")

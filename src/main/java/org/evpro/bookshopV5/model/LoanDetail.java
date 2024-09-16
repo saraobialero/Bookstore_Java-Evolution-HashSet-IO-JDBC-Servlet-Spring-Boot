@@ -5,10 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)

@@ -11,10 +11,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)

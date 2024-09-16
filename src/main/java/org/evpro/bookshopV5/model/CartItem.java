@@ -7,11 +7,9 @@ import org.evpro.bookshopV5.model.enums.CartStatus;
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter
-@Setter
-@EqualsAndHashCode
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "carts_items")
