@@ -2,6 +2,9 @@ package org.evpro.bookshopV5.config;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import org.evpro.bookshopV5.data.response.ErrorResponse;
+import org.evpro.bookshopV5.exception.BookException;
+import org.evpro.bookshopV5.exception.CartException;
+import org.evpro.bookshopV5.exception.LoanException;
 import org.evpro.bookshopV5.exception.UserException;
 import org.evpro.bookshopV5.model.enums.ErrorCode;
 import org.slf4j.Logger;
@@ -35,6 +38,24 @@ public class ExceptionHandlerConfig {
 
     @ExceptionHandler({UserException.class, InternalAuthenticationServiceException.class})
     public ResponseEntity<ErrorResponse> handleUserException(UserException e) {
+        logStacktrace(e.getResponse(), e);
+        return new ResponseEntity<>(e.getResponse(), e.getResponse().getStatus());
+    }
+
+    @ExceptionHandler(BookException.class)
+    public ResponseEntity<ErrorResponse> handleBookException(BookException e) {
+        logStacktrace(e.getResponse(), e);
+        return new ResponseEntity<>(e.getResponse(), e.getResponse().getStatus());
+    }
+
+    @ExceptionHandler(LoanException.class)
+    public ResponseEntity<ErrorResponse> handleLoanException(LoanException e) {
+        logStacktrace(e.getResponse(), e);
+        return new ResponseEntity<>(e.getResponse(), e.getResponse().getStatus());
+    }
+
+    @ExceptionHandler(CartException.class)
+    public ResponseEntity<ErrorResponse> handleCartException(CartException e) {
         logStacktrace(e.getResponse(), e);
         return new ResponseEntity<>(e.getResponse(), e.getResponse().getStatus());
     }

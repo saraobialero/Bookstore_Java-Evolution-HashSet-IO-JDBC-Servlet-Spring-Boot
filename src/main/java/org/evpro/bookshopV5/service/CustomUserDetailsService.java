@@ -51,10 +51,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         String token = authHeader.substring(7);
         String email = jwtUtils.extractEmail(token);
-        //OTTIREN USER DA TOEKN
+        //Get user from token
         UserDetails userDetails = this.loadUserByUsername(email);
 
-        //VERIFICARE CHE ACCES TOKEN E USER DETAIL CORRISPONDANO
+
         if(!jwtUtils.isTokenValid(token, userDetails)) {
             throw new UserException(new ErrorResponse(ErrorCode.BR, "Token is not valid or expired"));
         }

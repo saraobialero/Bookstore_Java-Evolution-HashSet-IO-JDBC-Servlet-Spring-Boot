@@ -54,7 +54,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
         http.authorizeHttpRequests(request ->
                 request.requestMatchers(ApiUtils.PERMIT_ALL).permitAll()
-                       .requestMatchers(ApiUtils.PERMIT_ALL).hasAnyAuthority(RoleCode.ROLE_USER.name())
+                        .requestMatchers("/api/books/**").hasAnyAuthority(RoleCode.ROLE_USER.name(), RoleCode.ROLE_ADMIN.name())
                         .anyRequest().authenticated()
         );
         http.exceptionHandling(

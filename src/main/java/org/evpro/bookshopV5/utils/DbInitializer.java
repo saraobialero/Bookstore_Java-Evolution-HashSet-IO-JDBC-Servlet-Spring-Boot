@@ -51,13 +51,11 @@ public class DbInitializer implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) {
-        log.info("Starting database initialization...");
         initializeRoles();
         initializeUsers();
         initializeBooks();
         initializeCartsWithItems();
         initializeLoansWithLoanDetails();
-        log.info("Database initialization completed.");
     }
 
     private void initializeRoles() {
