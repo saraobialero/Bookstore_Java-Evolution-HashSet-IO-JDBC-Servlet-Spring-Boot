@@ -2202,3 +2202,6 @@ Caused by: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadl
 2024-09-16 17:26:34 [sessionId=333DB9B9EA7DE680E82B0B51B2DE2D1E] [INFO ]: o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 516 ms
 2024-09-16 17:26:42 [sessionId=333DB9B9EA7DE680E82B0B51B2DE2D1E] [TRACE]: o.s.t.i.TransactionInterceptor - No need to create transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findByEmail]: This method is not transactional.
 2024-09-16 17:26:42 [sessionId=333DB9B9EA7DE680E82B0B51B2DE2D1E] [TRACE]: o.s.t.i.TransactionInterceptor - No need to create transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findByEmail]: This method is not transactional.
+2024-09-16 17:28:40 [] [INFO ]: o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-16 17:28:40 [] [INFO ]: com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-09-16 17:28:40 [] [INFO ]: com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

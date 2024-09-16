@@ -28,14 +28,16 @@ public enum ErrorCode {
     IVP("Invalid psw", HttpStatus.BAD_REQUEST, ExitCode.KO),
     IVE("Invalid email", HttpStatus.BAD_REQUEST, ExitCode.KO),
 
+    //User
+    NCU("Any user found", HttpStatus.NO_CONTENT, ExitCode.KO),
 
 
+    //Cart
     CNF("Cart not found", HttpStatus.NOT_FOUND, ExitCode.KO),
 
     //Books
     BNF("Book not found", HttpStatus.NOT_FOUND, ExitCode.KO),
-    NCB("Any books founded in store", HttpStatus.NO_CONTENT, ExitCode.KO)
-    ;
+    NCB("Any books found in store", HttpStatus.NO_CONTENT, ExitCode.KO);
 
 
     private String message;
