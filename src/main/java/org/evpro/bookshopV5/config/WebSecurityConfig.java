@@ -3,7 +3,7 @@ package org.evpro.bookshopV5.config;
 
 
 import lombok.RequiredArgsConstructor;
-import org.evpro.bookshopV5.data.response.ErrorResponse;
+import org.evpro.bookshopV5.model.DTO.response.ErrorResponse;
 import org.evpro.bookshopV5.filter.JwtAuthorizationFilter;
 import org.evpro.bookshopV5.model.enums.ErrorCode;
 import org.evpro.bookshopV5.model.enums.RoleCode;

@@ -1,8 +1,10 @@
 package org.evpro.bookshopV5.service;
 
 
-import org.evpro.bookshopV5.data.DTO.BookDTO;
-import org.evpro.bookshopV5.data.response.ErrorResponse;
+import org.evpro.bookshopV5.model.DTO.request.UpdateBookRequest;
+import org.evpro.bookshopV5.model.DTO.response.BookDTO;
+import org.evpro.bookshopV5.model.DTO.request.AddBookRequest;
+import org.evpro.bookshopV5.model.DTO.response.ErrorResponse;
 import org.evpro.bookshopV5.exception.BookException;
 import org.evpro.bookshopV5.model.Book;
 import org.evpro.bookshopV5.model.enums.BookGenre;
@@ -10,6 +12,7 @@ import org.evpro.bookshopV5.model.enums.ErrorCode;
 import org.evpro.bookshopV5.repository.BookRepository;
 import org.evpro.bookshopV5.service.functions.BookFunctions;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,16 @@ public class BookService implements BookFunctions {
                                                       new ErrorResponse(
                                                                 ErrorCode.BNF,
                                                                 "Book not found")));
+        return convertToBookDTO(book);
+    }
+
+    @Override
+    public BookDTO getBookByISBN(String ISBN) {
+        Book book =  bookRepository.findByISBN(ISBN)
+                .orElseThrow(() -> new BookException(
+                        new ErrorResponse(
+                                ErrorCode.BNF,
+                                "Book not found")));
         return convertToBookDTO(book);
     }
 
@@ -87,35 +100,56 @@ public class BookService implements BookFunctions {
     }
 
     @Override
-    public BookDTO updateBook(Book book) {
-        Book existingBook = bookRepository.findById(book.getId())
-                            .orElseThrow(() -> new BookException(
-                                               new ErrorResponse(
-                                                        ErrorCode.BNF,
-                                                        "Book not found")));
-        existingBook.setId(existingBook.getId());
-        existingBook.setAuthor(book.getAuthor());
-        existingBook.setAward(book.getAward());
-        existingBook.setISBN(book.getISBN());
-        existingBook.setAvailable(book.isAvailable());
-        existingBook.setGenre(book.getGenre());
-        existingBook.setTitle(book.getTitle());
-        existingBook.setDescription(book.getDescription());
-        existingBook.setPublicationYear(book.getPublicationYear());
-        bookRepository.save(existingBook);
-        return convertToBookDTO(existingBook);
+    public BookDTO updateBook(UpdateBookRequest request) {
+        Book existingBook = bookRepository.findById(request.getId())
+                .orElseThrow(() -> new BookException(
+                        new ErrorResponse(ErrorCode.BNF, "Book not found")));
+
+       initializeValidDataInBook(request, existingBook);
+
+
+        Book updatedBook = bookRepository.save(existingBook);
+        return convertToBookDTO(updatedBook);
+    }
+
+    private void initializeValidDataInBook(UpdateBookRequest request, Book existingBook) {
+        if (request.getTitle() != null) existingBook.setTitle(request.getTitle());
+        if (request.getAuthor() != null) existingBook.setAuthor(request.getAuthor());
+        if (request.getPublicationYear() != null) existingBook.setPublicationYear(request.getPublicationYear());
+        if (request.getDescription() != null) existingBook.setDescription(request.getDescription());
+        if (request.getAward() != null) existingBook.setAward(request.getAward());
+        if (request.getGenre() != null) existingBook.setGenre(request.getGenre());
+        if (request.getQuantity() != null) existingBook.setQuantity(request.getQuantity());
+        if (request.getAvailable() != null) existingBook.setAvailable(request.getAvailable());
     }
 
     @Override
-    public BookDTO addBook(Book book) {
-        Optional<Book> existingBookOptional = bookRepository.findById(book.getId());
+    @Transactional
+    public BookDTO addBook(AddBookRequest request) {
+
+        Optional<Book> existingBookOptional = bookRepository.findByISBN(request.getISBN());
         if (existingBookOptional.isPresent()) {
             Book existingBook = existingBookOptional.get();
-            existingBook.setQuantity(book.getQuantity() + 1);
+            existingBook.setQuantity(request.getQuantity() + 1);
             bookRepository.save(existingBook);
+            return convertToBookDTO(existingBook);
         }
+        Book book = initializeBookFromRequest(request);
         bookRepository.save(book);
         return convertToBookDTO(book);
+    }
+
+    private Book initializeBookFromRequest(AddBookRequest request) {
+        Book book = new Book();
+        book.setTitle(request.getTitle());
+        book.setAuthor(request.getAuthor());
+        book.setPublicationYear(request.getPublicationYear());
+        book.setDescription(request.getDescription());
+        book.setISBN(request.getISBN());
+        book.setQuantity(request.getQuantity());
+        book.setGenre(request.getGenre());
+        book.setAvailable(request.isAvailable());
+        return book;
     }
 
     @Override

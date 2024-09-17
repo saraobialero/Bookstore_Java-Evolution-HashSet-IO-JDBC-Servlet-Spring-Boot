@@ -2,7 +2,7 @@ package org.evpro.bookshopV5.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
-import org.evpro.bookshopV5.data.response.ErrorResponse;
+import org.evpro.bookshopV5.model.DTO.response.ErrorResponse;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 

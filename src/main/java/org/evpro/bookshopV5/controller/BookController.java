@@ -1,6 +1,9 @@
 package org.evpro.bookshopV5.controller;
 
-import org.evpro.bookshopV5.data.response.SuccessResponse;
+import jakarta.validation.Valid;
+import org.evpro.bookshopV5.model.DTO.request.AddBookRequest;
+import org.evpro.bookshopV5.model.DTO.request.UpdateBookRequest;
+import org.evpro.bookshopV5.model.DTO.response.SuccessResponse;
 import org.evpro.bookshopV5.model.Book;
 import org.evpro.bookshopV5.model.enums.BookGenre;
 import org.evpro.bookshopV5.service.BookService;
@@ -47,8 +50,8 @@ public class BookController {
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<SuccessResponse> addBook(@RequestBody Book book) {
-        return new ResponseEntity<>(new SuccessResponse<>(bookService.addBook(book)), HttpStatus.OK);
+    public ResponseEntity<SuccessResponse> addBook(@RequestBody @Valid AddBookRequest request) {
+        return new ResponseEntity<>(new SuccessResponse<>(bookService.addBook(request)), HttpStatus.OK);
     }
 
     @PostMapping("/add/multiple")
@@ -66,8 +69,8 @@ public class BookController {
 
     @PostMapping("/update/book")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<SuccessResponse> updateBook(@RequestBody Book book) {
-        return new ResponseEntity<>(new SuccessResponse<>(bookService.updateBook(book)), HttpStatus.OK);
+    public ResponseEntity<SuccessResponse> updateBook(@RequestBody @Valid UpdateBookRequest request) {
+        return new ResponseEntity<>(new SuccessResponse<>(bookService.updateBook(request)), HttpStatus.OK);
     }
 
     @DeleteMapping("/remove/book/{id}")

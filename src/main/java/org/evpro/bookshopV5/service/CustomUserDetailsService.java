@@ -2,8 +2,8 @@ package org.evpro.bookshopV5.service;
 
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.evpro.bookshopV5.data.DTO.UserDTO;
-import org.evpro.bookshopV5.data.response.ErrorResponse;
+import org.evpro.bookshopV5.model.DTO.response.UserDTO;
+import org.evpro.bookshopV5.model.DTO.response.ErrorResponse;
 import org.evpro.bookshopV5.exception.UserException;
 import org.evpro.bookshopV5.model.User;
 import org.evpro.bookshopV5.model.enums.ErrorCode;

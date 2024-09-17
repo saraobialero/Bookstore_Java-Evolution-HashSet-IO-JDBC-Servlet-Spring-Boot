@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import org.evpro.bookshopV5.config.SecurityExceptionHandlerConfig;
-import org.evpro.bookshopV5.data.response.ErrorResponse;
+import org.evpro.bookshopV5.model.DTO.response.ErrorResponse;
 import org.evpro.bookshopV5.model.enums.ErrorCode;
 import org.evpro.bookshopV5.service.CustomUserDetailsService;
 import org.evpro.bookshopV5.utils.ApiUtils;

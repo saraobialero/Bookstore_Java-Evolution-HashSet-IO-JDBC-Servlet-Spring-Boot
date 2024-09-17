@@ -1,7 +1,7 @@
 package org.evpro.bookshopV5.config;
 
 import io.jsonwebtoken.ExpiredJwtException;
-import org.evpro.bookshopV5.data.response.ErrorResponse;
+import org.evpro.bookshopV5.model.DTO.response.ErrorResponse;
 import org.evpro.bookshopV5.exception.BookException;
 import org.evpro.bookshopV5.exception.CartException;
 import org.evpro.bookshopV5.exception.LoanException;

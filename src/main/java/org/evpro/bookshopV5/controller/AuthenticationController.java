@@ -1,12 +1,11 @@
 package org.evpro.bookshopV5.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.evpro.bookshopV5.data.DTO.AuthenticationResponse;
-import org.evpro.bookshopV5.data.request.AuthRequest;
-import org.evpro.bookshopV5.data.request.SignupRequest;
-import org.evpro.bookshopV5.data.response.SuccessResponse;
+import org.evpro.bookshopV5.model.DTO.response.AuthenticationResponse;
+import org.evpro.bookshopV5.model.DTO.request.LoginRequest;
+import org.evpro.bookshopV5.model.DTO.request.SignupRequest;
+import org.evpro.bookshopV5.model.DTO.response.SuccessResponse;
 import org.evpro.bookshopV5.service.AuthenticationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +25,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<SuccessResponse<AuthenticationResponse>> login(@RequestBody AuthRequest request) {
+    public ResponseEntity<SuccessResponse<AuthenticationResponse>> login(@RequestBody LoginRequest request) {
         return new ResponseEntity<>(new SuccessResponse<>(authenticationService.authentication(request)), HttpStatus.OK);
     }
 

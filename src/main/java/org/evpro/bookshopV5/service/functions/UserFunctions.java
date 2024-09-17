@@ -1,8 +1,8 @@
 package org.evpro.bookshopV5.service.functions;
 
-import org.evpro.bookshopV5.data.DTO.CartDTO;
-import org.evpro.bookshopV5.data.DTO.LoanDTO;
-import org.evpro.bookshopV5.data.DTO.UserDTO;
+import org.evpro.bookshopV5.model.DTO.response.CartDTO;
+import org.evpro.bookshopV5.model.DTO.response.LoanDTO;
+import org.evpro.bookshopV5.model.DTO.response.UserDTO;
 import org.evpro.bookshopV5.model.*;
 import org.evpro.bookshopV5.model.enums.RoleCode;
 

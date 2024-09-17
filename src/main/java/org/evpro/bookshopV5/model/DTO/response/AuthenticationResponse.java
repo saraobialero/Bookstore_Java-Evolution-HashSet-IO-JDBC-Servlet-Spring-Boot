@@ -1,4 +1,4 @@
-package org.evpro.bookshopV5.data.DTO;
+package org.evpro.bookshopV5.model.DTO.response;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;

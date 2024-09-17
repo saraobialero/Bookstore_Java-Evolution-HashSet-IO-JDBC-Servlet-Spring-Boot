@@ -1,6 +1,6 @@
-package org.evpro.bookshopV5.data.DTO;
+package org.evpro.bookshopV5.model.DTO.response;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +11,9 @@ import java.time.LocalDate;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookDTO {
 
     private String title;

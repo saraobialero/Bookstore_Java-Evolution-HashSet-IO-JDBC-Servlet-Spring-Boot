@@ -3,7 +3,7 @@ package org.evpro.bookshopV5.exception;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.evpro.bookshopV5.data.response.ErrorResponse;
+import org.evpro.bookshopV5.model.DTO.response.ErrorResponse;
 
 @AllArgsConstructor
 @Setter
