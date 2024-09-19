@@ -1,12 +1,8 @@
 package org.evpro.bookshopV5.model.DTO.request;
 
-import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.evpro.bookshopV5.model.Role;
-import org.evpro.bookshopV5.model.enums.BookGenre;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -17,16 +13,20 @@ public class AddUserRequest {
     @NotBlank(message = "Surname is required")
     private String surname;
 
-    //Pattern
     @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
     private String email;
 
-    //Pattern
     @NotBlank(message = "Password is required")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
+            message = "Password must be at least 8 characters long and contain at least one digit, one lowercase letter, one uppercase letter, one special character, and no whitespace")
     private String password;
 
-    @NotNull(message = "Genre is required")
+    @NotNull(message = "Role is required")
     private List<Role> role;
+
+    @NotNull(message = "active is required")
+    private boolean active;
 
 
 }

@@ -1,5 +1,7 @@
 package org.evpro.bookshopV5.service.functions;
 
+import org.evpro.bookshopV5.model.DTO.request.AddUserRequest;
+import org.evpro.bookshopV5.model.DTO.request.UpdateRoleRequest;
 import org.evpro.bookshopV5.model.DTO.response.CartDTO;
 import org.evpro.bookshopV5.model.DTO.response.LoanDTO;
 import org.evpro.bookshopV5.model.DTO.response.UserDTO;
@@ -20,16 +22,18 @@ public interface UserFunctions {
     CartDTO getUserCart(Integer userId);
 
     // Admin functions
-    UserDTO addNewUser(User user);
+    UserDTO addNewUser(AddUserRequest request);
+    List<UserDTO> addNewUsers(List<AddUserRequest> requests);
     List<UserDTO> getAllUsers();
-    UserDTO updateUserRole(Integer userId, RoleCode newRole);
+    UserDTO updateUserRole(Integer userId, UpdateRoleRequest request);
     boolean deactivateUser(Integer userId);
     boolean reactivateUser(Integer userId);
     long getTotalUserCount();
     List<UserDTO> getMostActiveUsers(int limit);
     List<UserDTO> getUsersWithOverdueLoans();
+    String resetUserPassword(Integer userId);
     boolean deleteUser(Integer userId);
-    boolean resetUserPassword(Integer userId);
-    List<UserDTO> searchUsers(String searchTerm);
+    boolean deleteAll();
+
 
 }
