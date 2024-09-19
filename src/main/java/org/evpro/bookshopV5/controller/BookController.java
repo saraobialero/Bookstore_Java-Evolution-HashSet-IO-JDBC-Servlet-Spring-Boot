@@ -56,8 +56,8 @@ public class BookController {
 
     @PostMapping("/add/multiple")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<SuccessResponse> addBooks(@RequestBody List<Book> books) {
-        return new ResponseEntity<>(new SuccessResponse<>(bookService.addBooks(books)), HttpStatus.OK);
+    public ResponseEntity<SuccessResponse> addBooks(@RequestBody List<AddBookRequest> requests) {
+        return new ResponseEntity<>(new SuccessResponse<>(bookService.addBooks(requests)), HttpStatus.OK);
     }
 
     @PatchMapping("/book/{id}/{quantity}")

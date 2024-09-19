@@ -22,6 +22,8 @@ import java.util.Optional;
 public class BookService implements BookFunctions {
 
     private final BookRepository bookRepository;
+    private final String BNF = "Book not found";
+    private final String NBC = "No content for research with";
 
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -43,7 +45,7 @@ public class BookService implements BookFunctions {
                                    .orElseThrow(() -> new BookException(
                                                       new ErrorResponse(
                                                                 ErrorCode.BNF,
-                                                                "Book not found")));
+                                                                BNF)));
         return convertToBookDTO(book);
     }
 
@@ -53,7 +55,7 @@ public class BookService implements BookFunctions {
                 .orElseThrow(() -> new BookException(
                         new ErrorResponse(
                                 ErrorCode.BNF,
-                                "Book not found")));
+                                BNF)));
         return convertToBookDTO(book);
     }
 
@@ -63,7 +65,7 @@ public class BookService implements BookFunctions {
         if (books.isEmpty()) throw new BookException(
                 new ErrorResponse(
                         ErrorCode.NCB,
-                        "No content for research with title " + title));
+                        NBC + " title " + title));
         return books;
     }
 
@@ -73,7 +75,7 @@ public class BookService implements BookFunctions {
         if (books.isEmpty()) throw new BookException(
                 new ErrorResponse(
                         ErrorCode.NCB,
-                        "No content for research with author " + author));
+                        NBC + " author " + author));
         return books;
     }
 
@@ -93,7 +95,7 @@ public class BookService implements BookFunctions {
                                   .orElseThrow(() -> new BookException(
                                                      new ErrorResponse(
                                                             ErrorCode.BNF,
-                                                            "Book not found")));
+                                                            BNF)));
         book.setQuantity(book.getQuantity() + quantityChange);
         bookRepository.save(book);
         return convertToBookDTO(book);
@@ -103,7 +105,7 @@ public class BookService implements BookFunctions {
     public BookDTO updateBook(UpdateBookRequest request) {
         Book existingBook = bookRepository.findById(request.getId())
                 .orElseThrow(() -> new BookException(
-                        new ErrorResponse(ErrorCode.BNF, "Book not found")));
+                        new ErrorResponse(ErrorCode.BNF, BNF)));
 
        initializeValidDataInBook(request, existingBook);
 
@@ -112,25 +114,13 @@ public class BookService implements BookFunctions {
         return convertToBookDTO(updatedBook);
     }
 
-    private void initializeValidDataInBook(UpdateBookRequest request, Book existingBook) {
-        if (request.getTitle() != null) existingBook.setTitle(request.getTitle());
-        if (request.getAuthor() != null) existingBook.setAuthor(request.getAuthor());
-        if (request.getPublicationYear() != null) existingBook.setPublicationYear(request.getPublicationYear());
-        if (request.getDescription() != null) existingBook.setDescription(request.getDescription());
-        if (request.getAward() != null) existingBook.setAward(request.getAward());
-        if (request.getGenre() != null) existingBook.setGenre(request.getGenre());
-        if (request.getQuantity() != null) existingBook.setQuantity(request.getQuantity());
-        if (request.getAvailable() != null) existingBook.setAvailable(request.getAvailable());
-    }
-
     @Override
     @Transactional
     public BookDTO addBook(AddBookRequest request) {
-
         Optional<Book> existingBookOptional = bookRepository.findByISBN(request.getISBN());
         if (existingBookOptional.isPresent()) {
             Book existingBook = existingBookOptional.get();
-            existingBook.setQuantity(request.getQuantity() + 1);
+            existingBook.setQuantity(request.getQuantity() + existingBook.getQuantity());
             bookRepository.save(existingBook);
             return convertToBookDTO(existingBook);
         }
@@ -139,22 +129,9 @@ public class BookService implements BookFunctions {
         return convertToBookDTO(book);
     }
 
-    private Book initializeBookFromRequest(AddBookRequest request) {
-        Book book = new Book();
-        book.setTitle(request.getTitle());
-        book.setAuthor(request.getAuthor());
-        book.setPublicationYear(request.getPublicationYear());
-        book.setDescription(request.getDescription());
-        book.setISBN(request.getISBN());
-        book.setQuantity(request.getQuantity());
-        book.setGenre(request.getGenre());
-        book.setAvailable(request.isAvailable());
-        return book;
-    }
-
     @Override
-    public List<BookDTO> addBooks(List<Book> books) {
-        if (books.isEmpty()) {
+    public List<BookDTO> addBooks(List<AddBookRequest> requests) {
+        if (requests.isEmpty()) {
             throw new BookException(
                   new ErrorResponse(
                           ErrorCode.NCB,
@@ -163,16 +140,18 @@ public class BookService implements BookFunctions {
 
         List<BookDTO> addedBooks = new ArrayList<>();
 
-        for (Book book : books) {
-            Optional<Book> existingBookOptional = bookRepository.findById(book.getId());
+        for (AddBookRequest request : requests) {
+            Optional<Book> existingBookOptional = bookRepository.findByISBN(request.getISBN());
             if (existingBookOptional.isPresent()) {
                 Book existingBook = existingBookOptional.get();
-                updateBookQuantity(existingBook.getId(), book.getQuantity());
+                existingBook.setQuantity(existingBook.getQuantity() + request.getQuantity());
                 Book updatedBook = bookRepository.save(existingBook);
                 addedBooks.add(convertToBookDTO(updatedBook));
+           } else {
+               Book newBook = initializeBookFromRequest(request);
+               bookRepository.save(newBook);
+               addedBooks.add(convertToBookDTO(newBook));
             }
-            Book savedBook = bookRepository.save(book);
-            addedBooks.add(convertToBookDTO(savedBook));
         }
         return addedBooks;
     }
@@ -183,7 +162,7 @@ public class BookService implements BookFunctions {
                 .orElseThrow(() -> new BookException(
                         new ErrorResponse(
                                 ErrorCode.BNF,
-                                "Book not found")));
+                                BNF)));
         bookRepository.delete(book);
         return true;
     }
@@ -205,10 +184,32 @@ public class BookService implements BookFunctions {
         List<Book> books = bookRepository.findAllByGenre(genre);
         if (books.isEmpty()) throw new BookException(
                 new ErrorResponse(
-                        ErrorCode.NCB, "No content for research"));
+                        ErrorCode.NCB, NBC + genre));
         return books;
     }
 
+    private void initializeValidDataInBook(UpdateBookRequest request, Book existingBook) {
+        if (request.getTitle() != null) existingBook.setTitle(request.getTitle());
+        if (request.getAuthor() != null) existingBook.setAuthor(request.getAuthor());
+        if (request.getPublicationYear() != null) existingBook.setPublicationYear(request.getPublicationYear());
+        if (request.getDescription() != null) existingBook.setDescription(request.getDescription());
+        if (request.getAward() != null) existingBook.setAward(request.getAward());
+        if (request.getGenre() != null) existingBook.setGenre(request.getGenre());
+        if (request.getQuantity() != null) existingBook.setQuantity(request.getQuantity());
+        if (request.getAvailable() != null) existingBook.setAvailable(request.getAvailable());
+    }
+    private Book initializeBookFromRequest(AddBookRequest request) {
+        Book book = new Book();
+        book.setTitle(request.getTitle());
+        book.setAuthor(request.getAuthor());
+        book.setPublicationYear(request.getPublicationYear());
+        book.setDescription(request.getDescription());
+        book.setISBN(request.getISBN());
+        book.setQuantity(request.getQuantity());
+        book.setGenre(request.getGenre());
+        book.setAvailable(request.isAvailable());
+        return book;
+    }
     private BookDTO convertToBookDTO(Book book) {
         return BookDTO.builder()
                 .title(book.getTitle())

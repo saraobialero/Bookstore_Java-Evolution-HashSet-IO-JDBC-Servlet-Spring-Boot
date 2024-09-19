@@ -19,7 +19,7 @@ public interface BookFunctions {
     BookDTO updateBookQuantity(Integer bookId, int quantityChange);
     BookDTO updateBook(UpdateBookRequest request);
     BookDTO addBook(AddBookRequest request);
-    List<BookDTO> addBooks(List<Book> books);
+    List<BookDTO> addBooks(List<AddBookRequest> booksRequest);
     boolean deleteBookById(Integer bookId);
     boolean deleteAll();
 

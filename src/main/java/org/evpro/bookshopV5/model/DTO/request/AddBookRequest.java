@@ -31,7 +31,7 @@ public class AddBookRequest {
     private String ISBN;
 
     @NotNull(message = "Quantity is required")
-    @Min(value = 0, message = "Quantity must be non-negative")
+    @Min(value = 1, message = "Quantity must be non-negative or 0")
     private Integer quantity;
 
     @NotNull(message = "Genre is required")
