@@ -6,23 +6,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.evpro.bookshopV5.model.CartItem;
-import org.evpro.bookshopV5.model.User;
-import org.evpro.bookshopV5.model.enums.CartStatus;
-
-import java.time.LocalDate;
-import java.util.List;
+import org.evpro.bookshopV5.model.Book;
+import org.evpro.bookshopV5.model.Cart;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CartDTO {
+public class CartItemDTO {
 
     private Integer id;
-    private User user;
-    private List<CartItemDTO> items;
-    private LocalDate createdDate;
-    private CartStatus status;
+    private Cart cart;
+    private Book book;
+    private int quantity;
+
 }

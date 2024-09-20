@@ -23,13 +23,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/user/{id}/details")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<SuccessResponse> getUserById(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(new SuccessResponse<>(userService.getUserById(id)), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{email}")
+    @GetMapping("/user/email/{email}/details")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<SuccessResponse> getUserByEmail(@PathVariable("email") String email) {
         return new ResponseEntity<>(new SuccessResponse<>(userService.getUserByEmail(email)), HttpStatus.OK);
@@ -84,9 +84,9 @@ public class UserController {
         return new ResponseEntity<>(new SuccessResponse<>(userService.getAllUsers()), HttpStatus.OK);
     }
 
-    @PatchMapping("/user/{id}/update-role/{role}")
+    @PatchMapping("/user/{id}/update-role")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<SuccessResponse> updateUserRole(@PathVariable ("id") Integer id, @RequestBody @Valid UpdateRoleRequest request) {
+    public ResponseEntity<SuccessResponse> updateUserRole(@PathVariable ("id") Integer id, @RequestBody UpdateRoleRequest request) {
         return new ResponseEntity<>(new SuccessResponse<>(userService.updateUserRole(id, request)), HttpStatus.OK);
     }
 

@@ -32,6 +32,7 @@ public enum ErrorCode {
     NCU("Any user found", HttpStatus.NO_CONTENT, ExitCode.KO),
 
 
+
     //Cart
     CNF("Cart not found", HttpStatus.NOT_FOUND, ExitCode.KO),
 

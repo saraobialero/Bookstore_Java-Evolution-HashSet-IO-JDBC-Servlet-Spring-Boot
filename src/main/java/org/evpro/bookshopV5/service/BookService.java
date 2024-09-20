@@ -117,6 +117,13 @@ public class BookService implements BookFunctions {
     @Override
     @Transactional
     public BookDTO addBook(AddBookRequest request) {
+        if (request == null) {
+            throw new BookException(
+                    new ErrorResponse(
+                            ErrorCode.NCB,
+                            "No book provided to add"));
+        }
+
         Optional<Book> existingBookOptional = bookRepository.findByISBN(request.getISBN());
         if (existingBookOptional.isPresent()) {
             Book existingBook = existingBookOptional.get();
@@ -129,6 +136,7 @@ public class BookService implements BookFunctions {
         return convertToBookDTO(book);
     }
 
+    @Transactional
     @Override
     public List<BookDTO> addBooks(List<AddBookRequest> requests) {
         if (requests.isEmpty()) {

@@ -3,6 +3,8 @@ package org.evpro.bookshopV5.model.DTO.request;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.evpro.bookshopV5.model.Role;
+import org.evpro.bookshopV5.model.enums.RoleCode;
+
 import java.util.List;
 
 @Data
@@ -22,8 +24,8 @@ public class AddUserRequest {
             message = "Password must be at least 8 characters long and contain at least one digit, one lowercase letter, one uppercase letter, one special character, and no whitespace")
     private String password;
 
-    @NotNull(message = "Role is required")
-    private List<Role> role;
+    @NotEmpty(message = "At least one role is required")
+    private List<RoleCode> roleCodes;
 
     @NotNull(message = "active is required")
     private boolean active;
