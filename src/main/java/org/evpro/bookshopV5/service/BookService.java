@@ -14,9 +14,10 @@ import org.evpro.bookshopV5.service.functions.BookFunctions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService implements BookFunctions {
@@ -30,13 +31,13 @@ public class BookService implements BookFunctions {
     }
 
     @Override
-    public List<Book> getAllBooks() {
+    public Set<BookDTO> getAllBooks() {
         List<Book> books = bookRepository.findAll();
         if (books.isEmpty()) throw new BookException(
                                    new ErrorResponse(
                                            ErrorCode.NCB,
                                            "No books content"));
-        return books;
+        return convertCollection(books, this::convertToBookDTO, HashSet::new);
     }
 
     @Override
@@ -52,41 +53,41 @@ public class BookService implements BookFunctions {
     @Override
     public BookDTO getBookByISBN(String ISBN) {
         Book book =  bookRepository.findByISBN(ISBN)
-                .orElseThrow(() -> new BookException(
-                        new ErrorResponse(
-                                ErrorCode.BNF,
-                                BNF)));
+                                    .orElseThrow(() -> new BookException(
+                                            new ErrorResponse(
+                                                    ErrorCode.BNF,
+                                                    BNF)));
         return convertToBookDTO(book);
     }
 
     @Override
-    public List<Book> searchBooksByTitle(String title) {
+    public List<BookDTO> searchBooksByTitle(String title) {
         List<Book> books = bookRepository.findAllByTitle(title);
         if (books.isEmpty()) throw new BookException(
                 new ErrorResponse(
                         ErrorCode.NCB,
                         NBC + " title " + title));
-        return books;
+        return convertCollection(books, this::convertToBookDTO, ArrayList::new);
     }
 
     @Override
-    public List<Book> searchBooksByAuthor(String author) {
+    public Set<BookDTO> searchBooksByAuthor(String author) {
         List<Book> books = bookRepository.findAllByAuthor(author);
         if (books.isEmpty()) throw new BookException(
                 new ErrorResponse(
                         ErrorCode.NCB,
                         NBC + " author " + author));
-        return books;
+        return convertCollection(books, this::convertToBookDTO, HashSet::new);
     }
 
     @Override
-    public List<Book> getAvailableBooks() {
+    public Set<BookDTO> getAvailableBooks() {
         List<Book> books = bookRepository.findByAvailableTrue();
         if (books.isEmpty()) throw new BookException(
                 new ErrorResponse(
                         ErrorCode.NCB,
                         "No available books"));
-        return books;
+        return convertCollection(books, this::convertToBookDTO, HashSet::new);
     }
 
     @Override
@@ -188,13 +189,14 @@ public class BookService implements BookFunctions {
     }
 
     @Override
-    public List<Book> getBooksByGenre(BookGenre genre) {
+    public Set<BookDTO> getBooksByGenre(BookGenre genre) {
         List<Book> books = bookRepository.findAllByGenre(genre);
         if (books.isEmpty()) throw new BookException(
                 new ErrorResponse(
                         ErrorCode.NCB, NBC + genre));
-        return books;
+        return convertCollection(books, this::convertToBookDTO, HashSet::new);
     }
+
 
     private void initializeValidDataInBook(UpdateBookRequest request, Book existingBook) {
         if (request.getTitle() != null) existingBook.setTitle(request.getTitle());
@@ -230,6 +232,13 @@ public class BookService implements BookFunctions {
                 .quantity(book.getQuantity())
                 .genre(book.getGenre())
                 .build();
+    }
+    private <T, R, C extends Collection<R>> C convertCollection(Collection<T> source,
+                                                                Function<T, R> converter,
+                                                                Supplier<C> collectionFactory) {
+        return source.stream()
+                .map(converter)
+                .collect(Collectors.toCollection(collectionFactory));
     }
 
 }

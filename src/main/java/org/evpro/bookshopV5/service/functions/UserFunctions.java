@@ -9,6 +9,7 @@ import org.evpro.bookshopV5.model.*;
 import org.evpro.bookshopV5.model.enums.RoleCode;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserFunctions {
     // User functions
@@ -16,21 +17,21 @@ public interface UserFunctions {
     UserDTO getUserByEmail(String email);
     UserDTO updateUserProfile(Integer userId, String name, String
             surname);
-    boolean changeEmail(Integer userId, String password, String newEmail);
+    UserDTO changeEmail(Integer userId, String password, String newEmail);
     boolean changeUserPassword(Integer userId, String oldPassword, String newPassword, String confirmNewPassword);
     List<LoanDTO> getUserLoanHistory(Integer userId);
     CartDTO getUserCart(Integer userId);
 
     // Admin functions
     UserDTO addNewUser(AddUserRequest request);
-    List<UserDTO> addNewUsers(List<AddUserRequest> requests);
-    List<UserDTO> getAllUsers();
+    Set<UserDTO> addNewUsers(List<AddUserRequest> requests);
+    Set<UserDTO> getAllUsers();
     UserDTO updateUserRole(Integer userId, UpdateRoleRequest request);
     boolean deactivateUser(Integer userId);
     boolean reactivateUser(Integer userId);
     long getTotalUserCount();
-    List<UserDTO> getMostActiveUsers(int limit);
-    List<UserDTO> getUsersWithOverdueLoans();
+    Set<UserDTO> getMostActiveUsers(int limit);
+    Set<UserDTO> getUsersWithOverdueLoans();
     String resetUserPassword(Integer userId);
     boolean deleteUser(Integer userId);
     boolean deleteAll();

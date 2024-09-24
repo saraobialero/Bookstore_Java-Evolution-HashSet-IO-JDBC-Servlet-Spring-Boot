@@ -1,25 +1,19 @@
 package org.evpro.bookshopV5.model.DTO.response;
 
+
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.evpro.bookshopV5.model.enums.CartStatus;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CartDTO {
-
+public class LoanDetailsDTO {
     private Integer id;
-    private List<CartItemDTO> items;
-    private LocalDate createdDate;
-    private CartStatus status;
+    private BookDTO book;
+    private int quantity;
 }

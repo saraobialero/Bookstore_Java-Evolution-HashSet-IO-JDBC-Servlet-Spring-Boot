@@ -1,7 +1,6 @@
 package org.evpro.bookshopV5.service;
 
 
-import org.evpro.bookshopV5.exception.BookException;
 import org.evpro.bookshopV5.model.*;
 import org.evpro.bookshopV5.model.DTO.request.AddUserRequest;
 import org.evpro.bookshopV5.model.DTO.request.UpdateRoleRequest;
@@ -18,14 +17,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserFunctions {
+
+    private final String UNF_ID = "User not found with id ";
+    private final String NUF = "No users found";
 
     private final UserRepository userRepository;
     private final CartRepository cartRepository;
@@ -46,7 +47,7 @@ public class UserService implements UserFunctions {
                 .orElseThrow(() -> new UserException(
                         new ErrorResponse(
                                 ErrorCode.EUN,
-                                "User not found with id " + userId)));
+                                UNF_ID + userId)));
         return convertToUserDTO(user);
     }
 
@@ -66,7 +67,7 @@ public class UserService implements UserFunctions {
                 .orElseThrow(() -> new UserException(
                         new ErrorResponse(
                                 ErrorCode.EUN,
-                                "User not found with id " + userId)));
+                                UNF_ID + userId)));
         existingUser.setName(newName);
         existingUser.setSurname(newSurname);
         userRepository.save(existingUser);
@@ -75,9 +76,9 @@ public class UserService implements UserFunctions {
 
     @Transactional
     @Override
-    public boolean changeEmail(Integer userId, String password, String newEmail) {
+    public UserDTO changeEmail(Integer userId, String password, String newEmail) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, "User not found with id " + userId)));
+                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new UserException(new ErrorResponse(ErrorCode.IVP, "Invalid password"));
@@ -89,14 +90,14 @@ public class UserService implements UserFunctions {
 
         user.setEmail(newEmail);
         userRepository.save(user);
-        return true;
+        return convertToUserDTO(user);
     }
 
     @Transactional
     @Override
     public boolean changeUserPassword(Integer userId, String oldPassword, String newPassword, String confirmNewPassword) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, "User not found with id " + userId)));
+                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
 
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             throw new UserException(new ErrorResponse(ErrorCode.IVP, "Invalid old password"));
@@ -114,18 +115,15 @@ public class UserService implements UserFunctions {
     @Override
     public List<LoanDTO> getUserLoanHistory(Integer userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, "User not found with id " + userId)));
-
-        return user.getLoans().stream()
-                .map(this::convertToLoanDTO)
-                .collect(Collectors.toList());
+                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
+        return convertCollection(user.getLoans(), this::convertToLoanDTO, ArrayList::new);
     }
 
 
     @Override
     public CartDTO getUserCart(Integer userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, "User not found with id " + userId)));
+                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
 
         return convertToCartDTO(user.getCart());
     }
@@ -151,14 +149,15 @@ public class UserService implements UserFunctions {
 
     @Transactional
     @Override
-    public List<UserDTO> addNewUsers(List<AddUserRequest> requests) {
+    public Set<UserDTO> addNewUsers(List<AddUserRequest> requests) {
         if (requests.isEmpty()) {
             throw new UserException(
                     new ErrorResponse(
                             ErrorCode.NCU,
                             "No user provided to add"));
         }
-        List<UserDTO> addedUser = new ArrayList<>();
+
+        Set<UserDTO> addedUser = new HashSet<>();
         for (AddUserRequest request: requests) {
             Optional<User> existingUserOptional = userRepository.findByEmail(request.getEmail());
             if(existingUserOptional.isPresent()) {
@@ -167,6 +166,7 @@ public class UserService implements UserFunctions {
                                 ErrorCode.EAE,
                                 "User with this mail already exists "));
             }
+
             User newUser = initializeUserFromRequest(request);
             userRepository.save(newUser);
             UserDTO userDTO = convertToUserDTO(newUser);
@@ -176,24 +176,22 @@ public class UserService implements UserFunctions {
     }
 
     @Override
-    public List<UserDTO> getAllUsers() {
+    public Set<UserDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
         if(users.isEmpty()) {
             throw new UserException(
                   new ErrorResponse(
                             ErrorCode.NCU,
-                            "No user found"));
+                            NUF));
         }
-        return users.stream()
-                .map(this::convertToUserDTO)
-                .collect(Collectors.toList());
+        return convertCollection(users, this::convertToUserDTO, HashSet::new);
     }
 
     @Transactional
     @Override
     public UserDTO updateUserRole(Integer userId, UpdateRoleRequest request) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, "User not found with id " + userId)));
+                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
 
         user.getRoles().clear();
 
@@ -211,7 +209,7 @@ public class UserService implements UserFunctions {
     @Override
     public boolean deactivateUser(Integer userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, "User not found with id " + userId)));
+                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
 
         user.setActive(false);
         userRepository.save(user);
@@ -222,7 +220,7 @@ public class UserService implements UserFunctions {
     @Override
     public boolean reactivateUser(Integer userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, "User not found with id " + userId)));
+                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
 
         user.setActive(true);
         userRepository.save(user);
@@ -242,20 +240,15 @@ public class UserService implements UserFunctions {
     }
 
     @Override
-    public List<UserDTO> getMostActiveUsers(int limit) {
+    public Set<UserDTO> getMostActiveUsers(int limit) {
         List<User> activeUsers = userRepository.findMostActiveUsers(PageRequest.of(0, limit));
-        return activeUsers.stream()
-                .map(this::convertToUserDTO)
-                .collect(Collectors.toList());
+        return convertCollection(activeUsers, this::convertToUserDTO, HashSet::new);
     }
 
     @Override
-    public List<UserDTO> getUsersWithOverdueLoans() {
-
+    public Set<UserDTO> getUsersWithOverdueLoans() {
         List<User> usersWithOverdueLoans = userRepository.findUsersWithOverdueLoans();
-        return usersWithOverdueLoans.stream()
-                .map(this::convertToUserDTO)
-                .collect(Collectors.toList());
+        return convertCollection(usersWithOverdueLoans, this::convertToUserDTO, HashSet::new);
     }
 
     @Transactional
@@ -265,7 +258,7 @@ public class UserService implements UserFunctions {
                 .orElseThrow(() -> new UserException(
                         new ErrorResponse(
                                 ErrorCode.EUN,
-                                "User not found with id " + userId)));
+                                UNF_ID + userId)));
         userRepository.delete(user);
         return true;
     }
@@ -288,7 +281,7 @@ public class UserService implements UserFunctions {
     public String resetUserPassword(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserException(
-                        new ErrorResponse(ErrorCode.EUN, "User not found with id " + userId)));
+                        new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
 
         String newPassword = generateRandomPassword();
         user.setPassword(passwordEncoder.encode(newPassword));
@@ -317,12 +310,19 @@ public class UserService implements UserFunctions {
         List<Role> roles = new ArrayList<>();
         for (RoleCode roleCode : request.getRoleCodes()) {
             Role role = roleRepository.findByRoleCode(roleCode)
-                    .orElseThrow(() -> new RuntimeException("Role not found: " + roleCode));
+                                       .orElseThrow(() -> new RuntimeException("Role not found: " + roleCode));
             roles.add(role);
         }
 
         user.setRoles(roles);
         return user;
+    }
+    private LoanDetailsDTO convertToLoanDetailsDTO(LoanDetail loanDetail) {
+        return LoanDetailsDTO.builder()
+                                .book(convertToBookDTO(loanDetail.getBook()))
+                                .id(loanDetail.getId())
+                                .quantity(loanDetail.getQuantity())
+                             .build();
     }
     private UserDTO convertToUserDTO(User user) {
         return UserDTO.builder()
@@ -335,36 +335,49 @@ public class UserService implements UserFunctions {
                 .build();
     }
     private LoanDTO convertToLoanDTO(Loan loan) {
-        return  LoanDTO.builder()
+        return LoanDTO.builder()
                 .id(loan.getId())
                 .loanDate(loan.getLoanDate())
                 .dueDate(loan.getDueDate())
-                .loanDetails(loan.getLoanDetails())
+                .loanDetails(convertCollection(loan.getLoanDetails(), this::convertToLoanDetailsDTO, HashSet::new))
                 .returnDate(loan.getReturnDate())
-                .user(loan.getUser())
                 .status(loan.getStatus())
                 .build();
     }
     private CartDTO convertToCartDTO(Cart cart) {
-        CartDTO cartDTO = new CartDTO();
-        cartDTO.setId(cart.getId());
-        cartDTO.setCreatedDate(cart.getCreatedDate());
-        cartDTO.setStatus(cart.getStatus());
-
-        List<CartItemDTO> cartItemDTOs = cart.getItems().stream()
-                .map(this::convertToCartItemDTO)
-                .collect(Collectors.toList());
-        cartDTO.setItems(cartItemDTOs);
-
-        return cartDTO;
+        return CartDTO.builder()
+                .id(cart.getId())
+                .createdDate(cart.getCreatedDate())
+                .status(cart.getStatus())
+                .items(convertCollection(cart.getItems(), this::convertToCartItemDTO, ArrayList::new))
+                .build();
+    }
+    private BookDTO convertToBookDTO(Book book) {
+        return BookDTO.builder()
+                        .author(book.getAuthor())
+                        .description(book.getDescription())
+                        .ISBN(book.getISBN())
+                        .title(book.getTitle())
+                        .genre(book.getGenre())
+                        .available(book.isAvailable())
+                        .award(book.getAward())
+                        .publicationYear(book.getPublicationYear())
+                        .quantity(book.getQuantity())
+                      .build();
+    }
+    private CartItemDTO convertToCartItemDTO(CartItem cartItem) {
+        return CartItemDTO.builder()
+                            .id(cartItem.getId())
+                            .quantity(cartItem.getQuantity())
+                            .book(convertToBookDTO(cartItem.getBook()))
+                         .build();
     }
 
-    private CartItemDTO convertToCartItemDTO(CartItem cartItem) {
-        CartItemDTO dto = new CartItemDTO();
-        dto.setId(cartItem.getId());
-        dto.setBook(cartItem.getBook());
-        dto.setBook(cartItem.getBook());
-        dto.setQuantity(cartItem.getQuantity());
-        return dto;
+    private <T, R, C extends Collection<R>> C convertCollection(Collection<T> source,
+                                                                Function<T, R> converter,
+                                                                Supplier<C> collectionFactory) {
+        return source.stream()
+                .map(converter)
+                .collect(Collectors.toCollection(collectionFactory));
     }
 }

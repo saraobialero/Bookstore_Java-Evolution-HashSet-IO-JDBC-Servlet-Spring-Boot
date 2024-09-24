@@ -7,19 +7,20 @@ import org.evpro.bookshopV5.model.Book;
 import org.evpro.bookshopV5.model.enums.BookGenre;
 
 import java.util.List;
+import java.util.Set;
 
 public interface BookFunctions {
-    List<Book> getAllBooks();
+    Set<BookDTO> getAllBooks();
     BookDTO getBookById(Integer bookId);
     BookDTO getBookByISBN(String ISBN);
-    List<Book> searchBooksByTitle(String title);
-    List<Book> searchBooksByAuthor(String author);
-    List<Book> getAvailableBooks();
-    List<Book> getBooksByGenre(BookGenre genre);
+    List<BookDTO> searchBooksByTitle(String title);
+    Set<BookDTO> searchBooksByAuthor(String author);
+    Set<BookDTO> getAvailableBooks();
+    Set<BookDTO> getBooksByGenre(BookGenre genre);
     BookDTO updateBookQuantity(Integer bookId, int quantityChange);
     BookDTO updateBook(UpdateBookRequest request);
     BookDTO addBook(AddBookRequest request);
-    List<BookDTO> addBooks(List<AddBookRequest> booksRequest);
+    List<BookDTO> addBooks(List<AddBookRequest> request);
     boolean deleteBookById(Integer bookId);
     boolean deleteAll();
 
