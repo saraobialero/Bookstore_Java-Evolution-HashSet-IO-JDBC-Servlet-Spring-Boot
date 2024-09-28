@@ -2,7 +2,6 @@ package org.evpro.bookshopV5.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.evpro.bookshopV5.model.enums.CartStatus;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -11,20 +11,21 @@ import org.evpro.bookshopV5.model.enums.BookGenre;
 import org.evpro.bookshopV5.model.enums.ErrorCode;
 import org.evpro.bookshopV5.repository.BookRepository;
 import org.evpro.bookshopV5.service.functions.BookFunctions;
+import org.evpro.bookshopV5.utils.DTOConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+
+import static org.evpro.bookshopV5.utils.CodeMessages.BNF;
+import static org.evpro.bookshopV5.utils.CodeMessages.NBC;
+import static org.evpro.bookshopV5.utils.DTOConverter.convertCollection;
+import static org.evpro.bookshopV5.utils.DTOConverter.convertToBookDTO;
 
 @Service
 public class BookService implements BookFunctions {
 
     private final BookRepository bookRepository;
-    private final String BNF = "Book not found";
-    private final String NBC = "No content for research with";
 
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -37,7 +38,7 @@ public class BookService implements BookFunctions {
                                    new ErrorResponse(
                                            ErrorCode.NCB,
                                            "No books content"));
-        return convertCollection(books, this::convertToBookDTO, HashSet::new);
+        return convertCollection(books, DTOConverter::convertToBookDTO, HashSet::new);
     }
 
     @Override
@@ -67,7 +68,7 @@ public class BookService implements BookFunctions {
                 new ErrorResponse(
                         ErrorCode.NCB,
                         NBC + " title " + title));
-        return convertCollection(books, this::convertToBookDTO, ArrayList::new);
+        return convertCollection(books, DTOConverter::convertToBookDTO, ArrayList::new);
     }
 
     @Override
@@ -77,7 +78,7 @@ public class BookService implements BookFunctions {
                 new ErrorResponse(
                         ErrorCode.NCB,
                         NBC + " author " + author));
-        return convertCollection(books, this::convertToBookDTO, HashSet::new);
+        return convertCollection(books, DTOConverter::convertToBookDTO, HashSet::new);
     }
 
     @Override
@@ -87,7 +88,7 @@ public class BookService implements BookFunctions {
                 new ErrorResponse(
                         ErrorCode.NCB,
                         "No available books"));
-        return convertCollection(books, this::convertToBookDTO, HashSet::new);
+        return convertCollection(books, DTOConverter::convertToBookDTO, HashSet::new);
     }
 
     @Override
@@ -194,7 +195,7 @@ public class BookService implements BookFunctions {
         if (books.isEmpty()) throw new BookException(
                 new ErrorResponse(
                         ErrorCode.NCB, NBC + genre));
-        return convertCollection(books, this::convertToBookDTO, HashSet::new);
+        return convertCollection(books, DTOConverter::convertToBookDTO, HashSet::new);
     }
 
 
@@ -219,26 +220,6 @@ public class BookService implements BookFunctions {
         book.setGenre(request.getGenre());
         book.setAvailable(request.isAvailable());
         return book;
-    }
-    private BookDTO convertToBookDTO(Book book) {
-        return BookDTO.builder()
-                .title(book.getTitle())
-                .author(book.getAuthor())
-                .ISBN(book.getISBN())
-                .award(book.getAward())
-                .available(book.isAvailable())
-                .description(book.getDescription())
-                .publicationYear(book.getPublicationYear())
-                .quantity(book.getQuantity())
-                .genre(book.getGenre())
-                .build();
-    }
-    private <T, R, C extends Collection<R>> C convertCollection(Collection<T> source,
-                                                                Function<T, R> converter,
-                                                                Supplier<C> collectionFactory) {
-        return source.stream()
-                .map(converter)
-                .collect(Collectors.toCollection(collectionFactory));
     }
 
 }

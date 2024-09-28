@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.evpro.bookshopV5.model.enums.CartStatus;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,5 +20,5 @@ public class CartDTO {
     private Integer id;
     private List<CartItemDTO> items;
     private LocalDate createdDate;
-    private CartStatus status;
+
 }

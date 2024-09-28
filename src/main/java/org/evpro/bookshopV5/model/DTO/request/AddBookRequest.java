@@ -7,6 +7,7 @@ import org.evpro.bookshopV5.model.enums.BookGenre;
 
 import java.time.LocalDate;
 
+
 @Data
 public class AddBookRequest {
     @NotBlank(message = "Title is required")

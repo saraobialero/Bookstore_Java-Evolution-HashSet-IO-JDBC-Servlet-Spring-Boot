@@ -3,7 +3,6 @@ package org.evpro.bookshopV5.utils;
 import lombok.extern.slf4j.Slf4j;
 import org.evpro.bookshopV5.model.*;
 import org.evpro.bookshopV5.model.enums.BookGenre;
-import org.evpro.bookshopV5.model.enums.CartStatus;
 import org.evpro.bookshopV5.model.enums.LoanStatus;
 import org.evpro.bookshopV5.model.enums.RoleCode;
 import org.evpro.bookshopV5.repository.*;
@@ -186,7 +185,6 @@ public class DbInitializer implements CommandLineRunner {
                         .user(user)
                         .items(new ArrayList<>())
                         .createdDate(LocalDate.now())
-                        .status(CartStatus.ACTIVE)
                         .build();
                 cartRepository.save(cart);
 

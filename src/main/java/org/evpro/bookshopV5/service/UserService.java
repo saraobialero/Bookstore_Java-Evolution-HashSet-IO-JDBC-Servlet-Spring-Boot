@@ -12,21 +12,21 @@ import org.evpro.bookshopV5.repository.CartRepository;
 import org.evpro.bookshopV5.repository.RoleRepository;
 import org.evpro.bookshopV5.repository.UserRepository;
 import org.evpro.bookshopV5.service.functions.UserFunctions;
+import org.evpro.bookshopV5.utils.DTOConverter;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+
+import static org.evpro.bookshopV5.utils.CodeMessages.NUF;
+import static org.evpro.bookshopV5.utils.CodeMessages.UNF_ID;
+import static org.evpro.bookshopV5.utils.DTOConverter.*;
 
 @Service
 public class UserService implements UserFunctions {
 
-    private final String UNF_ID = "User not found with id ";
-    private final String NUF = "No users found";
 
     private final UserRepository userRepository;
     private final CartRepository cartRepository;
@@ -116,7 +116,7 @@ public class UserService implements UserFunctions {
     public List<LoanDTO> getUserLoanHistory(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
-        return convertCollection(user.getLoans(), this::convertToLoanDTO, ArrayList::new);
+        return convertCollection(user.getLoans(), DTOConverter::convertToLoanDTO, ArrayList::new);
     }
 
 
@@ -184,7 +184,7 @@ public class UserService implements UserFunctions {
                             ErrorCode.NCU,
                             NUF));
         }
-        return convertCollection(users, this::convertToUserDTO, HashSet::new);
+        return convertCollection(users, DTOConverter::convertToUserDTO, HashSet::new);
     }
 
     @Transactional
@@ -242,13 +242,13 @@ public class UserService implements UserFunctions {
     @Override
     public Set<UserDTO> getMostActiveUsers(int limit) {
         List<User> activeUsers = userRepository.findMostActiveUsers(PageRequest.of(0, limit));
-        return convertCollection(activeUsers, this::convertToUserDTO, HashSet::new);
+        return convertCollection(activeUsers, DTOConverter::convertToUserDTO, HashSet::new);
     }
 
     @Override
     public Set<UserDTO> getUsersWithOverdueLoans() {
         List<User> usersWithOverdueLoans = userRepository.findUsersWithOverdueLoans();
-        return convertCollection(usersWithOverdueLoans, this::convertToUserDTO, HashSet::new);
+        return convertCollection(usersWithOverdueLoans, DTOConverter::convertToUserDTO, HashSet::new);
     }
 
     @Transactional
@@ -289,7 +289,6 @@ public class UserService implements UserFunctions {
 
         return newPassword;
     }
-
     private String generateRandomPassword() {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
         StringBuilder sb = new StringBuilder();
@@ -316,68 +315,5 @@ public class UserService implements UserFunctions {
 
         user.setRoles(roles);
         return user;
-    }
-    private LoanDetailsDTO convertToLoanDetailsDTO(LoanDetail loanDetail) {
-        return LoanDetailsDTO.builder()
-                                .book(convertToBookDTO(loanDetail.getBook()))
-                                .id(loanDetail.getId())
-                                .quantity(loanDetail.getQuantity())
-                             .build();
-    }
-    private UserDTO convertToUserDTO(User user) {
-        return UserDTO.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .surname(user.getSurname())
-                .email(user.getEmail())
-                .roles(user.getRoles())
-                .active(user.isActive())
-                .build();
-    }
-    private LoanDTO convertToLoanDTO(Loan loan) {
-        return LoanDTO.builder()
-                .id(loan.getId())
-                .loanDate(loan.getLoanDate())
-                .dueDate(loan.getDueDate())
-                .loanDetails(convertCollection(loan.getLoanDetails(), this::convertToLoanDetailsDTO, HashSet::new))
-                .returnDate(loan.getReturnDate())
-                .status(loan.getStatus())
-                .build();
-    }
-    private CartDTO convertToCartDTO(Cart cart) {
-        return CartDTO.builder()
-                .id(cart.getId())
-                .createdDate(cart.getCreatedDate())
-                .status(cart.getStatus())
-                .items(convertCollection(cart.getItems(), this::convertToCartItemDTO, ArrayList::new))
-                .build();
-    }
-    private BookDTO convertToBookDTO(Book book) {
-        return BookDTO.builder()
-                        .author(book.getAuthor())
-                        .description(book.getDescription())
-                        .ISBN(book.getISBN())
-                        .title(book.getTitle())
-                        .genre(book.getGenre())
-                        .available(book.isAvailable())
-                        .award(book.getAward())
-                        .publicationYear(book.getPublicationYear())
-                        .quantity(book.getQuantity())
-                      .build();
-    }
-    private CartItemDTO convertToCartItemDTO(CartItem cartItem) {
-        return CartItemDTO.builder()
-                            .id(cartItem.getId())
-                            .quantity(cartItem.getQuantity())
-                            .book(convertToBookDTO(cartItem.getBook()))
-                         .build();
-    }
-
-    private <T, R, C extends Collection<R>> C convertCollection(Collection<T> source,
-                                                                Function<T, R> converter,
-                                                                Supplier<C> collectionFactory) {
-        return source.stream()
-                .map(converter)
-                .collect(Collectors.toCollection(collectionFactory));
     }
 }

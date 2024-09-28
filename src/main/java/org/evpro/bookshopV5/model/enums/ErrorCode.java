@@ -31,10 +31,14 @@ public enum ErrorCode {
     //User
     NCU("Any user found", HttpStatus.NO_CONTENT, ExitCode.KO),
 
-
-
     //Cart
     CNF("Cart not found", HttpStatus.NOT_FOUND, ExitCode.KO),
+    NC("No carts in the system", HttpStatus.NO_CONTENT, ExitCode.KO),
+
+    //CartItem
+    CINF("Cart items non found", HttpStatus.NOT_FOUND, ExitCode.KO),
+    NCCI("No content in the list of cartItem", HttpStatus.NO_CONTENT, ExitCode.KO),
+
 
     //Books
     BNF("Book not found", HttpStatus.NOT_FOUND, ExitCode.KO),
