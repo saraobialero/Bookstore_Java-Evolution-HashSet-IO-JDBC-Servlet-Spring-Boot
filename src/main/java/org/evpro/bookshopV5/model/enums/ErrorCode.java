@@ -39,11 +39,15 @@ public enum ErrorCode {
     CINF("Cart items non found", HttpStatus.NOT_FOUND, ExitCode.KO),
     NCCI("No content in the list of cartItem", HttpStatus.NO_CONTENT, ExitCode.KO),
 
-
     //Books
     BNF("Book not found", HttpStatus.NOT_FOUND, ExitCode.KO),
-    NCB("Any books found in store", HttpStatus.NO_CONTENT, ExitCode.KO);
+    NCB("Any books found in store", HttpStatus.NO_CONTENT, ExitCode.KO),
 
+    //Loan
+    LNF("Loan not found", HttpStatus.NOT_FOUND, ExitCode.KO),
+    LAR("Loan already returned", HttpStatus.BAD_REQUEST, ExitCode.KO),
+    LD("Due date is already expired", HttpStatus.BAD_REQUEST, ExitCode.KO),
+    NL("No content in the list of loan", HttpStatus.NO_CONTENT, ExitCode.KO);
 
     private String message;
     private HttpStatus status;
