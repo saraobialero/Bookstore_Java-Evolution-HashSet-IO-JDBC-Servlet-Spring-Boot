@@ -1,5 +1,6 @@
 package org.evpro.bookshopV5.service;
 
+import lombok.RequiredArgsConstructor;
 import org.evpro.bookshopV5.exception.BookException;
 import org.evpro.bookshopV5.exception.CartException;
 import org.evpro.bookshopV5.exception.CartItemException;
@@ -23,6 +24,7 @@ import static org.evpro.bookshopV5.utils.CodeMessages.*;
 import static org.evpro.bookshopV5.utils.DTOConverter.*;
 
 @Service
+@RequiredArgsConstructor
 public class CartService implements CartFunctions {
 
     private final CartRepository cartRepository;
@@ -31,14 +33,6 @@ public class CartService implements CartFunctions {
     private final BookRepository bookRepository;
     private final LoanRepository loanRepository;
 
-
-    public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository, UserRepository userRepository, BookRepository bookRepository, LoanRepository loanRepository) {
-        this.cartRepository = cartRepository;
-        this.cartItemRepository = cartItemRepository;
-        this.userRepository = userRepository;
-        this.bookRepository = bookRepository;
-        this.loanRepository = loanRepository;
-    }
 
 
     @Override

@@ -2,6 +2,7 @@ package org.evpro.bookshopV5.controller;
 
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.evpro.bookshopV5.model.DTO.request.AddItemToCartRequest;
 import org.evpro.bookshopV5.model.DTO.request.UpdateItemToCartRequest;
 
@@ -19,16 +20,11 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/bookshop/v5/carts")
 public class CartController {
 
     private final CartService cartService;
-    private final CustomUserDetailsService customUserDetailsService;
-
-    public CartController(CartService cartService, CustomUserDetailsService customUserDetailsService) {
-        this.cartService = cartService;
-        this.customUserDetailsService = customUserDetailsService;
-    }
 
     @GetMapping("/")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")

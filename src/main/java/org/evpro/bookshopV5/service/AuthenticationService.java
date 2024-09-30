@@ -1,6 +1,7 @@
 package org.evpro.bookshopV5.service;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.evpro.bookshopV5.model.DTO.response.AuthenticationResponse;
 import org.evpro.bookshopV5.model.DTO.request.LoginRequest;
 import org.evpro.bookshopV5.model.DTO.request.SignupRequest;
@@ -21,7 +22,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
+@RequiredArgsConstructor
 public class AuthenticationService implements AuthenticationFunctions {
 
 
@@ -32,14 +35,6 @@ public class AuthenticationService implements AuthenticationFunctions {
     private final JwtUtils jwtUtils;
     private final CustomUserDetailsService customUserDetailsService;
 
-    public AuthenticationService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtUtils jwtUtils, CustomUserDetailsService customUserDetailsService) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.authenticationManager = authenticationManager;
-        this.jwtUtils = jwtUtils;
-        this.customUserDetailsService = customUserDetailsService;
-    }
 
     @Override
     public AuthenticationResponse authentication(LoginRequest request) {

@@ -1,6 +1,7 @@
 package org.evpro.bookshopV5.service;
 
 
+import lombok.RequiredArgsConstructor;
 import org.evpro.bookshopV5.model.DTO.request.UpdateBookRequest;
 import org.evpro.bookshopV5.model.DTO.response.BookDTO;
 import org.evpro.bookshopV5.model.DTO.request.AddBookRequest;
@@ -22,14 +23,12 @@ import static org.evpro.bookshopV5.utils.CodeMessages.NBC;
 import static org.evpro.bookshopV5.utils.DTOConverter.convertCollection;
 import static org.evpro.bookshopV5.utils.DTOConverter.convertToBookDTO;
 
+
 @Service
+@RequiredArgsConstructor
 public class BookService implements BookFunctions {
 
     private final BookRepository bookRepository;
-
-    public BookService(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
 
     @Override
     public Set<BookDTO> getAllBooks() {

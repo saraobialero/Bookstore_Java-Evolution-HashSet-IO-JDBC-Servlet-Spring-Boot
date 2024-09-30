@@ -1,6 +1,7 @@
 package org.evpro.bookshopV5.controller;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.evpro.bookshopV5.model.DTO.request.*;
 import org.evpro.bookshopV5.model.DTO.response.CartDTO;
 import org.evpro.bookshopV5.model.DTO.response.LoanDTO;
@@ -19,14 +20,13 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/bookshop/v5/users")
 public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+
 
     @GetMapping("/user/{id}/details")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")

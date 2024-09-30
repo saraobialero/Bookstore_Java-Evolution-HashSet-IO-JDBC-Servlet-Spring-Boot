@@ -1,5 +1,6 @@
 package org.evpro.bookshopV5.utils;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.evpro.bookshopV5.model.*;
 import org.evpro.bookshopV5.model.enums.BookGenre;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class DbInitializer implements CommandLineRunner {
 
     private final UserRepository userRepository;
@@ -28,24 +30,6 @@ public class DbInitializer implements CommandLineRunner {
     private final CartItemRepository cartItemRepository;
     private final LoanRepository loanRepository;
     private final LoanDetailRepository loanDetailRepository;
-
-    public DbInitializer(UserRepository userRepository,
-                         RoleRepository roleRepository,
-                         PasswordEncoder passwordEncoder,
-                         BookRepository bookRepository,
-                         CartRepository cartRepository,
-                         CartItemRepository cartItemRepository,
-                         LoanRepository loanRepository,
-                         LoanDetailRepository loanDetailRepository) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.bookRepository = bookRepository;
-        this.cartRepository = cartRepository;
-        this.cartItemRepository = cartItemRepository;
-        this.loanRepository = loanRepository;
-        this.loanDetailRepository = loanDetailRepository;
-    }
 
     @Override
     @Transactional

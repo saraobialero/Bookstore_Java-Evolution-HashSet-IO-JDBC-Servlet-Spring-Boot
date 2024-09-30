@@ -1,6 +1,7 @@
 package org.evpro.bookshopV5.service;
 
 
+import lombok.RequiredArgsConstructor;
 import org.evpro.bookshopV5.model.*;
 import org.evpro.bookshopV5.model.DTO.request.AddUserRequest;
 import org.evpro.bookshopV5.model.DTO.request.UpdateRoleRequest;
@@ -25,6 +26,7 @@ import static org.evpro.bookshopV5.utils.CodeMessages.UNF_ID;
 import static org.evpro.bookshopV5.utils.DTOConverter.*;
 
 @Service
+@RequiredArgsConstructor
 public class UserService implements UserFunctions {
 
 
@@ -33,13 +35,6 @@ public class UserService implements UserFunctions {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, CartRepository cartRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
-        this.userRepository = userRepository;
-        this.cartRepository = cartRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.roleRepository = roleRepository;
-
-    }
 
     @Override
     public UserDTO getUserById(Integer userId) {

@@ -1,6 +1,7 @@
 package org.evpro.bookshopV5.service;
 
 
+import lombok.RequiredArgsConstructor;
 import org.evpro.bookshopV5.model.Loan;
 import org.evpro.bookshopV5.model.LoanDetail;
 import org.evpro.bookshopV5.service.functions.LoanFunctions;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class LoanService implements LoanFunctions {
 
 

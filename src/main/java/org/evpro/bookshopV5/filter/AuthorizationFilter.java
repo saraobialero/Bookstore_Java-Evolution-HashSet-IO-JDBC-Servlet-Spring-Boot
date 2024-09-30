@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.evpro.bookshopV5.config.SecurityExceptionHandlerConfig;
 import org.evpro.bookshopV5.model.DTO.response.ErrorResponse;
 import org.evpro.bookshopV5.model.enums.ErrorCode;
@@ -26,16 +27,12 @@ import java.io.IOException;
 import java.util.Arrays;
 
 @Component
+@RequiredArgsConstructor
 public class AuthorizationFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtUtils jwtUtils;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    private SecurityExceptionHandlerConfig securityExceptionHandlerConfig;
+    private final JwtUtils jwtUtils;
+    private final UserDetailsService userDetailsService;
+    private final SecurityExceptionHandlerConfig securityExceptionHandlerConfig;
 
     @Override
     protected void doFilterInternal(

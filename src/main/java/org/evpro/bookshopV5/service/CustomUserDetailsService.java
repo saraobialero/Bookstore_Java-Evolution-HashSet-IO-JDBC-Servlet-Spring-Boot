@@ -2,6 +2,7 @@ package org.evpro.bookshopV5.service;
 
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.evpro.bookshopV5.model.DTO.response.UserDTO;
 import org.evpro.bookshopV5.model.DTO.response.ErrorResponse;
 import org.evpro.bookshopV5.exception.UserException;
@@ -18,16 +19,11 @@ import org.springframework.stereotype.Service;
 
 
 @Service
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-
 
     private final UserRepository userRepository;
     private final JwtUtils jwtUtils;
-
-    public CustomUserDetailsService(UserRepository userRepository, JwtUtils jwtUtils) {
-        this.userRepository = userRepository;
-        this.jwtUtils = jwtUtils;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

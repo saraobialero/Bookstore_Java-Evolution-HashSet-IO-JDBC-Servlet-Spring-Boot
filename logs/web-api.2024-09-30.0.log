@@ -3634,3 +3634,274 @@ org.hibernate.LazyInitializationException: failed to lazily initialize a collect
 2024-09-30 15:40:56 [sessionId=1FAE8C527647B92408240EA5D916A66D] [ERROR]: o.e.b.config.ExceptionHandlerConfig - org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor.attemptAuthorization(AuthorizationManagerBeforeMethodInterceptor.java:264)
 2024-09-30 15:40:56 [sessionId=1FAE8C527647B92408240EA5D916A66D] [ERROR]: o.e.b.config.ExceptionHandlerConfig - org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor.invoke(AuthorizationManagerBeforeMethodInterceptor.java:197)
 2024-09-30 15:40:56 [sessionId=1FAE8C527647B92408240EA5D916A66D] [ERROR]: o.e.b.config.ExceptionHandlerConfig - org.springframework.security.config.annotation.method.configuration.PrePostMethodSecurityConfiguration$DeferringMethodInterceptor.invoke(PrePostMethodSecurityConfiguration.java:200)
+2024-09-30 15:44:20 [] [INFO ]: o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-30 15:44:20 [] [INFO ]: com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-09-30 15:44:20 [] [INFO ]: com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-09-30 15:47:21 [] [INFO ]: org.evpro.bookshopV5.BookShopApp - Starting BookShopApp using Java 21.0.2 with PID 62467 (/Users/SaraObia/Local_Doc/IdeaProjects/Java_evolution_project/target/classes started by SaraObia in /Users/SaraObia/Local_Doc/IdeaProjects/Java_evolution_project)
+2024-09-30 15:47:21 [] [INFO ]: org.evpro.bookshopV5.BookShopApp - The following 1 profile is active: "dev"
+2024-09-30 15:47:21 [] [INFO ]: o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-09-30 15:47:21 [] [INFO ]: o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-09-30 15:47:22 [] [INFO ]: o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-30 15:47:22 [] [INFO ]: o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 82 ms. Found 7 JPA repository interfaces.
+2024-09-30 15:47:23 [] [INFO ]: o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-09-30 15:47:23 [] [INFO ]: o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-09-30 15:47:23 [] [INFO ]: o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-09-30 15:47:23 [] [INFO ]: o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-09-30 15:47:23 [] [INFO ]: o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-09-30 15:47:23 [] [INFO ]: o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2050 ms
+2024-09-30 15:47:24 [] [INFO ]: o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-30 15:47:24 [] [INFO ]: com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-09-30 15:47:24 [] [INFO ]: com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@11ac4297
+2024-09-30 15:47:24 [] [INFO ]: com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-09-30 15:47:26 [] [INFO ]: o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-30 15:47:26 [] [INFO ]: o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-30 15:47:27 [] [INFO ]: o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-09-30 15:47:27 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.BookService.addBook' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:47:27 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.BookService.addBooks' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:47:27 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.CartService.addItemToCart' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:47:27 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.CartService.removeItemFromCart' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:47:27 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.CartService.updateCartItemQuantity' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:47:27 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.deleteAll' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:47:27 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.changeEmail' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:47:27 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.addNewUser' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:47:27 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.addNewUsers' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:47:27 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.updateUserRole' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:47:27 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.deactivateUser' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:47:27 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.reactivateUser' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:47:27 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.deleteUser' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:47:27 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.changeUserPassword' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:47:27 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.utils.DbInitializer.run' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:47:28 [] [INFO ]: o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2024-09-30 15:47:28 [] [INFO ]: o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-09-30 15:47:28 [] [INFO ]: o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2024-09-30 15:47:28 [] [INFO ]: org.evpro.bookshopV5.BookShopApp - Started BookShopApp in 7.65 seconds (process running for 8.322)
+2024-09-30 15:47:28 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.evpro.bookshopV5.utils.DbInitializer.run]
+2024-09-30 15:47:28 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Initializing roles...
+2024-09-30 15:47:28 [] [TRACE]: o.s.t.i.TransactionInterceptor - No need to create transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.existsByRoleCode]: This method is not transactional.
+2024-09-30 15:47:28 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:28 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:28 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Role ROLE_USER created
+2024-09-30 15:47:28 [] [TRACE]: o.s.t.i.TransactionInterceptor - No need to create transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.existsByRoleCode]: This method is not transactional.
+2024-09-30 15:47:28 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:28 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:28 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Role ROLE_ADMIN created
+2024-09-30 15:47:28 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Initializing users...
+2024-09-30 15:47:28 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:47:28 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:47:28 [] [TRACE]: o.s.t.i.TransactionInterceptor - No need to create transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findByRoleCode]: This method is not transactional.
+2024-09-30 15:47:28 [] [TRACE]: o.s.t.i.TransactionInterceptor - No need to create transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findByRoleCode]: This method is not transactional.
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAll]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAll]
+2024-09-30 15:47:29 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - 4 users created
+2024-09-30 15:47:29 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Initializing books...
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAll]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAll]
+2024-09-30 15:47:29 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - 5 books created
+2024-09-30 15:47:29 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Initializing carts and cart items...
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Cart with items created for user: john@example.com
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Cart with items created for user: jane@example.com
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Cart with items created for user: bob@example.com
+2024-09-30 15:47:29 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Initializing loans and loan details...
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Loan with details created for user: john@example.com
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Loan with details created for user: jane@example.com
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:47:29 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Loan with details created for user: bob@example.com
+2024-09-30 15:47:29 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.evpro.bookshopV5.utils.DbInitializer.run]
+2024-09-30 15:48:11 [] [INFO ]: o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-30 15:48:11 [] [INFO ]: com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-09-30 15:48:11 [] [INFO ]: com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-09-30 15:51:57 [] [INFO ]: org.evpro.bookshopV5.BookShopApp - Starting BookShopApp using Java 21.0.2 with PID 62659 (/Users/SaraObia/Local_Doc/IdeaProjects/Java_evolution_project/target/classes started by SaraObia in /Users/SaraObia/Local_Doc/IdeaProjects/Java_evolution_project)
+2024-09-30 15:51:57 [] [INFO ]: org.evpro.bookshopV5.BookShopApp - The following 1 profile is active: "dev"
+2024-09-30 15:51:57 [] [INFO ]: o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-09-30 15:51:57 [] [INFO ]: o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-09-30 15:51:59 [] [INFO ]: o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-30 15:51:59 [] [INFO ]: o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 77 ms. Found 7 JPA repository interfaces.
+2024-09-30 15:51:59 [] [INFO ]: o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-09-30 15:51:59 [] [INFO ]: o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-09-30 15:51:59 [] [INFO ]: o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-09-30 15:51:59 [] [INFO ]: o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-09-30 15:51:59 [] [INFO ]: o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-09-30 15:51:59 [] [INFO ]: o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2069 ms
+2024-09-30 15:52:00 [] [INFO ]: o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-30 15:52:00 [] [INFO ]: com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-09-30 15:52:00 [] [INFO ]: com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@69811496
+2024-09-30 15:52:00 [] [INFO ]: com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-09-30 15:52:02 [] [INFO ]: o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-30 15:52:02 [] [INFO ]: o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-30 15:52:03 [] [INFO ]: o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-09-30 15:52:03 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.BookService.addBook' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:52:03 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.BookService.addBooks' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:52:03 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.CartService.addItemToCart' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:52:03 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.CartService.removeItemFromCart' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:52:03 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.CartService.updateCartItemQuantity' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:52:03 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.deleteAll' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:52:03 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.changeEmail' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:52:03 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.addNewUser' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:52:03 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.addNewUsers' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:52:03 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.updateUserRole' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:52:03 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.deactivateUser' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:52:03 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.reactivateUser' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:52:03 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.deleteUser' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:52:03 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.service.UserService.changeUserPassword' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:52:03 [] [TRACE]: o.s.t.a.AnnotationTransactionAttributeSource - Adding transactional method 'org.evpro.bookshopV5.utils.DbInitializer.run' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2024-09-30 15:52:04 [] [INFO ]: o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2024-09-30 15:52:04 [] [INFO ]: o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-09-30 15:52:04 [] [INFO ]: o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2024-09-30 15:52:04 [] [INFO ]: org.evpro.bookshopV5.BookShopApp - Started BookShopApp in 7.707 seconds (process running for 8.335)
+2024-09-30 15:52:04 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.evpro.bookshopV5.utils.DbInitializer.run]
+2024-09-30 15:52:04 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Initializing roles...
+2024-09-30 15:52:04 [] [TRACE]: o.s.t.i.TransactionInterceptor - No need to create transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.existsByRoleCode]: This method is not transactional.
+2024-09-30 15:52:04 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Role ROLE_USER created
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - No need to create transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.existsByRoleCode]: This method is not transactional.
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Role ROLE_ADMIN created
+2024-09-30 15:52:05 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Initializing users...
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - No need to create transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findByRoleCode]: This method is not transactional.
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - No need to create transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findByRoleCode]: This method is not transactional.
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAll]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAll]
+2024-09-30 15:52:05 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - 4 users created
+2024-09-30 15:52:05 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Initializing books...
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAll]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAll]
+2024-09-30 15:52:05 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - 5 books created
+2024-09-30 15:52:05 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Initializing carts and cart items...
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Cart with items created for user: john@example.com
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Cart with items created for user: jane@example.com
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Cart with items created for user: bob@example.com
+2024-09-30 15:52:05 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Initializing loans and loan details...
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.count]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Loan with details created for user: john@example.com
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Loan with details created for user: jane@example.com
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Getting transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.springframework.data.jpa.repository.support.SimpleJpaRepository.save]
+2024-09-30 15:52:05 [] [INFO ]: o.e.bookshopV5.utils.DbInitializer - Loan with details created for user: bob@example.com
+2024-09-30 15:52:05 [] [TRACE]: o.s.t.i.TransactionInterceptor - Completing transaction for [org.evpro.bookshopV5.utils.DbInitializer.run]
+2024-09-30 15:52:07 [] [INFO ]: o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-30 15:52:07 [] [INFO ]: com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-09-30 15:52:07 [] [INFO ]: com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

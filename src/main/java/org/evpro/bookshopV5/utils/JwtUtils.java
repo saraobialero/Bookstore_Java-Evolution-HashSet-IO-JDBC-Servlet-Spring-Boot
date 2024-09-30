@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.evpro.bookshopV5.config.JwtConfig;
 import org.evpro.bookshopV5.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,10 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
+@RequiredArgsConstructor
 public class JwtUtils {
-    @Autowired
-    private JwtConfig jwtConfig;
+
+    private final JwtConfig jwtConfig;
 
 
     public String extractEmail(String token) {

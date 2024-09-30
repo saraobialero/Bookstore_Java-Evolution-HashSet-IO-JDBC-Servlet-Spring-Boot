@@ -9,7 +9,6 @@ import org.evpro.bookshopV5.model.enums.ErrorCode;
 import org.evpro.bookshopV5.model.enums.RoleCode;
 import org.evpro.bookshopV5.utils.ApiUtils;
 import org.evpro.bookshopV5.utils.SessionInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,17 +31,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 @EnableMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig implements WebMvcConfigurer {
 
     private final UserDetailsService userDetailsService;
     private final JwtAuthorizationFilter jwtAuthorizationFilter;
 
-    public WebSecurityConfig(UserDetailsService userDetailsService,
-                             JwtAuthorizationFilter jwtAuthorizationFilter) {
-        this.userDetailsService = userDetailsService;
-        this.jwtAuthorizationFilter = jwtAuthorizationFilter;
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, SecurityExceptionHandlerConfig securityExceptionHandlerConfig) throws Exception {
