@@ -19,8 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.*;
 
-import static org.evpro.bookshopV5.utils.CodeMessages.BNF;
-import static org.evpro.bookshopV5.utils.CodeMessages.UNF_ID;
+import static org.evpro.bookshopV5.utils.CodeMessages.*;
 import static org.evpro.bookshopV5.utils.DTOConverter.*;
 
 @Service
@@ -43,9 +42,9 @@ public class CartService implements CartFunctions {
 
 
     @Override
-    public CartDTO getCartForUser(Integer userId) {
-        userExists(userId);
-        Cart cart = getCartFromUserId(userId);
+    public CartDTO getCartForUser(String email) {
+        userExists(email);
+        Cart cart = getCartFromUser(email);
         return convertToCartDTO(cart);
     }
 
@@ -72,7 +71,7 @@ public class CartService implements CartFunctions {
     @Transactional
     @Override
     public CartDTO removeItemFromCart(Integer userId, Integer cartItemId) {
-        userExists(userId);
+       // userExists(userId);
         CartItem cartItem = getCartItemFromCartItemId(cartItemId);
         Cart cart = getCartFromCartItem(cartItemId);
 
@@ -99,10 +98,20 @@ public class CartService implements CartFunctions {
         return convertToCartDTO(cart);
     }
 
+    @Override
+    public boolean clearCart(Integer userId) {
+        return false;
+    }
+
+    @Override
+    public LoanDTO moveCartToLoan(Integer cartId) {
+        return null;
+    }
+/*
     @Transactional
     @Override
     public boolean clearCart(Integer userId) {
-        userExists(userId);
+        //userExists(userId);
         Cart cart = getCartFromUserId(userId);
         List<CartItem> cartItemList = cartItemRepository.findAllByCartId(cart.getId());
 
@@ -116,8 +125,8 @@ public class CartService implements CartFunctions {
     @Transactional
     @Override
     public LoanDTO moveCartToLoan(Integer userId) {
-        Cart cart = getCartFromUserId(userId);
-        User user =  getUser(userId);
+        //Cart cart = getCartFromUserId(userId);
+        //User user =  getUser(userId);
         List<CartItem> cartItemList = cartItemRepository.findAllByCartId(cart.getId());
 
         if (cartItemList.isEmpty()) {
@@ -125,7 +134,7 @@ public class CartService implements CartFunctions {
         }
 
         Loan loan = new Loan();
-        loan.setUser(user);
+        //loan.setUser(user);
         loan.setLoanDate(LocalDate.now());
         loan.setStatus(LoanStatus.ACTIVE);
         loan.setDueDate(loan.getLoanDate().plusDays(14));
@@ -149,7 +158,7 @@ public class CartService implements CartFunctions {
         cartRepository.save(cart);
 
         return convertToLoanDTO(loan);
-    }
+    }*/
 
     @Override
     public List<CartDTO> getAllCarts() {
@@ -178,19 +187,19 @@ public class CartService implements CartFunctions {
     }
 
 
-    private void userExists(Integer userId) {
-        if(!userRepository.existsById(userId)) {
+    private void userExists(String email) {
+        if(!userRepository.existsByEmail(email)) {
             throw new UserException(
                     (new ErrorResponse(
                             ErrorCode.EUN,
-                            UNF_ID + userId)));
+                            UNF_EMAIL + email)));
         }
     }
-    private User getUser(Integer userId) {
-        return userRepository.findById(userId)
+    private User getUser(String email) {
+        return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserException(
                         new ErrorResponse(ErrorCode.EUN,
-                                UNF_ID + userId)));
+                                UNF_EMAIL + email)));
     }
     private Book getBook(Integer bookId) {
         return bookRepository.findById(bookId)
@@ -204,12 +213,12 @@ public class CartService implements CartFunctions {
                         ErrorCode.CNF,
                         "Cart not found for cart item with id  " + cartItemId)));
     }
-    private Cart getCartFromUserId(Integer userId) {
-        return cartRepository.findCartByUserId(userId)
+    private Cart getCartFromUser(String email) {
+        return cartRepository.findCartByUserEmail(email)
                 .orElseThrow(() -> new CartException(
                         new ErrorResponse(
                                 ErrorCode.CNF,
-                                "Cart not found for user with id " + userId)));
+                                "Cart not found for user with email " + email)));
     }
     private Cart getCartFromId(Integer cartId) {
         return cartRepository.findById(cartId)
@@ -219,12 +228,12 @@ public class CartService implements CartFunctions {
                                 "Cart not for id " + cartId)));
     }
     private Cart createNewCartForUser(Integer userId) {
-        User user = getUser(userId);
+        //User user = getUser(userId);
         return cartRepository.findCartByUserId(userId)
                 .orElseGet(() -> {
                     Cart newCart = new Cart();
                     newCart.setCreatedDate(LocalDate.now());
-                    newCart.setUser(user);
+                    //newCart.setUser(user);
                     newCart.setItems(new ArrayList<>());
                     return newCart;
                 });

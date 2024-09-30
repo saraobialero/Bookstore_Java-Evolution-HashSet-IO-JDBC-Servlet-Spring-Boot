@@ -15,6 +15,8 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByEmail(String email);
 
+    boolean existsByEmail(String email);
+
     @Query("SELECT u FROM User u LEFT JOIN u.loans l GROUP BY u ORDER BY COUNT(l) DESC")
     List<User> findMostActiveUsers(Pageable pageable);
 

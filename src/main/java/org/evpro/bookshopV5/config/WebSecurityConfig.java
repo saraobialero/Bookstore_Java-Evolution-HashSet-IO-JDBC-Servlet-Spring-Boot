@@ -32,16 +32,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 @EnableMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig implements WebMvcConfigurer {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
+    private final JwtAuthorizationFilter jwtAuthorizationFilter;
 
-    @Autowired
-    private JwtAuthorizationFilter jwtAuthorizationFilter;
-
+    public WebSecurityConfig(UserDetailsService userDetailsService,
+                             JwtAuthorizationFilter jwtAuthorizationFilter) {
+        this.userDetailsService = userDetailsService;
+        this.jwtAuthorizationFilter = jwtAuthorizationFilter;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, SecurityExceptionHandlerConfig securityExceptionHandlerConfig) throws Exception {

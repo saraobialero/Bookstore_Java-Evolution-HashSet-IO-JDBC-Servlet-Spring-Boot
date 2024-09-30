@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public interface CartFunctions {
-    CartDTO getCartForUser(Integer userId);
+    CartDTO getCartForUser(String email);
     CartDTO addItemToCart(Integer userId, Integer bookId, int quantity);
     CartDTO removeItemFromCart(Integer userId, Integer cartItemId);
     CartDTO updateCartItemQuantity(Integer cartItemId, int newQuantity);

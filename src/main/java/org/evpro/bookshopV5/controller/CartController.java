@@ -1,23 +1,19 @@
 package org.evpro.bookshopV5.controller;
 
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.evpro.bookshopV5.model.DTO.request.AddItemToCartRequest;
 import org.evpro.bookshopV5.model.DTO.request.UpdateItemToCartRequest;
 
-import org.evpro.bookshopV5.model.DTO.response.CartDTO;
-import org.evpro.bookshopV5.model.DTO.response.LoanDTO;
-import org.evpro.bookshopV5.model.DTO.response.SuccessResponse;
+import org.evpro.bookshopV5.model.DTO.response.*;
 
 
-import org.evpro.bookshopV5.model.DTO.response.UserDTO;
 import org.evpro.bookshopV5.service.CartService;
 import org.evpro.bookshopV5.service.CustomUserDetailsService;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -33,14 +29,11 @@ public class CartController {
         this.cartService = cartService;
         this.customUserDetailsService = customUserDetailsService;
     }
-    //TODO: fix HttpServletRequest with @AuthenticationPrincipal and update other methods
 
     @GetMapping("/")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    public ResponseEntity<SuccessResponse<CartDTO>> getAllBooks(HttpServletRequest request) {
-        UserDTO user = customUserDetailsService.loadUser(request);
-        Integer userId = user.getId();
-        return new ResponseEntity<>(new SuccessResponse<>(cartService.getCartForUser(userId)), HttpStatus.OK);
+    public ResponseEntity<SuccessResponse<CartDTO>> getCartForUser(@AuthenticationPrincipal String userEmail) {
+        return new ResponseEntity<>(new SuccessResponse<>(cartService.getCartForUser(userEmail)), HttpStatus.OK);
     }
 
 

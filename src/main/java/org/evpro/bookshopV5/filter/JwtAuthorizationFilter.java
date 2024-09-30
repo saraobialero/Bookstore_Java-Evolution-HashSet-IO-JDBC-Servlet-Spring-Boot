@@ -9,6 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.evpro.bookshopV5.config.SecurityExceptionHandlerConfig;
 import org.evpro.bookshopV5.model.DTO.response.ErrorResponse;
 import org.evpro.bookshopV5.model.enums.ErrorCode;
@@ -26,16 +27,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Arrays;
 
+@RequiredArgsConstructor
 @Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
-    @Autowired
-    private JwtUtils jwtUtils;
 
-    @Autowired
-    private SecurityExceptionHandlerConfig securityExceptionHandlerConfig;
-
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    private final JwtUtils jwtUtils;
+    private final SecurityExceptionHandlerConfig securityExceptionHandlerConfig;
+    private final CustomUserDetailsService customUserDetailsService;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
