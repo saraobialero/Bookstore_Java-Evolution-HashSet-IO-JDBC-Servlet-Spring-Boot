@@ -21,8 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-import static org.evpro.bookshopV5.utils.CodeMessages.NUF;
-import static org.evpro.bookshopV5.utils.CodeMessages.UNF_ID;
+import static org.evpro.bookshopV5.utils.CodeMessages.*;
 import static org.evpro.bookshopV5.utils.DTOConverter.*;
 
 @Service
@@ -48,21 +47,12 @@ public class UserService implements UserFunctions {
 
     @Override
     public UserDTO getUserByEmail(String email) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UserException(
-                        new ErrorResponse(
-                                ErrorCode.EUN,
-                                "User not found with email " + email )));
-        return convertToUserDTO(user);
+        return convertToUserDTO(getUser(email));
     }
 
     @Override
-    public UserDTO updateUserProfile(Integer userId, String newName, String newSurname) {
-        User existingUser = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(
-                        new ErrorResponse(
-                                ErrorCode.EUN,
-                                UNF_ID + userId)));
+    public UserDTO updateUserProfile(String email, String newName, String newSurname) {
+        User existingUser = getUser(email);
         existingUser.setName(newName);
         existingUser.setSurname(newSurname);
         userRepository.save(existingUser);
@@ -71,10 +61,8 @@ public class UserService implements UserFunctions {
 
     @Transactional
     @Override
-    public UserDTO changeEmail(Integer userId, String password, String newEmail) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
-
+    public UserDTO changeEmail(String email, String password, String newEmail) {
+        User user = getUser(email);
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new UserException(new ErrorResponse(ErrorCode.IVP, "Invalid password"));
         }
@@ -108,18 +96,15 @@ public class UserService implements UserFunctions {
     }
 
     @Override
-    public List<LoanDTO> getUserLoanHistory(Integer userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
+    public List<LoanDTO> getUserLoanHistory(String email) {
+        User user = getUser(email);
         return convertCollection(user.getLoans(), DTOConverter::convertToLoanDTO, ArrayList::new);
     }
 
 
     @Override
-    public CartDTO getUserCart(Integer userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
-
+    public CartDTO getUserCart(String email) {
+        User user = getUser(email);
         return convertToCartDTO(user.getCart());
     }
 
@@ -156,8 +141,8 @@ public class UserService implements UserFunctions {
         for (AddUserRequest request: requests) {
             Optional<User> existingUserOptional = userRepository.findByEmail(request.getEmail());
             if(existingUserOptional.isPresent()) {
-                throw  new UserException(
-                        new ErrorResponse(
+                throw new UserException(
+                      new ErrorResponse(
                                 ErrorCode.EAE,
                                 "User with this mail already exists "));
             }
@@ -283,6 +268,13 @@ public class UserService implements UserFunctions {
         userRepository.save(user);
 
         return newPassword;
+    }
+    private User getUser(String email) {
+        return userRepository.findByEmail(email)
+                                  .orElseThrow(() -> new UserException(
+                                                     new ErrorResponse(
+                                                            ErrorCode.EUN,
+                                                            UNF_EMAIL + email)));
     }
     private String generateRandomPassword() {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";

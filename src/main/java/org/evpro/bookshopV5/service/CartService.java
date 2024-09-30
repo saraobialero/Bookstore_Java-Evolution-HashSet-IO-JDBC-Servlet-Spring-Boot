@@ -38,15 +38,15 @@ public class CartService implements CartFunctions {
     @Override
     public CartDTO getCartForUser(String email) {
         userExists(email);
-        Cart cart = getCartFromUser(email);
+        Cart cart = getCartFromUserEmail(email);
         return convertToCartDTO(cart);
     }
 
     @Transactional
     @Override
-    public CartDTO addItemToCart(Integer userId, Integer bookId, int quantity) {
+    public CartDTO addItemToCart(String email, Integer bookId, int quantity) {
         Book book = getBook(bookId);
-        Cart cart = createNewCartForUser(userId);
+        Cart cart = createNewCartForUser(email);
 
         Optional<CartItem> existingItem = findCartItemInCart(bookId, cart);
 
@@ -64,8 +64,8 @@ public class CartService implements CartFunctions {
 
     @Transactional
     @Override
-    public CartDTO removeItemFromCart(Integer userId, Integer cartItemId) {
-       // userExists(userId);
+    public CartDTO removeItemFromCart(String email, Integer cartItemId) {
+        userExists(email);
         CartItem cartItem = getCartItemFromCartItemId(cartItemId);
         Cart cart = getCartFromCartItem(cartItemId);
 
@@ -76,6 +76,7 @@ public class CartService implements CartFunctions {
         return convertToCartDTO(cart);
     }
 
+    //TODO: fix (500)
     @Transactional
     @Override
     public CartDTO updateCartItemQuantity(Integer cartItemId, int newQuantity) {
@@ -92,21 +93,12 @@ public class CartService implements CartFunctions {
         return convertToCartDTO(cart);
     }
 
-    @Override
-    public boolean clearCart(Integer userId) {
-        return false;
-    }
 
-    @Override
-    public LoanDTO moveCartToLoan(Integer cartId) {
-        return null;
-    }
-/*
     @Transactional
     @Override
-    public boolean clearCart(Integer userId) {
-        //userExists(userId);
-        Cart cart = getCartFromUserId(userId);
+    public boolean clearCart(String email) {
+        userExists(email);
+        Cart cart = getCartFromUserEmail(email);
         List<CartItem> cartItemList = cartItemRepository.findAllByCartId(cart.getId());
 
         cartItemRepository.deleteAll(cartItemList);
@@ -118,9 +110,9 @@ public class CartService implements CartFunctions {
 
     @Transactional
     @Override
-    public LoanDTO moveCartToLoan(Integer userId) {
-        //Cart cart = getCartFromUserId(userId);
-        //User user =  getUser(userId);
+    public LoanDTO moveCartToLoan(String email) {
+        Cart cart = getCartFromUserEmail(email);
+        User user =  getUser(email);
         List<CartItem> cartItemList = cartItemRepository.findAllByCartId(cart.getId());
 
         if (cartItemList.isEmpty()) {
@@ -128,7 +120,7 @@ public class CartService implements CartFunctions {
         }
 
         Loan loan = new Loan();
-        //loan.setUser(user);
+        loan.setUser(user);
         loan.setLoanDate(LocalDate.now());
         loan.setStatus(LoanStatus.ACTIVE);
         loan.setDueDate(loan.getLoanDate().plusDays(14));
@@ -152,7 +144,7 @@ public class CartService implements CartFunctions {
         cartRepository.save(cart);
 
         return convertToLoanDTO(loan);
-    }*/
+    }
 
     @Override
     public List<CartDTO> getAllCarts() {
@@ -197,57 +189,58 @@ public class CartService implements CartFunctions {
     }
     private Book getBook(Integer bookId) {
         return bookRepository.findById(bookId)
-                .orElseThrow(() -> new BookException(
-                        new ErrorResponse(ErrorCode.BNF,
-                                BNF)));
+                             .orElseThrow(() -> new BookException(
+                                                new ErrorResponse(
+                                                        ErrorCode.BNF,
+                                                        BNF)));
     }
     private Cart getCartFromCartItem(Integer cartItemId) {
-        return cartRepository.findCartByCartItemId(cartItemId).orElseThrow(() -> new CartException(
-                new ErrorResponse(
-                        ErrorCode.CNF,
-                        "Cart not found for cart item with id  " + cartItemId)));
+        return cartRepository.findCartByCartItemId(cartItemId)
+                             .orElseThrow(() -> new CartException(
+                                                new ErrorResponse(
+                                                        ErrorCode.CNF,
+                                                        "Cart not found for cart item with id  " + cartItemId)));
     }
-    private Cart getCartFromUser(String email) {
+    private Cart getCartFromUserEmail(String email) {
         return cartRepository.findCartByUserEmail(email)
-                .orElseThrow(() -> new CartException(
-                        new ErrorResponse(
-                                ErrorCode.CNF,
-                                "Cart not found for user with email " + email)));
+                             .orElseThrow(() -> new CartException(
+                                                new ErrorResponse(
+                                                    ErrorCode.CNF,
+                                                    "Cart not found for user with email " + email)));
     }
     private Cart getCartFromId(Integer cartId) {
         return cartRepository.findById(cartId)
-                .orElseThrow(() -> new CartException(
-                        new ErrorResponse(
-                                ErrorCode.CNF,
-                                "Cart not for id " + cartId)));
+                            .orElseThrow(() -> new CartException(
+                                               new ErrorResponse(
+                                                        ErrorCode.CNF,
+                                                        "Cart not for id " + cartId)));
     }
-    private Cart createNewCartForUser(Integer userId) {
-        //User user = getUser(userId);
-        return cartRepository.findCartByUserId(userId)
-                .orElseGet(() -> {
-                    Cart newCart = new Cart();
-                    newCart.setCreatedDate(LocalDate.now());
-                    //newCart.setUser(user);
-                    newCart.setItems(new ArrayList<>());
-                    return newCart;
-                });
+    private Cart createNewCartForUser(String email) {
+        User user = getUser(email);
+        return cartRepository.findCartByUserEmail(email)
+                             .orElseGet(() -> {
+                                Cart newCart = new Cart();
+                                newCart.setCreatedDate(LocalDate.now());
+                                newCart.setUser(user);
+                                newCart.setItems(new ArrayList<>());
+                                return newCart;
+                            });
     }
     private List<Cart> getListOfCarts() {
         List<Cart> carts = cartRepository.findAll();
         if (carts.isEmpty()) {
             throw new CartException(
-                    new ErrorResponse(ErrorCode.NC,
-                            "No carts in all system"
-
-                    ));
+                  new ErrorResponse(ErrorCode.NC,
+                            "No carts in all system"));
         }
         return carts;
     }
     private CartItem getCartItemFromCartItemId(Integer cartItemId) {
-        return cartItemRepository.findById(cartItemId).orElseThrow(() -> new CartItemException(
-                new ErrorResponse(
-                        ErrorCode.CINF,
-                        "Cart item not found with id " + cartItemId)));
+        return cartItemRepository.findById(cartItemId)
+                                 .orElseThrow(() -> new CartItemException(
+                                                    new ErrorResponse(
+                                                            ErrorCode.CINF,
+                                                            "Cart item not found with id " + cartItemId)));
     }
     private Optional<CartItem> findCartItemInCart(Integer bookId, Cart cart) {
         return cart.getItems().stream()
@@ -267,6 +260,6 @@ public class CartService implements CartFunctions {
         loanDetail.setBook(cartItem.getBook());
         loanDetail.setQuantity(cartItem.getQuantity());
         loanDetail.setLoan(loan);
-        return  loanDetail;
+        return loanDetail;
     }
 }

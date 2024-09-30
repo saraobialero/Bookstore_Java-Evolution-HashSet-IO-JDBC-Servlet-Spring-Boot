@@ -33,6 +33,7 @@ public class AuthenticationController {
         return new ResponseEntity<>(new SuccessResponse<>(authenticationService.registration(request)), HttpStatus.OK);
     }
 
+    //TODO: Change request?
     @PostMapping("/refresh-token")
     public ResponseEntity<SuccessResponse<AuthenticationResponse>> refreshToken(HttpServletRequest request)  {
         return new ResponseEntity<>(new SuccessResponse<>(authenticationService.refreshToken(request)), HttpStatus.OK);

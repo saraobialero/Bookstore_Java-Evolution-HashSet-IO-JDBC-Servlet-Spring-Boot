@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface CartFunctions {
     CartDTO getCartForUser(String email);
-    CartDTO addItemToCart(Integer userId, Integer bookId, int quantity);
-    CartDTO removeItemFromCart(Integer userId, Integer cartItemId);
+    CartDTO addItemToCart(String email, Integer bookId, int quantity);
+    CartDTO removeItemFromCart(String email, Integer cartItemId);
     CartDTO updateCartItemQuantity(Integer cartItemId, int newQuantity);
-    boolean clearCart(Integer userId);
-    LoanDTO moveCartToLoan(Integer cartId);
+    boolean clearCart(String email);
+    LoanDTO moveCartToLoan(String email);
 
     //Admin functions
     List<CartDTO> getAllCarts();

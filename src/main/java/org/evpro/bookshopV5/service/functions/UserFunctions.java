@@ -15,12 +15,11 @@ public interface UserFunctions {
     // User functions
     UserDTO getUserById(Integer userId);
     UserDTO getUserByEmail(String email);
-    UserDTO updateUserProfile(Integer userId, String name, String
-            surname);
-    UserDTO changeEmail(Integer userId, String password, String newEmail);
+    UserDTO updateUserProfile(String email, String name, String surname);
+    UserDTO changeEmail(String email, String password, String newEmail);
     boolean changeUserPassword(Integer userId, String oldPassword, String newPassword, String confirmNewPassword);
-    List<LoanDTO> getUserLoanHistory(Integer userId);
-    CartDTO getUserCart(Integer userId);
+    List<LoanDTO> getUserLoanHistory(String email);
+    CartDTO getUserCart(String email);
 
     // Admin functions
     UserDTO addNewUser(AddUserRequest request);
