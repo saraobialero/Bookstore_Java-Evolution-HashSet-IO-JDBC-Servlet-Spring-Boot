@@ -207,13 +207,13 @@ public class DbInitializer implements CommandLineRunner {
 
                 for (int j = 0; j < 2; j++) {
                     Book book = books.get((i + j) % books.size());
-                    LoanDetail loanDetail = LoanDetail.builder()
+                    LoanDetails loanDetails = LoanDetails.builder()
                             .loan(loan)
                             .book(book)
                             .quantity(1)
                             .build();
-                    loanDetailRepository.save(loanDetail);
-                    loan.getLoanDetails().add(loanDetail);
+                    loanDetailRepository.save(loanDetails);
+                    loan.getLoanDetails().add(loanDetails);
                 }
                 loanRepository.save(loan);
                 log.info("Loan with details created for user: {}", user.getEmail());

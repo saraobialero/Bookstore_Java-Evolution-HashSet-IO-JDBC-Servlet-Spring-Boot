@@ -42,11 +42,11 @@ public class DTOConverter {
                 .build();
     }
 
-    public static LoanDetailsDTO convertToLoanDetailsDTO(LoanDetail loanDetail) {
+    public static LoanDetailsDTO convertToLoanDetailsDTO(LoanDetails loanDetails) {
         return LoanDetailsDTO.builder()
-                .book(convertToBookDTO(loanDetail.getBook()))
-                .id(loanDetail.getId())
-                .quantity(loanDetail.getQuantity())
+                .book(convertToBookDTO(loanDetails.getBook()))
+                .id(loanDetails.getId())
+                .quantity(loanDetails.getQuantity())
                 .build();
     }
 

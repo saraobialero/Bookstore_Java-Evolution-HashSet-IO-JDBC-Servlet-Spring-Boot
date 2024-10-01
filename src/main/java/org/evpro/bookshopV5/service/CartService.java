@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.evpro.bookshopV5.utils.CodeMessages.*;
 import static org.evpro.bookshopV5.utils.DTOConverter.*;
@@ -32,8 +33,7 @@ public class CartService implements CartFunctions {
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
     private final LoanRepository loanRepository;
-
-
+    private final LoanDetailRepository loanDetailRepository;
 
     @Override
     public CartDTO getCartForUser(String email) {
@@ -81,18 +81,14 @@ public class CartService implements CartFunctions {
     @Override
     public CartDTO updateCartItemQuantity(Integer cartItemId, int newQuantity) {
         CartItem cartItem = getCartItemFromCartItemId(cartItemId);
+        Cart cart = cartItem.getCart();
 
-        cartItem.setQuantity(cartItem.getQuantity() + newQuantity);
+        cartItem.setQuantity(newQuantity);
         cartItemRepository.save(cartItem);
-
-        Cart cart = getCartFromCartItem(cartItemId);
-
-        cart.setItems(List.of(cartItem));
         cartRepository.save(cart);
 
         return convertToCartDTO(cart);
     }
-
 
     @Transactional
     @Override
@@ -112,37 +108,19 @@ public class CartService implements CartFunctions {
     @Override
     public LoanDTO moveCartToLoan(String email) {
         Cart cart = getCartFromUserEmail(email);
-        User user =  getUser(email);
         List<CartItem> cartItemList = cartItemRepository.findAllByCartId(cart.getId());
 
         if (cartItemList.isEmpty()) {
-            throw new CartException(new ErrorResponse(ErrorCode.NCCI, "no content in the list"));
+            throw new CartException(new ErrorResponse(ErrorCode.NCCI, "No content in the cart"));
         }
 
-        Loan loan = new Loan();
-        loan.setUser(user);
-        loan.setLoanDate(LocalDate.now());
-        loan.setStatus(LoanStatus.ACTIVE);
-        loan.setDueDate(loan.getLoanDate().plusDays(14));
-
-        Set<LoanDetail> loanDetails = new HashSet<>();
-
-        for (CartItem cartItem : cartItemList) {
-            LoanDetail loanDetail = createNewLoanDetail(cartItem, loan);
-            loanDetails.add(loanDetail);
-
-            Book book = cartItem.getBook();
-            book.setQuantity(book.getQuantity() - cartItem.getQuantity());
-            bookRepository.save(book);
-        }
+        Loan loan = initializeLoan(email);
+        Set<LoanDetails> loanDetails = createLoanDetailsFromCart(cartItemList, loan);
 
         loan.setLoanDetails(loanDetails);
         loanRepository.save(loan);
 
-        cart.getItems().clear();
-        cartItemRepository.deleteAll(cartItemList);
-        cartRepository.save(cart);
-
+        clearCart(cart, cartItemList);
         return convertToLoanDTO(loan);
     }
 
@@ -255,11 +233,41 @@ public class CartService implements CartFunctions {
         cart.getItems().add(cartItem);
         return cartItem;
     }
-    private LoanDetail createNewLoanDetail(CartItem cartItem, Loan loan) {
-        LoanDetail loanDetail = new LoanDetail();
+    private Loan initializeLoan(String email) {
+        User user = getUser(email);
+        Loan loan = new Loan();
+        loan.setUser(user);
+        loan.setLoanDate(LocalDate.now());
+        loan.setStatus(LoanStatus.ACTIVE);
+        loan.setDueDate(loan.getLoanDate().plusDays(14));
+        return loan;
+    }
+
+    private Set<LoanDetails> createLoanDetailsFromCart(List<CartItem> cartItems, Loan loan) {
+        return cartItems.stream()
+                .map(cartItem -> {
+                    LoanDetails loanDetail = createNewLoanDetail(cartItem, loan);
+                    decrementBook(cartItem);
+                    return loanDetail;
+                })
+                .collect(Collectors.toSet());
+    }
+    private LoanDetails createNewLoanDetail(CartItem cartItem, Loan loan) {
+        LoanDetails loanDetail = new LoanDetails();
+        loanDetail.setLoan(loan);
         loanDetail.setBook(cartItem.getBook());
         loanDetail.setQuantity(cartItem.getQuantity());
-        loanDetail.setLoan(loan);
-        return loanDetail;
+
+        return loanDetailRepository.save(loanDetail);
+    }
+    private void decrementBook(CartItem cartItem) {
+        Book book = cartItem.getBook();
+        book.setQuantity(book.getQuantity() - cartItem.getQuantity());
+        bookRepository.save(book);
+    }
+    private void clearCart(Cart cart, List<CartItem> cartItemList) {
+        cart.getItems().clear();
+        cartItemRepository.deleteAll(cartItemList);
+        cartRepository.save(cart);
     }
 }

@@ -2,12 +2,11 @@ package org.evpro.bookshopV5.service.functions;
 
 import org.evpro.bookshopV5.model.DTO.request.AddItemToLoanRequest;
 import org.evpro.bookshopV5.model.DTO.response.LoanDTO;
-import org.evpro.bookshopV5.model.DTO.response.LoanDetailDTO;
-import org.evpro.bookshopV5.model.Loan;
-import org.evpro.bookshopV5.model.LoanDetail;
+import org.evpro.bookshopV5.model.DTO.response.LoanDetailsDTO;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 public interface LoanFunctions {
     //User Functionality
@@ -15,14 +14,15 @@ public interface LoanFunctions {
     List<LoanDTO> getMyLoans(String email);
     LoanDTO getMyLastLoan(String email);
     LoanDTO returnLoan(Integer loanId);
+    List<LoanDTO> getMyActiveLoans(String email);
 
     //Admin functionality
     List<LoanDTO> getAllLoans();
     List<LoanDTO> getUserLoan(Integer userId);
     boolean deleteAllLoans();
-    boolean deleteLoanById(Integer idLoan);
-    List<LoanDetailDTO> getLoanDetailsByLoanId(Integer loanId);
-    LocalDate extendLoanDueDate(Integer loanId, LocalDate newDueDate);
+    boolean deleteLoanById(Integer loanId);
+    Set<LoanDetailsDTO> getLoanDetailsByLoanId(Integer loanId);
+    LocalDate extendLoanDueDate(Integer loanId);
     void sendLoanReminders();
     List<LoanDTO> getOverdueLoans();
 }

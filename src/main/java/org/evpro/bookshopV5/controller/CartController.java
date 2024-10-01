@@ -50,7 +50,7 @@ public class CartController {
     }
 
     //TODO: Add email in service/ fix(500)
-    @PutMapping("/update")
+    @PutMapping("/update/item-quantity")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<SuccessResponse<CartDTO>> updateCartItemQuantity(@AuthenticationPrincipal String userEmail,
                                                                            @RequestBody @Valid UpdateItemToCartRequest updateItemToCartRequest) {

@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.evpro.bookshopV5.model.enums.LoanStatus;
-import org.evpro.bookshopV5.model.enums.RoleCode;
 
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -32,7 +30,7 @@ public class Loan {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<LoanDetail> loanDetails = new HashSet<>();
+    private Set<LoanDetails> loanDetails = new HashSet<>();
 
     @Column(name = "loan_date", nullable = false)
     private LocalDate loanDate;
