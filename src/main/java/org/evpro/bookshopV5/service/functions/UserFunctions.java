@@ -17,9 +17,7 @@ public interface UserFunctions {
     UserDTO getUserByEmail(String email);
     UserDTO updateUserProfile(String email, String name, String surname);
     UserDTO changeEmail(String email, String password, String newEmail);
-    boolean changeUserPassword(Integer userId, String oldPassword, String newPassword, String confirmNewPassword);
-    List<LoanDTO> getUserLoanHistory(String email);
-    CartDTO getUserCart(String email);
+    boolean changeUserPassword(String email, String oldPassword, String newPassword, String confirmNewPassword);
 
     // Admin functions
     UserDTO addNewUser(AddUserRequest request);

@@ -13,7 +13,7 @@ public interface LoanFunctions {
     LoanDTO createDirectLoan(String email, AddItemToLoanRequest request);
     List<LoanDTO> getMyLoans(String email);
     LoanDTO getMyLastLoan(String email);
-    LoanDTO returnLoan(Integer loanId);
+    LoanDTO returnLoan(Integer loanId, String email);
     List<LoanDTO> getMyActiveLoans(String email);
 
     //Admin functionality
@@ -23,6 +23,6 @@ public interface LoanFunctions {
     boolean deleteLoanById(Integer loanId);
     Set<LoanDetailsDTO> getLoanDetailsByLoanId(Integer loanId);
     LocalDate extendLoanDueDate(Integer loanId);
-    void sendLoanReminders();
+    boolean sendLoanReminders();
     List<LoanDTO> getOverdueLoans();
 }

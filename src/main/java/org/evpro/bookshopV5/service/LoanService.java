@@ -80,10 +80,15 @@ public class LoanService implements LoanFunctions {
         return convertToLoanDTO(loan);
     }
 
+
     @Transactional
     @Override
-    public LoanDTO returnLoan(Integer loanId) {
+    public LoanDTO returnLoan(Integer loanId, String email) {
         Loan loan = getLoan(loanId);
+        User user = getUser(email);
+        if(loan.getUser() != user) {
+            throw new UserException(new ErrorResponse(ErrorCode.UAL));
+        }
         checkLoanStatus(loan);
         checkLoanDate(loan);
 
@@ -98,6 +103,12 @@ public class LoanService implements LoanFunctions {
     public List<LoanDTO> getMyActiveLoans(String email) {
         userExists(email);
         List<Loan> loans = loanRepository.findActiveLoansFrUsers(email);
+        if (loans.isEmpty()) {
+            throw new LoanException(
+                  new ErrorResponse(
+                       ErrorCode.NL
+                    ));
+        }
         return convertCollection(loans, DTOConverter::convertToLoanDTO, ArrayList::new);
     }
 
@@ -149,7 +160,7 @@ public class LoanService implements LoanFunctions {
     }
 
     @Override
-    public void sendLoanReminders() {
+    public boolean sendLoanReminders() {
         LocalDate today = LocalDate.now();
         LocalDate reminderDate = today.plusDays(3); // Send reminders for loans due in 3 days
 
@@ -163,6 +174,7 @@ public class LoanService implements LoanFunctions {
 
             System.out.println("Reminder sent to " + userEmail + ": " + message);
         }
+        return true;
     }
 
     @Override

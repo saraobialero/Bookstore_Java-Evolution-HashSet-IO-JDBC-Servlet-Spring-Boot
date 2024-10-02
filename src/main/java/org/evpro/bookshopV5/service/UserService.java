@@ -2,6 +2,7 @@ package org.evpro.bookshopV5.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.evpro.bookshopV5.exception.LoanException;
 import org.evpro.bookshopV5.model.*;
 import org.evpro.bookshopV5.model.DTO.request.AddUserRequest;
 import org.evpro.bookshopV5.model.DTO.request.UpdateRoleRequest;
@@ -9,7 +10,6 @@ import org.evpro.bookshopV5.model.DTO.response.*;
 import org.evpro.bookshopV5.exception.UserException;
 import org.evpro.bookshopV5.model.enums.ErrorCode;
 import org.evpro.bookshopV5.model.enums.RoleCode;
-import org.evpro.bookshopV5.repository.CartRepository;
 import org.evpro.bookshopV5.repository.RoleRepository;
 import org.evpro.bookshopV5.repository.UserRepository;
 import org.evpro.bookshopV5.service.functions.UserFunctions;
@@ -30,18 +30,13 @@ public class UserService implements UserFunctions {
 
 
     private final UserRepository userRepository;
-    private final CartRepository cartRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
 
     @Override
     public UserDTO getUserById(Integer userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(
-                        new ErrorResponse(
-                                ErrorCode.EUN,
-                                UNF_ID + userId)));
+        User user = getUserFromId(userId);
         return convertToUserDTO(user);
     }
 
@@ -78,10 +73,9 @@ public class UserService implements UserFunctions {
 
     @Transactional
     @Override
-    public boolean changeUserPassword(Integer userId, String oldPassword, String newPassword, String confirmNewPassword) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
+    public boolean changeUserPassword(String email, String oldPassword, String newPassword, String confirmNewPassword) {
 
+        User user = getUser(email);
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             throw new UserException(new ErrorResponse(ErrorCode.IVP, "Invalid old password"));
         }
@@ -93,19 +87,6 @@ public class UserService implements UserFunctions {
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
         return true;
-    }
-
-    @Override
-    public List<LoanDTO> getUserLoanHistory(String email) {
-        User user = getUser(email);
-        return convertCollection(user.getLoans(), DTOConverter::convertToLoanDTO, ArrayList::new);
-    }
-
-
-    @Override
-    public CartDTO getUserCart(String email) {
-        User user = getUser(email);
-        return convertToCartDTO(user.getCart());
     }
 
     @Transactional
@@ -170,14 +151,15 @@ public class UserService implements UserFunctions {
     @Transactional
     @Override
     public UserDTO updateUserRole(Integer userId, UpdateRoleRequest request) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
-
+        User user = getUserFromId(userId);
         user.getRoles().clear();
 
         for (RoleCode roleCode : request.getRoleCodes()) {
             Role role = roleRepository.findByRoleCode(roleCode)
-                    .orElseThrow(() -> new RuntimeException("Role not found: " + roleCode));
+                                      .orElseThrow(() -> new UserException(
+                                                         new ErrorResponse(
+                                                                 ErrorCode.URNF,
+                                                                 "Role not found: " + roleCode)));
             user.getRoles().add(role);
         }
 
@@ -188,9 +170,7 @@ public class UserService implements UserFunctions {
     @Transactional
     @Override
     public boolean deactivateUser(Integer userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
-
+        User user = getUserFromId(userId);
         user.setActive(false);
         userRepository.save(user);
         return true;
@@ -199,9 +179,7 @@ public class UserService implements UserFunctions {
     @Transactional
     @Override
     public boolean reactivateUser(Integer userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(new ErrorResponse(ErrorCode.EUN, UNF_ID + userId)));
-
+        User user = getUserFromId(userId);
         user.setActive(true);
         userRepository.save(user);
         return true;
@@ -228,17 +206,19 @@ public class UserService implements UserFunctions {
     @Override
     public Set<UserDTO> getUsersWithOverdueLoans() {
         List<User> usersWithOverdueLoans = userRepository.findUsersWithOverdueLoans();
+        if (usersWithOverdueLoans.isEmpty()) {
+            throw new UserException(
+                    new ErrorResponse(
+                            ErrorCode.NL
+                    ));
+        }
         return convertCollection(usersWithOverdueLoans, DTOConverter::convertToUserDTO, HashSet::new);
     }
 
     @Transactional
     @Override
     public boolean deleteUser(Integer userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(
-                        new ErrorResponse(
-                                ErrorCode.EUN,
-                                UNF_ID + userId)));
+        User user = getUserFromId(userId);
         userRepository.delete(user);
         return true;
     }
@@ -268,6 +248,15 @@ public class UserService implements UserFunctions {
         userRepository.save(user);
 
         return newPassword;
+    }
+
+
+    private User getUserFromId(Integer userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserException(
+                        new ErrorResponse(
+                                ErrorCode.EUN,
+                                UNF_ID + userId)));
     }
     private User getUser(String email) {
         return userRepository.findByEmail(email)

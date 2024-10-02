@@ -49,11 +49,10 @@ public class CartController {
         return new ResponseEntity<>(new SuccessResponse<>(cartService.removeItemFromCart(userEmail, cartItemId)), HttpStatus.OK);
     }
 
-    //TODO: Add email in service/ fix(500)
+
     @PutMapping("/update/item-quantity")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    public ResponseEntity<SuccessResponse<CartDTO>> updateCartItemQuantity(@AuthenticationPrincipal String userEmail,
-                                                                           @RequestBody @Valid UpdateItemToCartRequest updateItemToCartRequest) {
+    public ResponseEntity<SuccessResponse<CartDTO>> updateCartItemQuantity(@RequestBody @Valid UpdateItemToCartRequest updateItemToCartRequest) {
         Integer cartItemId = updateItemToCartRequest.getCartItemId();
         int newQuantity = updateItemToCartRequest.getNewQuantity();
         return new ResponseEntity<>(new SuccessResponse<>(cartService.updateCartItemQuantity(cartItemId, newQuantity)), HttpStatus.OK);

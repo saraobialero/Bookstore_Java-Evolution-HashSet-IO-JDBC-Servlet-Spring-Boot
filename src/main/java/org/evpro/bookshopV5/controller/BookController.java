@@ -24,13 +24,13 @@ public class BookController {
     private final BookService bookService;
 
 
-    @GetMapping("/")
+    @GetMapping("/all")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<SuccessResponse<Set<BookDTO>>> getAllBooks() {
         return new ResponseEntity<>(new SuccessResponse<>(bookService.getAllBooks()), HttpStatus.OK);
     }
 
-    @GetMapping("/book/{id}")
+    @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<SuccessResponse<BookDTO>> getBook(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(new SuccessResponse<>(bookService.getBookById(id)), HttpStatus.OK);
@@ -41,7 +41,7 @@ public class BookController {
         return new ResponseEntity<>(new SuccessResponse<>(bookService.getAvailableBooks()), HttpStatus.OK);
     }
 
-    //RequestParam
+
     @GetMapping("/{genre}")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<SuccessResponse<Set<BookDTO>>> getBooksByGenre(@PathVariable("genre") BookGenre genre) {
@@ -60,26 +60,26 @@ public class BookController {
         return new ResponseEntity<>(new SuccessResponse<>(bookService.addBooks(requests)), HttpStatus.OK);
     }
 
-    @PatchMapping("/book/{id}/{quantity}")
+    @PatchMapping("/{id}/{quantity}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<SuccessResponse<BookDTO>> updateQuantityOfBook(@PathVariable("id") Integer id,
                                                                 @PathVariable("quantity") int quantity) {
         return new ResponseEntity<>(new SuccessResponse<>(bookService.updateBookQuantity(id, quantity)), HttpStatus.OK);
     }
 
-    @PostMapping("/update/book")
+    @PostMapping("/update")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<SuccessResponse<BookDTO>> updateBook(@RequestBody @Valid UpdateBookRequest request) {
         return new ResponseEntity<>(new SuccessResponse<>(bookService.updateBook(request)), HttpStatus.OK);
     }
 
-    @DeleteMapping("/remove/book/{id}")
+    @DeleteMapping("/{id}/remove")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<SuccessResponse<Boolean>> deleteBook(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(new SuccessResponse<>(bookService.deleteBookById(id)), HttpStatus.OK);
     }
 
-    @DeleteMapping("/remove")
+    @DeleteMapping("/remove/all")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<SuccessResponse<Boolean>> deleteBooks() {
         return new ResponseEntity<>(new SuccessResponse<>(bookService.deleteAll()), HttpStatus.OK);

@@ -30,6 +30,9 @@ public enum ErrorCode {
 
     //User
     NCU("Any user found", HttpStatus.NO_CONTENT, ExitCode.KO),
+    NU("No content in the list of user", HttpStatus.NO_CONTENT, ExitCode.KO),
+    UAL("User unauthorized for this loan", HttpStatus.BAD_REQUEST, ExitCode.KO),
+    URNF("Role not found", HttpStatus.NOT_FOUND, ExitCode.KO),
 
     //Cart
     CNF("Cart not found", HttpStatus.NOT_FOUND, ExitCode.KO),

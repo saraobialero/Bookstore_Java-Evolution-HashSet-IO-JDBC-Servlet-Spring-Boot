@@ -76,7 +76,7 @@ public class CartService implements CartFunctions {
         return convertToCartDTO(cart);
     }
 
-    //TODO: fix (500)
+
     @Transactional
     @Override
     public CartDTO updateCartItemQuantity(Integer cartItemId, int newQuantity) {
@@ -239,6 +239,7 @@ public class CartService implements CartFunctions {
         loan.setUser(user);
         loan.setLoanDate(LocalDate.now());
         loan.setStatus(LoanStatus.ACTIVE);
+        loan.setReturnDate(null);
         loan.setDueDate(loan.getLoanDate().plusDays(14));
         return loan;
     }
@@ -257,7 +258,6 @@ public class CartService implements CartFunctions {
         loanDetail.setLoan(loan);
         loanDetail.setBook(cartItem.getBook());
         loanDetail.setQuantity(cartItem.getQuantity());
-
         return loanDetailRepository.save(loanDetail);
     }
     private void decrementBook(CartItem cartItem) {
