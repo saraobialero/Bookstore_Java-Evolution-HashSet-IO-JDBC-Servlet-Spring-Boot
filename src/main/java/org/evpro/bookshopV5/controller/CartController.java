@@ -76,7 +76,7 @@ public class CartController {
         return new ResponseEntity<>(new SuccessResponse<>(cartService.getCartById(cartId)), HttpStatus.OK);
     }
 
-    @GetMapping("/details")
+    @GetMapping("/all/details")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<SuccessResponse<List<CartDTO>>> getAllCarts() {
         return new ResponseEntity<>(new SuccessResponse<>(cartService.getAllCarts()), HttpStatus.OK);
@@ -88,7 +88,7 @@ public class CartController {
         return new ResponseEntity<>(new SuccessResponse<>(cartService.deleteCartById(cartId)), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete-all")
+    @DeleteMapping("/delete/all")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<SuccessResponse<Boolean>> deleteAllCarts() {
         return new ResponseEntity<>(new SuccessResponse<>(cartService.deleteAllCarts()), HttpStatus.OK);

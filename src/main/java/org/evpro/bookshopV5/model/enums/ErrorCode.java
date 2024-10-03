@@ -45,6 +45,8 @@ public enum ErrorCode {
     //Books
     BNF("Book not found", HttpStatus.NOT_FOUND, ExitCode.KO),
     NCB("Any books found in store", HttpStatus.NO_CONTENT, ExitCode.KO),
+    BL("The book is still on loan", HttpStatus.BAD_REQUEST, ExitCode.KO),
+    BIC("Some books are in users' carts", HttpStatus.BAD_REQUEST, ExitCode.KO),
 
     //Loan
     LNF("Loan not found", HttpStatus.NOT_FOUND, ExitCode.KO),

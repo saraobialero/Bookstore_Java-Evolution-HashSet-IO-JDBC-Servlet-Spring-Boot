@@ -115,6 +115,7 @@ public class CartService implements CartFunctions {
         }
 
         Loan loan = initializeLoan(email);
+        loanRepository.save(loan);
         Set<LoanDetails> loanDetails = createLoanDetailsFromCart(cartItemList, loan);
 
         loan.setLoanDetails(loanDetails);
@@ -136,18 +137,29 @@ public class CartService implements CartFunctions {
         return convertToCartDTO(cart);
     }
 
+    @Transactional
     @Override
     public boolean deleteCartById(Integer cartId) {
         Cart cart = getCartFromId(cartId);
+        User user = cart.getUser();
+        List<CartItem> cartItemList = cartItemRepository.findAllByCartId(cart.getId());
+        clearCart(cart, cartItemList);
+
+        if (user != null) {
+            user.removeCart();
+            userRepository.save(user);
+        }
+
         cartRepository.delete(cart);
-        return true;
+        return !cartRepository.existsById(cartId);
     }
 
+    @Transactional
     @Override
     public boolean deleteAllCarts() {
-        List<Cart> carts = getListOfCarts();
-        cartRepository.deleteAll(carts);
-        return true;
+        cartItemRepository.deleteAllInBatch();
+        cartRepository.deleteAllInBatch();
+        return cartRepository.count() == 0;
     }
 
 
@@ -165,65 +177,60 @@ public class CartService implements CartFunctions {
                         new ErrorResponse(ErrorCode.EUN,
                                 UNF_EMAIL + email)));
     }
-    private Book getBook(Integer bookId) {
-        return bookRepository.findById(bookId)
-                             .orElseThrow(() -> new BookException(
-                                                new ErrorResponse(
-                                                        ErrorCode.BNF,
-                                                        BNF)));
+
+    private void clearCart(Cart cart, List<CartItem> cartItemList) {
+        cart.getItems().clear();
+        cartItemRepository.deleteAll(cartItemList);
+        cartRepository.save(cart);
     }
     private Cart getCartFromCartItem(Integer cartItemId) {
         return cartRepository.findCartByCartItemId(cartItemId)
-                             .orElseThrow(() -> new CartException(
-                                                new ErrorResponse(
-                                                        ErrorCode.CNF,
-                                                        "Cart not found for cart item with id  " + cartItemId)));
+                .orElseThrow(() -> new CartException(
+                        new ErrorResponse(
+                                ErrorCode.CNF,
+                                "Cart not found for cart item with id  " + cartItemId)));
     }
     private Cart getCartFromUserEmail(String email) {
         return cartRepository.findCartByUserEmail(email)
-                             .orElseThrow(() -> new CartException(
-                                                new ErrorResponse(
-                                                    ErrorCode.CNF,
-                                                    "Cart not found for user with email " + email)));
+                .orElseThrow(() -> new CartException(
+                        new ErrorResponse(
+                                ErrorCode.CNF,
+                                "Cart not found for user with email " + email)));
     }
     private Cart getCartFromId(Integer cartId) {
         return cartRepository.findById(cartId)
-                            .orElseThrow(() -> new CartException(
-                                               new ErrorResponse(
-                                                        ErrorCode.CNF,
-                                                        "Cart not for id " + cartId)));
+                .orElseThrow(() -> new CartException(
+                        new ErrorResponse(
+                                ErrorCode.CNF,
+                                "Cart not for id " + cartId)));
     }
     private Cart createNewCartForUser(String email) {
         User user = getUser(email);
         return cartRepository.findCartByUserEmail(email)
-                             .orElseGet(() -> {
-                                Cart newCart = new Cart();
-                                newCart.setCreatedDate(LocalDate.now());
-                                newCart.setUser(user);
-                                newCart.setItems(new ArrayList<>());
-                                return newCart;
-                            });
+                .orElseGet(() -> {
+                    Cart newCart = new Cart();
+                    newCart.setCreatedDate(LocalDate.now());
+                    newCart.setUser(user);
+                    newCart.setItems(new ArrayList<>());
+                    return newCart;
+                });
     }
     private List<Cart> getListOfCarts() {
         List<Cart> carts = cartRepository.findAll();
         if (carts.isEmpty()) {
             throw new CartException(
-                  new ErrorResponse(ErrorCode.NC,
+                    new ErrorResponse(ErrorCode.NC,
                             "No carts in all system"));
         }
         return carts;
     }
+
     private CartItem getCartItemFromCartItemId(Integer cartItemId) {
         return cartItemRepository.findById(cartItemId)
                                  .orElseThrow(() -> new CartItemException(
                                                     new ErrorResponse(
                                                             ErrorCode.CINF,
                                                             "Cart item not found with id " + cartItemId)));
-    }
-    private Optional<CartItem> findCartItemInCart(Integer bookId, Cart cart) {
-        return cart.getItems().stream()
-                .filter(item -> item.getBook().getId().equals(bookId))
-                .findFirst();
     }
     private CartItem createNewCartItem(Cart cart, Book book, int quantity) {
         CartItem cartItem = new CartItem();
@@ -233,6 +240,12 @@ public class CartService implements CartFunctions {
         cart.getItems().add(cartItem);
         return cartItem;
     }
+    private Optional<CartItem> findCartItemInCart(Integer bookId, Cart cart) {
+        return cart.getItems().stream()
+                .filter(item -> item.getBook().getId().equals(bookId))
+                .findFirst();
+    }
+
     private Loan initializeLoan(String email) {
         User user = getUser(email);
         Loan loan = new Loan();
@@ -258,16 +271,21 @@ public class CartService implements CartFunctions {
         loanDetail.setLoan(loan);
         loanDetail.setBook(cartItem.getBook());
         loanDetail.setQuantity(cartItem.getQuantity());
-        return loanDetailRepository.save(loanDetail);
+        return loanDetail;
     }
+
     private void decrementBook(CartItem cartItem) {
         Book book = cartItem.getBook();
         book.setQuantity(book.getQuantity() - cartItem.getQuantity());
         bookRepository.save(book);
     }
-    private void clearCart(Cart cart, List<CartItem> cartItemList) {
-        cart.getItems().clear();
-        cartItemRepository.deleteAll(cartItemList);
-        cartRepository.save(cart);
+    private Book getBook(Integer bookId) {
+        return bookRepository.findById(bookId)
+                .orElseThrow(() -> new BookException(
+                        new ErrorResponse(
+                                ErrorCode.BNF,
+                                BNF)));
     }
+
+
 }

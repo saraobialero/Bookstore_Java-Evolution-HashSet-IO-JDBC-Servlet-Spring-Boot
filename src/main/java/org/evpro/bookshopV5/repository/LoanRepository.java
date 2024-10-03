@@ -25,4 +25,5 @@ public interface LoanRepository extends JpaRepository<Loan, Integer> {
 
     List<Loan> findByDueDateAndStatus(LocalDate dueDate, LoanStatus status);
 
+    boolean existsByReturnDateIsNull();
 }

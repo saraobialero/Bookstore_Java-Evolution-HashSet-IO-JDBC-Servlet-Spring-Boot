@@ -62,7 +62,7 @@ public class DbInitializer implements CommandLineRunner {
             List<User> users = List.of(
                     User.builder()
                             .email("admin@bookshop.com")
-                            .password(passwordEncoder.encode("adminPass123"))
+                            .password(passwordEncoder.encode("adminPass123!?"))
                             .name("Admin")
                             .surname("User")
                             .roles(List.of(roleAdmin))
@@ -70,7 +70,7 @@ public class DbInitializer implements CommandLineRunner {
                             .build(),
                     User.builder()
                             .email("john@example.com")
-                            .password(passwordEncoder.encode("userPass123"))
+                            .password(passwordEncoder.encode("user-Pass123*"))
                             .name("John")
                             .surname("Doe")
                             .roles(List.of(roleUser))
@@ -78,7 +78,7 @@ public class DbInitializer implements CommandLineRunner {
                             .build(),
                     User.builder()
                             .email("jane@example.com")
-                            .password(passwordEncoder.encode("userPass456"))
+                            .password(passwordEncoder.encode("user/!Pass456"))
                             .name("Jane")
                             .surname("Smith")
                             .roles(List.of(roleUser))
@@ -86,7 +86,7 @@ public class DbInitializer implements CommandLineRunner {
                             .build(),
                     User.builder()
                             .email("bob@example.com")
-                            .password(passwordEncoder.encode("userPass789"))
+                            .password(passwordEncoder.encode("user=)Pass789"))
                             .name("Bob")
                             .surname("Johnson")
                             .roles(List.of(roleUser))

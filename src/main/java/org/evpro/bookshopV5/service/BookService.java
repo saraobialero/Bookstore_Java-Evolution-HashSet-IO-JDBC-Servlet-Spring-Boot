@@ -8,9 +8,11 @@ import org.evpro.bookshopV5.model.DTO.request.AddBookRequest;
 import org.evpro.bookshopV5.model.DTO.response.ErrorResponse;
 import org.evpro.bookshopV5.exception.BookException;
 import org.evpro.bookshopV5.model.Book;
+import org.evpro.bookshopV5.model.Loan;
+import org.evpro.bookshopV5.model.LoanDetails;
 import org.evpro.bookshopV5.model.enums.BookGenre;
 import org.evpro.bookshopV5.model.enums.ErrorCode;
-import org.evpro.bookshopV5.repository.BookRepository;
+import org.evpro.bookshopV5.repository.*;
 import org.evpro.bookshopV5.service.functions.BookFunctions;
 import org.evpro.bookshopV5.utils.DTOConverter;
 import org.springframework.stereotype.Service;
@@ -29,14 +31,13 @@ import static org.evpro.bookshopV5.utils.DTOConverter.convertToBookDTO;
 public class BookService implements BookFunctions {
 
     private final BookRepository bookRepository;
+    private final LoanRepository loanRepository;
+    private final CartItemRepository cartItemRepository;
 
     @Override
     public Set<BookDTO> getAllBooks() {
         List<Book> books = bookRepository.findAll();
-        if (books.isEmpty()) throw new BookException(
-                                   new ErrorResponse(
-                                           ErrorCode.NCB,
-                                           "No books content"));
+        bookListIsEmpty(books, " all");
         return convertCollection(books, DTOConverter::convertToBookDTO, HashSet::new);
     }
 
@@ -54,42 +55,34 @@ public class BookService implements BookFunctions {
     public BookDTO getBookByISBN(String ISBN) {
         Book book =  bookRepository.findByISBN(ISBN)
                                     .orElseThrow(() -> new BookException(
-                                            new ErrorResponse(
-                                                    ErrorCode.BNF,
-                                                    BNF)));
+                                                       new ErrorResponse(
+                                                            ErrorCode.BNF,
+                                                            BNF)));
         return convertToBookDTO(book);
     }
 
     @Override
     public List<BookDTO> searchBooksByTitle(String title) {
         List<Book> books = bookRepository.findAllByTitle(title);
-        if (books.isEmpty()) throw new BookException(
-                new ErrorResponse(
-                        ErrorCode.NCB,
-                        NBC + " title " + title));
+        bookListIsEmpty(books, title);
         return convertCollection(books, DTOConverter::convertToBookDTO, ArrayList::new);
     }
 
     @Override
     public Set<BookDTO> searchBooksByAuthor(String author) {
         List<Book> books = bookRepository.findAllByAuthor(author);
-        if (books.isEmpty()) throw new BookException(
-                new ErrorResponse(
-                        ErrorCode.NCB,
-                        NBC + " author " + author));
+        bookListIsEmpty(books, author);
         return convertCollection(books, DTOConverter::convertToBookDTO, HashSet::new);
     }
 
     @Override
     public Set<BookDTO> getAvailableBooks() {
         List<Book> books = bookRepository.findByAvailableTrue();
-        if (books.isEmpty()) throw new BookException(
-                new ErrorResponse(
-                        ErrorCode.NCB,
-                        "No available books"));
+        bookListIsEmpty(books, " available");
         return convertCollection(books, DTOConverter::convertToBookDTO, HashSet::new);
     }
 
+    @Transactional
     @Override
     public BookDTO updateBookQuantity(Integer bookId, int quantityChange) {
         Book book = bookRepository.findById(bookId)
@@ -102,6 +95,7 @@ public class BookService implements BookFunctions {
         return convertToBookDTO(book);
     }
 
+    @Transactional
     @Override
     public BookDTO updateBook(UpdateBookRequest request) {
         Book existingBook = bookRepository.findById(request.getId())
@@ -115,20 +109,13 @@ public class BookService implements BookFunctions {
         return convertToBookDTO(updatedBook);
     }
 
-    @Override
     @Transactional
+    @Override
     public BookDTO addBook(AddBookRequest request) {
-        if (request == null) {
-            throw new BookException(
-                    new ErrorResponse(
-                            ErrorCode.NCB,
-                            "No book provided to add"));
-        }
-
+        checkNotNullRequest(request);
         Optional<Book> existingBookOptional = bookRepository.findByISBN(request.getISBN());
         if (existingBookOptional.isPresent()) {
-            Book existingBook = existingBookOptional.get();
-            existingBook.setQuantity(request.getQuantity() + existingBook.getQuantity());
+            Book existingBook = updateBookQuantity(existingBookOptional, request);
             bookRepository.save(existingBook);
             return convertToBookDTO(existingBook);
         }
@@ -140,22 +127,14 @@ public class BookService implements BookFunctions {
     @Transactional
     @Override
     public List<BookDTO> addBooks(List<AddBookRequest> requests) {
-        if (requests.isEmpty()) {
-            throw new BookException(
-                  new ErrorResponse(
-                          ErrorCode.NCB,
-                          "No books provided to add"));
-        }
-
+        checkNotEmptyListRequest(requests);
         List<BookDTO> addedBooks = new ArrayList<>();
-
         for (AddBookRequest request : requests) {
             Optional<Book> existingBookOptional = bookRepository.findByISBN(request.getISBN());
             if (existingBookOptional.isPresent()) {
-                Book existingBook = existingBookOptional.get();
-                existingBook.setQuantity(existingBook.getQuantity() + request.getQuantity());
-                Book updatedBook = bookRepository.save(existingBook);
-                addedBooks.add(convertToBookDTO(updatedBook));
+                Book existingBook = updateBookQuantity(existingBookOptional, request);
+                bookRepository.save(existingBook);
+                addedBooks.add(convertToBookDTO(existingBook));
            } else {
                Book newBook = initializeBookFromRequest(request);
                bookRepository.save(newBook);
@@ -165,25 +144,36 @@ public class BookService implements BookFunctions {
         return addedBooks;
     }
 
+    @Transactional
     @Override
     public boolean deleteBookById(Integer bookId) {
         Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new BookException(
-                        new ErrorResponse(
-                                ErrorCode.BNF,
-                                BNF)));
+                                  .orElseThrow(() -> new BookException(
+                                                     new ErrorResponse(
+                                                            ErrorCode.BNF,
+                                                            BNF)));
         bookRepository.delete(book);
         return true;
     }
 
+    @Transactional
     @Override
     public boolean deleteAll() {
         List<Book> books = bookRepository.findAll();
-        if (books.isEmpty())
-           throw new BookException(
-                 new ErrorResponse(
-                        ErrorCode.NCB,
-                        "No books in store"));
+        bookListIsEmpty(books, " all");
+
+        if (loanRepository.existsByReturnDateIsNull()) {
+            throw new BookException(
+                  new ErrorResponse(
+                          ErrorCode.BL,
+                          "Cannot delete all books. Some books are currently on loan"));
+        }
+
+        boolean anyBookInCart = cartItemRepository.count() > 0;
+        if (anyBookInCart) {
+            throw new BookException(new ErrorResponse(ErrorCode.BIC, "Cannot delete all books. Some books are in users' carts"));
+        }
+
         bookRepository.deleteAll();
         return true;
     }
@@ -191,9 +181,7 @@ public class BookService implements BookFunctions {
     @Override
     public Set<BookDTO> getBooksByGenre(BookGenre genre) {
         List<Book> books = bookRepository.findAllByGenre(genre);
-        if (books.isEmpty()) throw new BookException(
-                new ErrorResponse(
-                        ErrorCode.NCB, NBC + genre));
+        bookListIsEmpty(books, genre);
         return convertCollection(books, DTOConverter::convertToBookDTO, HashSet::new);
     }
 
@@ -219,6 +207,37 @@ public class BookService implements BookFunctions {
         book.setGenre(request.getGenre());
         book.setAvailable(request.isAvailable());
         return book;
+    }
+    private <T> void bookListIsEmpty(List<Book> books, T argument){
+        if (books.isEmpty()) {
+            throw new BookException(
+                    new ErrorResponse(
+                            ErrorCode.NCB,
+                            NBC + argument));
+        }
+    }
+    private void checkNotNullRequest(AddBookRequest request) {
+        if (request == null) {
+            throw new BookException(
+                    new ErrorResponse(
+                            ErrorCode.NCB,
+                            "No book provided to add"));
+        }
+
+    }
+    private void checkNotEmptyListRequest(List<AddBookRequest> requests) {
+        if (requests.isEmpty()) {
+            throw new BookException(
+                    new ErrorResponse(
+                            ErrorCode.NCB,
+                            "No books provided to add"));
+        }
+
+    }
+    private Book updateBookQuantity(Optional<Book> existingBookOptional, AddBookRequest request  ) {
+        Book existingBook = existingBookOptional.get();
+        existingBook.setQuantity(existingBook.getQuantity() + request.getQuantity());
+        return existingBook;
     }
 
 }

@@ -44,11 +44,18 @@ public class User implements UserDetails {
                 inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;
 
     @OneToMany(mappedBy = "user")
     private List<Loan> loans;
+
+    public void removeCart() {
+        if (this.cart != null) {
+            this.cart.setUser(null);
+            this.cart = null;
+        }
+    }
 
 
     @Override
