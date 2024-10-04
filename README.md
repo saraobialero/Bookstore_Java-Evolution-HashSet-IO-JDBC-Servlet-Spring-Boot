@@ -1,4 +1,4 @@
-# Bookshop V5 - RESTful API with Spring Boot
+# 📚 Bookshop V5 - RESTful API with Spring Boot
 
 [![Java Version](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-green.svg)](https://spring.io/projects/spring-boot)
