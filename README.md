@@ -27,7 +27,7 @@ graph LR
     V2 --- V2F[File I/O<br>Data persistence]
     V3 --- V3F[SQL operations <br>Transactions]
     V4 --- V4F[MVC pattern <br> Web forms <br> User authentication]
-    V5 --- V5F[Dependency injection< br> ORM <br> RESTful API <br> JWT security]
+    V5 --- V5F[Dependency injection <br> ORM <br> RESTful API <br> JWT security]
 
 ```
 
