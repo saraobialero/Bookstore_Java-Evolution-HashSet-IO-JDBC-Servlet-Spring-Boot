@@ -13,13 +13,32 @@ This project demonstrates the evolution of a Bookshop application through differ
 4. [V4 - Servlet implementation and DAO pattern](#v4---servlet-implementation-and-dao-pattern)
 5. [V5 - RESTful API with Spring Boot](#v5---restful-api-with-spring-boot)
 
-### 🚀📸 Project evolution
+# 📚 Bookshop Evolution Project
+
+[![Java Version](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+This project demonstrates the evolution of a Bookshop application through different implementations, each with a unique approach to data management and system architecture.
+
+## 📋 Table of Contents
+
+[Your existing table of contents]
+
+## Project Evolution
+
 ```mermaid
-graph TD;
-    V1["V1: HashSet Management"] --> V2["V2: CSV Integration"];
-    V2 --> V3["V3: JDBC Integration"];
-    V3 --> V4["V4: Servlet & DAO"];
-    V4 --> V5["V5: Spring Boot API"];
+graph LR
+    V1[V1: HashSet] -->|Add CSV persistence| V2[V2: CSV]
+    V2 -->|Introduce database| V3[V3: JDBC]
+    V3 -->|Add web interface| V4[V4: Servlet & DAO]
+    V4 -->|Implement RESTful API| V5[V5: Spring Boot]
+
+    V1 --- V1F[In-memory data<br>Basic CRUD & search]
+    V2 --- V2F[File I/O<br>Data persistence]
+    V3 --- V3F[SQL operations<br>Transactions]
+    V4 --- V4F[MVC pattern<br>Web forms<br>User authentication]
+    V5 --- V5F[Dependency injection<br>ORM<br>RESTful API<br>JWT security]
+
 ```
 
 
@@ -97,22 +116,107 @@ git checkout v1-hashset  # or any other version you want to try
 
 ### [V1 - Basic management with HashSet](https://github.com/saraobialero/Java17-ApacheTomcat-SpringBoot-Java_Evolution_Project/tree/v1-hashset)
 Basic implementation of the bookshop using HashSet for in-memory data management.
-![Project Structure: v1|](src/main/resources/V1-Hashset_structure.png)
+
+```
+src/
+├── main/
+│   ├── java/org/evpro/bookshopV1/
+│   │    ├── Book
+│   │    ├── BookException
+│   │    └── Bookshop
+└──  test/java/         
+```
 
 ### [V2 - Reading and writing to CSV file](https://github.com/saraobialero/Java17-ApacheTomcat-SpringBoot-Java_Evolution_Project/tree/v2-io)
 Evolution that introduces data persistence using CSV files.
-![Project Structure: v1|](src/main/resources/V2-IOstructure.png)
+```
+src/
+├── main/
+│   ├── java/org/evpro/bookshopV2/
+│   │    ├── Book
+│   │    ├── BookException
+│   │    ├── Bookshop
+│   │    └── FileException
+│   └── resources/
+│       └── BookList.csv
+└──  test/java/
+```
 
 ### [V3 - Database integration with JDBC](https://github.com/saraobialero/Java17-ApacheTomcat-SpringBoot-Java_Evolution_Project/tree/v3-jdbc)
 Implementation that uses JDBC for connection and data management with MySQL database.
-![Project Structure: v1|](src/main/resources/V3-JDBCstructure.png)
+```
+src/
+├── main/
+│   ├── java/org/evpro/bookshopV3/
+│   │           ├── db/
+│   │           │   └── DatabaseManager
+│   │           ├── exception/
+│   │           │   ├── BookException
+│   │           │   ├── DataBaseException
+│   │           │   └── ErrorResponse
+│   │           └──  model/
+│   │                ├── Book
+│   │                ├── Bookshop
+│   │                └── PublicBookView
+│   │         
+│   └── resources/
+│       ├── data.sql
+│       ├── database.properties
+│       ├── logback.xml
+│       └── schema.sql
+└──  test/java/
+                    
+```
 
 ### [V4 - Servlet implementation and DAO pattern](https://github.com/saraobialero/Java17-ApacheTomcat-SpringBoot-Java_Evolution_Project/tree/v4-servlet)
 Introduction of the MVC pattern with Servlets and implementation of the DAO pattern for data access.
-![Project Structure: v1|](src/main/resources/V4-Servletstructure.png)
+```
+src/
+├── main/
+│   ├── java/org/evpro/bookshopV4/
+│   │           ├── DAO/
+│   │           │   └── implementation/
+│   │           ├── exception/
+│   │           ├── filter/
+│   │           ├── model/
+│   │           │   ├── requests/
+│   │           │   └── enums/
+│   │           ├──service/
+│   │           │   ├── functionality/
+│   │           ├── servlet/
+│   │           │   ├── listener/
+│   │           └── utilities/
+│   ├── resources/
+│   │   └── database.properties
+│   └── webapp/
+│       ├── WEB-INF/
+│       │   └── web.xml
+└──  test/java/
+```
 
 ### [V5 - RESTful API with Spring Boot](https://github.com/saraobialero/Java17-ApacheTomcat-SpringBoot-Java_Evolution_Project/tree/v5-springboot)
-(In development) Implementation of RESTful API using the Spring Boot framework.
+Implementation of RESTful API using the Spring Boot framework.
+```
+src/
+├── main/
+│   ├── java/org/evpro/bookshopV5/
+│   │   ├── config/
+│   │   ├── controller/
+│   │   ├── exception/
+│   │   ├── filter/
+│   │   ├── model/
+│   │   │   └── DTO/
+│   │   │       └── request/
+│   │   │       └── response/
+│   │   ├── repository/
+│   │   ├── service/
+│   │   └── utils/
+│   └── resources/
+│       └── application.properties
+└── test/
+    └── java/org/evpro/bookshopV5/
+```
+
 
 ## 📊 Comparison
 
