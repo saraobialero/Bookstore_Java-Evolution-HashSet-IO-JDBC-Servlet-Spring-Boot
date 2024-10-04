@@ -13,16 +13,6 @@ This project demonstrates the evolution of a Bookshop application through differ
 4. [V4 - Servlet implementation and DAO pattern](#v4---servlet-implementation-and-dao-pattern)
 5. [V5 - RESTful API with Spring Boot](#v5---restful-api-with-spring-boot)
 
-# 📚 Bookshop Evolution Project
-
-[![Java Version](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-
-This project demonstrates the evolution of a Bookshop application through different implementations, each with a unique approach to data management and system architecture.
-
-## 📋 Table of Contents
-
-[Your existing table of contents]
 
 ## Project Evolution
 
