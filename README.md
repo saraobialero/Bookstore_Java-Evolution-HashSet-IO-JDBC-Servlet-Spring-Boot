@@ -4,30 +4,30 @@ This is the fourth version of the Bookshop project, which evolves into a web app
 
 ## 📋 Table of Contents
 
-1. [Project Overview](#project-overview)
-2. [Features](#features)
-3. [Technologies Used](#technologies-used)
+1. [Project Overview](#-project-overview)
+2. [Features](#-features)
+3. [Technologies Used](#-technologies-used)
 4. [Project Structure](#project-structure)
-5. [Prerequisites](#prerequisites)
-6. [Setup](#setup)
-7. [Authentication and Authorization](#authentication-and-authorization)
-8. [Error Handling](#error-handling)
-9. [Annotations](#annotations)
+5. [Prerequisites](#-prerequisites)
+6. [Setup](#-setup)
+7. [Authentication and Authorization](#-authentication-and-authorization)
+8. [Error Handling](#-error-handling)
+9. [Annotations](#-annotations)
 10. [API Endpoints](#api-endpoints)
 11. [Testing](#testing)
-12. [Key Improvements from V3](#key-improvements-from-v3)
-13. [Limitations](#limitations)
-14. [Future Improvements](#future-improvements)
-15. [Contributing](#contributing)
-16. [Notes](#notes)
+12. [Key Improvements from V3](#-key-improvements-from-v3)
+13. [Limitations](#-limitations)
+14. [Future Improvements](#-future-improvements)
+15. [Contributing](#-contributing)
+16. [Notes](#-notes)
 
----
+
 
 ## 📖 Project Overview
 
 **Bookshop V4** builds on previous versions by introducing a web interface using **Servlets**, improved data access management with the **DAO pattern**, and enhanced security with **session-based authentication** and **role-based access control**.
 
----
+
 
 ## ✨ Features
 
@@ -39,12 +39,12 @@ This is the fourth version of the Bookshop project, which evolves into a web app
 - Global error handling with custom exceptions
 - Integration with **Apache Tomcat** for running servlets
 
----
+
 
 ## 🛠 Technologies Used
 
 | Category           | Technology                                                                                                                            |
-|--------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+|--|--|
 | **Language**       | [![Java Version](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) |
 | **Servlet Container** | [![Apache Tomcat](https://img.shields.io/badge/Tomcat-9.0.50-red.svg)](https://tomcat.apache.org/)                               |
 | **Database**       | [![MySQL](https://img.shields.io/badge/MySQL-blue.svg)](https://www.mysql.com/)                                                       |
@@ -52,7 +52,7 @@ This is the fourth version of the Bookshop project, which evolves into a web app
 | **Build Tool**     | [![Maven](https://img.shields.io/badge/Maven-3.6.3-green.svg)](https://maven.apache.org/)                                             |
 | **Testing**        | [![JUnit5](https://img.shields.io/badge/JUnit-5.7.0-green.svg)](https://junit.org/junit5/)                                            |
 
----
+
 
 ## 📂 Project Structure
 
@@ -84,7 +84,7 @@ src/
 - **Filters**: Handle request preprocessing for authentication and authorization.
 - **Models**: Represent the core entities in the system (books, users, loans).
 
----
+
 
 ## 💻 Prerequisites
 
@@ -93,7 +93,7 @@ src/
 - MySQL Server
 - Maven (for dependency management)
 
----
+
 
 ## 📊 ER Diagram
 
@@ -132,7 +132,7 @@ erDiagram
 
 ```
 
----
+
 
 ## ⚙️ Setup
 
@@ -147,7 +147,7 @@ erDiagram
 2. **Deploy the WAR file** to your servlet container (e.g., Tomcat).
 
 
----
+
 
 ## 🔐 Authentication and Authorization
 This application uses session-based authentication and role-based access control.
@@ -171,7 +171,7 @@ This application uses session-based authentication and role-based access control
 - Two main roles: USER and ADMIN
 - Some endpoints are restricted to ADMIN role only (as indicated in the API Endpoints section)
 
----
+
 
 ## ⚠️ Error Handling
 
@@ -188,7 +188,7 @@ The application uses a global exception handling mechanism for consistent error 
 - `DatabaseException`: For database operation errors
 - `BadRequestException`: For invalid request parameters
 
----
+
 
 ## 💡 Annotations
 
@@ -211,7 +211,7 @@ public void handleUpdateOfBook(HttpServletRequest request, HttpServletResponse r
 } 
 ```
 
----
+
 ## 🛣️API Endpoints
 
 - `/authentication/*`: User login and registration
@@ -256,14 +256,14 @@ public void handleUpdateOfBook(HttpServletRequest request, HttpServletResponse r
 - `GET /loans/borrow/book`: Get all loans for a book (Admin only)
 - `PUT /loans/borrow/return`: Return a borrowed book (Admin only)
 
----
+
 
 ## Testing
 
 The `test` directory contains unit tests for services, DAOs, and servlets. Run tests using:
 `mvn test`
 
----
+
 
 ## 🚀 Key Improvements from V3
 
@@ -275,13 +275,13 @@ The `test` directory contains unit tests for services, DAOs, and servlets. Run t
 - Improved Error Handling: Consistent error responses across the application
 - Added Authentication system based on session
 
----
+
 ## ⚠️ Limitations
 
 - Basic front-end (consider a modern JavaScript framework for V5)
 - Limited scalability for high-traffic scenarios
 
----
+
 ## 🚀 Future Improvements
 
 - Implement a modern front-end (e.g., Vue, React, Angular)
@@ -289,12 +289,12 @@ The `test` directory contains unit tests for services, DAOs, and servlets. Run t
 - Implement more advanced security features (e.g., JWT)
 - Consider moving to a more robust framework like Spring Boot (addressed in V5)
 
----
+
 ## 🫶 Contributing
 
 Contributions are welcome! Please ensure your code follows the existing structure, includes appropriate tests, and adheres to RESTful API design principles.
 
----
+
 ## 📝 Notes
 
 - This version requires a servlet container like Tomcat to run.
