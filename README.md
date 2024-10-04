@@ -13,7 +13,6 @@ This is the first iteration of the Bookshop project, built using Java's `HashSet
 7. [Testing](#-testing)
 8. [Future Improvements](#-future-improvements)
 9. [Contributing](#-contributing)
-10. [License](#-license)
 
 ---
 
