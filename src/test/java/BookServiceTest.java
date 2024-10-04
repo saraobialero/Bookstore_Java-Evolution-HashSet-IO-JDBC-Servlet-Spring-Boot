@@ -58,6 +58,13 @@ class BookServiceTest {
     }
 
     @Test
+    void testGetAllBooks_EmptyList() {
+        when(bookRepository.findAll()).thenReturn(List.of());
+
+        assertThrows(BookException.class, () -> bookService.getAllBooks());
+    }
+
+    @Test
     void testGetBookById_Success() {
         Book book = new Book();
         book.setId(1);
@@ -98,6 +105,31 @@ class BookServiceTest {
     }
 
     @Test
+    void testAddBook_ExistingBook() {
+        AddBookRequest request = new AddBookRequest();
+        request.setTitle("Existing Book");
+        request.setAuthor("Author");
+        request.setISBN("1234567890");
+        request.setQuantity(5);
+        request.setPublicationYear(LocalDate.now());
+        request.setGenre(BookGenre.NOVEL);
+
+        Book existingBook = new Book();
+        existingBook.setTitle("Existing Book");
+        existingBook.setQuantity(3);
+
+        when(bookRepository.findByISBN(request.getISBN())).thenReturn(Optional.of(existingBook));
+        when(bookRepository.save(any(Book.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        BookDTO result = bookService.addBook(request);
+
+        assertNotNull(result);
+        assertEquals("Existing Book", result.getTitle());
+        assertEquals(8, result.getQuantity());
+        verify(bookRepository).save(any(Book.class));
+    }
+
+    @Test
     void testUpdateBook_Success() {
         UpdateBookRequest request = new UpdateBookRequest();
         request.setId(1);
@@ -118,6 +150,17 @@ class BookServiceTest {
     }
 
     @Test
+    void testUpdateBook_NotFound() {
+        UpdateBookRequest request = new UpdateBookRequest();
+        request.setId(1);
+        request.setTitle("Updated Title");
+
+        when(bookRepository.findById(1)).thenReturn(Optional.empty());
+
+        assertThrows(BookException.class, () -> bookService.updateBook(request));
+    }
+
+    @Test
     void testDeleteBookById_Success() {
         Book book = new Book();
         book.setId(1);
@@ -129,4 +172,39 @@ class BookServiceTest {
         verify(bookRepository).delete(book);
     }
 
+    @Test
+    void testDeleteBookById_NotFound() {
+        when(bookRepository.findById(1)).thenReturn(Optional.empty());
+
+        assertThrows(BookException.class, () -> bookService.deleteBookById(1));
+    }
+
+    @Test
+    void testDeleteAll_Success() {
+        when(bookRepository.findAll()).thenReturn(Arrays.asList(new Book(), new Book()));
+        when(loanRepository.existsByReturnDateIsNull()).thenReturn(false);
+        when(cartItemRepository.count()).thenReturn(0L);
+
+        boolean result = bookService.deleteAll();
+
+        assertTrue(result);
+        verify(bookRepository).deleteAll();
+    }
+
+    @Test
+    void testDeleteAll_ActiveLoans() {
+        when(bookRepository.findAll()).thenReturn(Arrays.asList(new Book(), new Book()));
+        when(loanRepository.existsByReturnDateIsNull()).thenReturn(true);
+
+        assertThrows(BookException.class, () -> bookService.deleteAll());
+    }
+
+    @Test
+    void testDeleteAll_BooksInCart() {
+        when(bookRepository.findAll()).thenReturn(Arrays.asList(new Book(), new Book()));
+        when(loanRepository.existsByReturnDateIsNull()).thenReturn(false);
+        when(cartItemRepository.count()).thenReturn(1L);
+
+        assertThrows(BookException.class, () -> bookService.deleteAll());
+    }
 }

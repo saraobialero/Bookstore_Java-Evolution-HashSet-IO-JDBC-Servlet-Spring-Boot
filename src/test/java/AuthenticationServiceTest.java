@@ -65,6 +65,17 @@ class AuthenticationServiceTest {
     }
 
     @Test
+    void testAuthentication_UserNotFound() {
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail("nonexistent@example.com");
+        loginRequest.setPassword("password");
+
+        when(userRepository.findByEmail(loginRequest.getEmail())).thenReturn(java.util.Optional.empty());
+
+        assertThrows(AuthException.class, () -> authenticationService.authentication(loginRequest));
+    }
+
+    @Test
     void testRegistration_Success() {
         SignupRequest signupRequest = new SignupRequest();
         signupRequest.setEmail("newuser@example.com");
@@ -104,5 +115,39 @@ class AuthenticationServiceTest {
         assertThrows(AuthException.class, () -> authenticationService.registration(signupRequest));
     }
 
+    @Test
+    void testRegistration_PasswordMismatch() {
+        SignupRequest signupRequest = new SignupRequest();
+        signupRequest.setEmail("newuser@example.com");
+        signupRequest.setPassword("Password123!");
+        signupRequest.setConfirmPassword("DifferentPassword123!");
+        signupRequest.setName("John");
+        signupRequest.setSurname("Doe");
 
+        assertThrows(AuthException.class, () -> authenticationService.registration(signupRequest));
+    }
+
+    @Test
+    void testRegistration_InvalidEmail() {
+        SignupRequest signupRequest = new SignupRequest();
+        signupRequest.setEmail("invalidemail");
+        signupRequest.setPassword("Password123!");
+        signupRequest.setConfirmPassword("Password123!");
+        signupRequest.setName("John");
+        signupRequest.setSurname("Doe");
+
+        assertThrows(AuthException.class, () -> authenticationService.registration(signupRequest));
+    }
+
+    @Test
+    void testRegistration_InvalidPassword() {
+        SignupRequest signupRequest = new SignupRequest();
+        signupRequest.setEmail("newuser@example.com");
+        signupRequest.setPassword("weak");
+        signupRequest.setConfirmPassword("weak");
+        signupRequest.setName("John");
+        signupRequest.setSurname("Doe");
+
+        assertThrows(AuthException.class, () -> authenticationService.registration(signupRequest));
+    }
 }

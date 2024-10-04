@@ -1,4 +1,5 @@
 import org.evpro.bookshopV5.exception.UserException;
+import org.evpro.bookshopV5.model.DTO.response.AuthenticationResponse;
 import org.evpro.bookshopV5.model.Role;
 import org.evpro.bookshopV5.model.User;
 import org.evpro.bookshopV5.model.DTO.request.AddUserRequest;
@@ -92,10 +93,10 @@ class UserServiceTest {
         when(userRepository.findByEmail(newEmail)).thenReturn(Optional.empty());
         when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        UserDTO result = userService.changeEmail(oldEmail, password, newEmail);
+
+        AuthenticationResponse result = userService.changeEmail(oldEmail, password, newEmail);
 
         assertNotNull(result);
-        assertEquals(newEmail, result.getEmail());
         verify(userRepository).save(user);
     }
 
@@ -171,6 +172,135 @@ class UserServiceTest {
         Set<UserDTO> result = userService.getMostActiveUsers(limit);
 
         assertEquals(limit, result.size());
+    }
+
+    @Test
+    void testChangeUserPassword_Success() {
+        String email = "user@example.com";
+        String oldPassword = "oldPassword";
+        String newPassword = "newPassword";
+        String confirmNewPassword = "newPassword";
+
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(oldPassword));
+
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches(oldPassword, user.getPassword())).thenReturn(true);
+        when(passwordEncoder.encode(newPassword)).thenReturn("encodedNewPassword");
+
+        boolean result = userService.changeUserPassword(email, oldPassword, newPassword, confirmNewPassword);
+
+        assertTrue(result);
+        assertEquals("encodedNewPassword", user.getPassword());
+        verify(userRepository).save(user);
+    }
+
+    @Test
+    void testDeactivateUser_Success() {
+        Integer userId = 1;
+        User user = new User();
+        user.setId(userId);
+        user.setActive(true);
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+
+        boolean result = userService.deactivateUser(userId);
+
+        assertTrue(result);
+        assertFalse(user.isActive());
+        verify(userRepository).save(user);
+    }
+
+    @Test
+    void testReactivateUser_Success() {
+        Integer userId = 1;
+        User user = new User();
+        user.setId(userId);
+        user.setActive(false);
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+
+        boolean result = userService.reactivateUser(userId);
+
+        assertTrue(result);
+        assertTrue(user.isActive());
+        verify(userRepository).save(user);
+    }
+
+    @Test
+    void testGetTotalUserCount_Success() {
+        List<User> users = Arrays.asList(new User(), new User(), new User());
+        when(userRepository.findAll()).thenReturn(users);
+
+        long count = userService.getTotalUserCount();
+
+        assertEquals(3, count);
+    }
+
+    @Test
+    void testGetUsersWithOverdueLoans_Success() {
+        User user1 = new User();
+        user1.setId(1);
+        user1.setName("User 1");
+        user1.setEmail("user1@example.com");
+
+        User user2 = new User();
+        user2.setId(2);
+        user2.setName("User 2");
+        user2.setEmail("user2@example.com");
+
+        List<User> usersWithOverdueLoans = Arrays.asList(user1, user2);
+        when(userRepository.findUsersWithOverdueLoans()).thenReturn(usersWithOverdueLoans);
+
+        Set<UserDTO> result = userService.getUsersWithOverdueLoans();
+
+        assertEquals(2, result.size());
+        assertTrue(result.stream().anyMatch(dto -> dto.getName().equals("User 1")));
+        assertTrue(result.stream().anyMatch(dto -> dto.getName().equals("User 2")));
+    }
+
+    @Test
+    void testDeleteUser_Success() {
+        Integer userId = 1;
+        User user = new User();
+        user.setId(userId);
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+
+        boolean result = userService.deleteUser(userId);
+
+        assertTrue(result);
+        verify(userRepository).delete(user);
+    }
+
+    @Test
+    void testDeleteAll_Success() {
+        List<User> users = Arrays.asList(new User(), new User(), new User());
+        when(userRepository.findAll()).thenReturn(users);
+
+        boolean result = userService.deleteAll();
+
+        assertTrue(result);
+        verify(userRepository).deleteAll();
+    }
+
+    @Test
+    void testResetUserPassword_Success() {
+        Integer userId = 1;
+        User user = new User();
+        user.setId(userId);
+        user.setPassword("oldPassword");
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(passwordEncoder.encode(any())).thenReturn("encodedNewPassword");
+
+        String newPassword = userService.resetUserPassword(userId);
+
+        assertNotNull(newPassword);
+        assertNotEquals("oldPassword", newPassword);
+        assertEquals("encodedNewPassword", user.getPassword());
+        verify(userRepository).save(user);
     }
 
 }

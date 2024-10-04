@@ -64,7 +64,68 @@ src/
 
 Here's a simplified Entity-Relationship diagram of the Bookshop V5 system:
 
-[ER Diagram is displayed here]
+```mermaid
+erDiagram
+    USER ||--o{ LOAN : "makes"
+    USER ||--o| CART : "has"
+    USER }o--|| ROLE : "has"
+    BOOK ||--o{ LOAN_DETAILS : "included in"
+    BOOK ||--o{ CART_ITEM : "added to"
+    LOAN ||--|{ LOAN_DETAILS : "contains"
+    CART ||--|{ CART_ITEM : "contains"
+    
+    USER {
+        int id PK
+        string name
+        string email
+        string surname
+        string password
+        boolean active
+    }
+    BOOK {
+        int id PK
+        string title
+        string author
+        date publicationYear
+        string description
+        string award
+        enum genre
+        string ISBN
+        int quantity
+        boolean available
+    }
+    LOAN {
+        int id PK
+        int user_id FK
+        date loanDate
+        date dueDate
+        date returnDate
+        enum status
+    }
+    CART {
+        int id PK
+        int user_id FK
+        date createdDate
+    }
+    LOAN_DETAILS {
+        int id PK
+        int loan_id FK
+        int book_id FK
+        int quantity
+    }
+    CART_ITEM {
+        int id PK
+        int cart_id FK
+        int book_id FK
+        int quantity
+    }
+    ROLE {
+        int id PK
+        enum role
+    }
+    
+```    
+
 
 This diagram shows the main entities (User, Book, Cart, Loan) and their relationships.
 

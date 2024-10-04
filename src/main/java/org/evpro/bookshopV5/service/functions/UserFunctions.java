@@ -2,6 +2,7 @@ package org.evpro.bookshopV5.service.functions;
 
 import org.evpro.bookshopV5.model.DTO.request.AddUserRequest;
 import org.evpro.bookshopV5.model.DTO.request.UpdateRoleRequest;
+import org.evpro.bookshopV5.model.DTO.response.AuthenticationResponse;
 import org.evpro.bookshopV5.model.DTO.response.CartDTO;
 import org.evpro.bookshopV5.model.DTO.response.LoanDTO;
 import org.evpro.bookshopV5.model.DTO.response.UserDTO;
@@ -16,7 +17,7 @@ public interface UserFunctions {
     UserDTO getUserById(Integer userId);
     UserDTO getUserByEmail(String email);
     UserDTO updateUserProfile(String email, String name, String surname);
-    UserDTO changeEmail(String email, String password, String newEmail);
+    AuthenticationResponse changeEmail(String email, String password, String newEmail);
     boolean changeUserPassword(String email, String oldPassword, String newPassword, String confirmNewPassword);
 
     // Admin functions

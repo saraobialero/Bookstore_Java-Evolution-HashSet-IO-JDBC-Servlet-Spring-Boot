@@ -3,6 +3,7 @@ package org.evpro.bookshopV5.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.evpro.bookshopV5.model.DTO.request.*;
+import org.evpro.bookshopV5.model.DTO.response.AuthenticationResponse;
 import org.evpro.bookshopV5.model.DTO.response.SuccessResponse;
 import org.evpro.bookshopV5.model.DTO.response.UserDTO;
 import org.evpro.bookshopV5.service.UserService;
@@ -37,9 +38,10 @@ public class UserController {
 
     @PatchMapping("/new-email")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    public ResponseEntity<SuccessResponse<UserDTO>> updateUserEmail(@AuthenticationPrincipal String userEmail,
-                                                                    @RequestBody @Valid UpdateEmailRequest request) {
-        return new ResponseEntity<>(new SuccessResponse<>(userService.changeEmail(userEmail, request.getPassword(), request.getNewEmail())), HttpStatus.OK);
+    public ResponseEntity<SuccessResponse<AuthenticationResponse>> updateUserEmail(@AuthenticationPrincipal String userEmail,
+                                                                                   @RequestBody @Valid UpdateEmailRequest request) {
+        AuthenticationResponse response = userService.changeEmail(userEmail, request.getPassword(), request.getNewEmail());
+        return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
     }
 
     @PatchMapping("/new-password")

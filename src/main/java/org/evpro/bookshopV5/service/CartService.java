@@ -115,12 +115,11 @@ public class CartService implements CartFunctions {
         }
 
         Loan loan = initializeLoan(email);
-        loanRepository.save(loan);
+        loan = loanRepository.save(loan);
         Set<LoanDetails> loanDetails = createLoanDetailsFromCart(cartItemList, loan);
-
+        loanDetails.forEach(loanDetailRepository::save);
         loan.setLoanDetails(loanDetails);
-        loanRepository.save(loan);
-
+        loan = loanRepository.save(loan);
         clearCart(cart, cartItemList);
         return convertToLoanDTO(loan);
     }

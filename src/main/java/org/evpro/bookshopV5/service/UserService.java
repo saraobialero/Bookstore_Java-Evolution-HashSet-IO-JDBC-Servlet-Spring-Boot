@@ -2,9 +2,9 @@ package org.evpro.bookshopV5.service;
 
 
 import lombok.RequiredArgsConstructor;
-import org.evpro.bookshopV5.exception.LoanException;
 import org.evpro.bookshopV5.model.*;
 import org.evpro.bookshopV5.model.DTO.request.AddUserRequest;
+import org.evpro.bookshopV5.model.DTO.request.LoginRequest;
 import org.evpro.bookshopV5.model.DTO.request.UpdateRoleRequest;
 import org.evpro.bookshopV5.model.DTO.response.*;
 import org.evpro.bookshopV5.exception.UserException;
@@ -32,6 +32,7 @@ public class UserService implements UserFunctions {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationService authenticationService;
 
 
     @Override
@@ -56,8 +57,8 @@ public class UserService implements UserFunctions {
 
     @Transactional
     @Override
-    public UserDTO changeEmail(String email, String password, String newEmail) {
-        User user = getUser(email);
+    public AuthenticationResponse changeEmail(String oldEmail, String password, String newEmail) {
+        User user = getUser(oldEmail);
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new UserException(new ErrorResponse(ErrorCode.IVP, "Invalid password"));
         }
@@ -68,7 +69,11 @@ public class UserService implements UserFunctions {
 
         user.setEmail(newEmail);
         userRepository.save(user);
-        return convertToUserDTO(user);
+
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail(newEmail);
+        loginRequest.setPassword(password);
+        return authenticationService.authentication(loginRequest);
     }
 
     @Transactional
