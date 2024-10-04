@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="DEV" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="org.evpro.bookshopV5.BookShopApp" />
+    <module name="EvPro" />
+    <option name="PROGRAM_PARAMETERS" value="--spring.profiles.active=dev" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
