@@ -1,11 +1,38 @@
 # 📚 Bookshop V5 - RESTful API with Spring Boot
 
-[![Java Version](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-green.svg)](https://spring.io/projects/spring-boot)
 
 This is the fifth version of the Bookshop project, evolving into a RESTful API using Spring Boot. It represents a significant advancement from the previous Servlet-based implementation, offering improved scalability, security, and ease of development.
 
-## 🚀 Features
+## 📋 Table of Contents
+
+- [Domain Description](#-domain-description)
+- [Project Structure](#-project-structure)
+- [Entity-Relationship Diagram](#-er-diagram)
+- [Prerequisites](#-prerequisites)
+- [Setup](#-setup)
+- [Dependency Management](#-dependency-management)
+- [Authentication and Authorization](#-authentication-and-authorization)
+- [Security](#-security)
+- [Swagger for API endpoints](#-swagger-for-testing-api-endpoints)
+- [Error Handling](#-error-handling)
+- [Monitoring and Logging](#-monitoring-and-logging)
+- [Performance Considerations](#-performance-considerations)
+- [Contributing](#-contributing)
+- [limitations](#-limitations)
+- [Testing](#-testing)
+- [Improvement from v4](#improvements-from-v4)
+- [Changelog](#-changelog)
+- - [Deployment](#-deployment)
+- [FAQ](#-faq)
+
+## 📖 Project Overview
+
+**Bookshop V5** is a RESTful API built with Spring Boot that supports comprehensive book and user management for libraries or bookstores. It represents a significant improvement from previous versions, shifting from a servlet-based architecture to a fully scalable, secure, and modular API-driven solution. The application handles essential operations such as user authentication (with role-based access), managing books, processing loans, and maintaining shopping carts, while also offering robust security with JWT-based authentication and role-based access control.
+
+The modular design of Bookshop V5 improves maintainability, scalability, and ease of development, making it suitable for real-world scenarios involving multiple users, roles, and business logic complexities.
+
+
+## ✨ Features
 
 - RESTful API endpoints for comprehensive book and user management
 - Enhanced security with JWT-based authentication and authorization
@@ -14,30 +41,26 @@ This is the fifth version of the Bookshop project, evolving into a RESTful API u
 - Swagger UI for API documentation and testing
 - Modular architecture for improved maintainability and scalability
 
-## 📋 Table of Contents
+## 🛠 Technologies Used
 
-- [Domain Description](#domain-description)
-- [Project Structure](#project-structure)
-- [Entity-Relationship Diagram](#entity-relationship-diagram)
-- [Prerequisites](#prerequisites)
-- [Setup](#setup)
-- [Dependency Management](#dependency-management)
-- [Authentication and Authorization](#authentication-and-authorization)
-- [Security](#security)
-- [API Endpoints](#api-endpoints)
-- [Error Handling](#error-handling)
-- [Monitoring and Logging](#monitoring-and-logging)
-- [Testing](#testing)
-- [Performance Considerations](#performance-considerations)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [Changelog](#changelog)
-- [FAQ](#faq)
-- [License](#license)
+| Category                     | Technology                                                                      |
+|------------------------------|---------------------------------------------------------------------------------|
+| Programming Language          | ![Java](https://img.shields.io/badge/Java-17-orange)                            |
+| Framework                     | ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.5.4-green)          |
+| Database Access               | ![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-2.5.4-blue) |
+| Security                      | ![Spring Security](https://img.shields.io/badge/Spring%20Security-5.5.2-yellow) |
+| Stateless Authentication      | ![JWT](https://img.shields.io/badge/JWT-JSON%20Web%20Token-red)                 |
+| Database                     | ![MySQL](https://img.shields.io/badge/MySQL-8.0+-blueviolet)                    |
+| API Documentation             | ![Swagger](https://img.shields.io/badge/Swagger-3.0.0-ff69b4)                   |
+| Build Tool                   | ![Maven](https://img.shields.io/badge/Maven-3.8.1-orange)                       |
+| Logging Framework             | ![SLF4J](https://img.shields.io/badge/SLF4J-1.7.30-lightgray)                   |
+| Logging Framework             | ![Logback](https://img.shields.io/badge/Logback-1.2.3-yellowgreen)              |
+
 
 ## 🏢 Domain Description
 
 Bookshop V5 is a comprehensive book management system designed for libraries or bookstores. It allows for efficient management of books, user accounts, loans, and shopping carts. The system supports various operations such as adding new books, managing user roles, processing book loans, and handling return processes.
+
 
 ## 🏗 Project Structure
 
@@ -60,7 +83,9 @@ src/
     └── java/org/evpro/bookshopV5/
 ```
 
-## 📊 Entity-Relationship Diagram
+
+
+## 📊 ER Diagram
 
 Here's a simplified Entity-Relationship diagram of the Bookshop V5 system:
 
@@ -129,12 +154,15 @@ erDiagram
 
 This diagram shows the main entities (User, Book, Cart, Loan) and their relationships.
 
+
+
 ## 🛠 Prerequisites
 
 - Java JDK 17 or higher
 - Maven 3.6+
 - MySQL Server 8.0+
 - Git (for version control)
+
 
 ## 🚀 Setup
 
@@ -157,6 +185,7 @@ This diagram shows the main entities (User, Book, Cart, Loan) and their relation
    mvn spring-boot:run
    ```
 
+
 ## 📦 Dependency Management
 
 Bookshop V5 uses Maven for dependency management. The `pom.xml` file in the project root defines all necessary dependencies.
@@ -176,11 +205,15 @@ To manage project dependencies:
 
 Regularly check for dependency updates to keep the project secure and up-to-date.
 
+
+
 ## 🔐 Authentication and Authorization
 
 - JWT-based authentication
 - Role-based access control (USER and ADMIN roles)
 - Stateless authentication for improved scalability
+
+
 
 ## 🛡 Security
 
@@ -212,6 +245,7 @@ Endpoints are protected using annotations like `@PreAuthorize` in controllers, s
 - Implement rate limiting to prevent brute-force attacks
 - Conduct regular security audits
 
+
 ## 🛣 Swagger for Testing API Endpoints
 
 ### How to start
@@ -242,6 +276,8 @@ If the token is correct, now you can test the entire application functions on Sw
 
 You can generate Swagger api-docs here: http://localhost:8080/v3/api-docs
 
+
+
 ## 🚦 Error Handling
 
 - Global exception handling for consistent error responses
@@ -268,7 +304,32 @@ Bookshop V5 uses SLF4J with Logback for logging. Logging configuration is in `lo
 - Consider integrating with monitoring tools like Prometheus and Grafana for production environments.
 - Implement health check endpoints for system status monitoring.
 
-## 🧪 Testing
+
+
+## 🚀 Performance Considerations
+
+- Implement caching mechanisms for frequently accessed data
+- Optimize database queries and indexing
+- Consider using connection pooling for database connections
+- Implement pagination for large data sets in API responses
+
+
+
+## ⚠️ Limitations
+
+While Bookshop V5 introduces significant improvements, there are some limitations:
+
+1. **No Front-End Implementation**: The project is a pure back-end solution. There is no user interface, so interaction happens through API calls or via Swagger UI.
+
+2. **Limited Scalability Out of the Box**: Though improved from V4, the default setup might still require further optimizations (e.g., load balancing, caching strategies) for handling large-scale traffic or enterprise use.
+
+3. **Basic Role Management**: The application currently supports only two roles (ADMIN and USER), limiting the granularity of role-based access control.
+
+4. **No Advanced Caching**: There's no built-in caching mechanism to optimize frequent database calls, which could affect performance in high-traffic scenarios.
+
+5. **Simple Loan Management**: Bookshop V5 supports basic loan functionality but lacks features such as notifications for overdue returns or automated renewal options.
+
+## ✅ Testing
 
 Run tests using:
 ```
@@ -280,12 +341,49 @@ Consider implementing:
 - Integration tests for repository classes
 - End-to-end tests for API endpoints
 
-## 🚀 Performance Considerations
+## ❗️Improvements from V4
 
-- Implement caching mechanisms for frequently accessed data
-- Optimize database queries and indexing
-- Consider using connection pooling for database connections
-- Implement pagination for large data sets in API responses
+Bookshop V5 introduces several major upgrades over the previous version (V4):
+
+1. **Migration to Spring Boot**: Shifting from a servlet-based system to Spring Boot significantly improves scalability, development speed, and ease of use.
+
+2. **JWT-based Security**: JWT provides stateless, scalable authentication, eliminating the need for server-side session management used in V4. This leads to better performance in distributed systems and microservice architectures.
+
+3. **Spring Data JPA**: Replaces the manual JDBC and DAO pattern from V4 with an ORM-based approach, simplifying database operations and improving maintainability.
+
+4. **RESTful API Design**: The V5 API strictly follows REST principles, improving clarity and standardization, while V4 used a more traditional servlet approach.
+
+5. **Swagger Integration**: Added Swagger UI for API testing and documentation, making it easier to interact with the API and understand the available endpoints.
+
+6. **Modular Structure**: Bookshop V5 has a more structured and modular project layout, making it easier to maintain and scale the application.
+
+7. **Error Handling**: Global exception handling with Spring Boot provides more consistent and detailed error responses across the application compared to the V4 custom exceptions approach.
+
+8. **Improved Dependency Management**: Maven is used more extensively to handle project dependencies, offering better integration and ease of updating packages.
+
+
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a new branch for your feature
+3. Commit your changes
+4. Push to your branch
+5. Create a Pull Request
+
+Please ensure your code follows the existing structure, includes appropriate tests, and adheres to the project's coding standards.
+
+
+
+## 📜 Changelog
+
+- v5.0.0 (2023-10-01): Initial release of Bookshop V5
+    - Migrated to Spring Boot
+    - Implemented JWT authentication
+    - Added comprehensive API documentation with Swagger
+
 
 ## 🌐 Deployment
 
@@ -304,25 +402,6 @@ For production deployment:
    ```
 
 Consider using containerization (e.g., Docker) for easier deployment and scaling.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a new branch for your feature
-3. Commit your changes
-4. Push to your branch
-5. Create a Pull Request
-
-Please ensure your code follows the existing structure, includes appropriate tests, and adheres to the project's coding standards.
-
-## 📜 Changelog
-
-- v5.0.0 (2023-10-01): Initial release of Bookshop V5
-    - Migrated to Spring Boot
-    - Implemented JWT authentication
-    - Added comprehensive API documentation with Swagger
 
 ## ❓ FAQ
 
