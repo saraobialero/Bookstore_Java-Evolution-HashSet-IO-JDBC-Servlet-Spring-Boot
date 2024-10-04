@@ -16,13 +16,13 @@ This is the second iteration of the Bookshop project, transitioning from in-memo
 9. [Future Improvements](#-future-improvements)
 10. [Contributing](#-contributing)
 
----
+
 
 ## 📖 Project Overview
 
 **Bookshop V2** evolves from the initial in-memory version, incorporating file-based data persistence via CSV files. This upgrade allows the bookshop to store book information between sessions, providing more reliability for long-term usage.
 
----
+
 
 ## ✨ Features
 
@@ -39,18 +39,18 @@ This is the second iteration of the Bookshop project, transitioning from in-memo
 - **Data Persistence**:
    - All book data is stored in a CSV file (`BookList.csv`), ensuring that data persists across program executions.
 
----
+
 
 ## 🛠 Technologies Used
 
 | Category           | Technology                                                                                                                                       |
-|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+|--|--|
 | **Language**       | [![Java Version](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) |
 | **Data Storage**   | ![CSV](https://img.shields.io/badge/CSV-white.svg)                                                                                               |
 | **Exception Handling** | ![CE](https://img.shields.io/badge/Custom_Exception-blue.svg)                                                                                    |
 | **Testing**        | [![JUnit5](https://img.shields.io/badge/JUnit-5.7.0-green.svg)](https://junit.org/junit5/)                                                       |
 
----
+
 
 ## 📂 Project Structure
 
@@ -78,7 +78,7 @@ src/
 - `Main.java`: Entry point of the application with an enhanced CLI interface.
 - `BookList.csv`: CSV file for storing book data.
 
----
+
 
 ## 🚀 How to Run
 
@@ -100,7 +100,7 @@ javac -cp .:junit-5.jar test/java/BookshopTest.java
 java -cp .:junit-5.jar org.junit.runner.JUnitCore BookshopTest
 ```
 
----
+
 
 ## 💻 Usage
 
@@ -112,7 +112,7 @@ The application provides an improved command-line interface. Follow the on-scree
 4. Return a book
 5. View all books
 
----
+
 
 ## 📄 CSV File Format
 
@@ -124,7 +124,7 @@ The Great Gatsby,F. Scott Fitzgerald,9780743273565,true
 To Kill a Mockingbird,Harper Lee,9780446310789,false
 ```
 
----
+
 
 ## ❗️ Improvements from V1
 
@@ -133,7 +133,7 @@ To Kill a Mockingbird,Harper Lee,9780446310789,false
 - Improved book management: Added functionality to view all books.
 - More robust CSV parsing and writing.
 
----
+
 
 ## ⚠️ Limitations
 
@@ -141,7 +141,7 @@ To Kill a Mockingbird,Harper Lee,9780446310789,false
 - **Authentication:** No user authentication or authorization.
 - **Concurrency:** Limited concurrent access handling.
 
----
+
 
 ## ✅ Testing
 
@@ -151,7 +151,7 @@ Unit tests are implemented using JUnit 5. You can find the tests in the `Booksho
 * Borrowing and returning books. 
 * File I/O operations (reading from and writing to the CSV file).
 
----
+
 
 ## 🚀 Future Improvements
 
@@ -159,7 +159,7 @@ Unit tests are implemented using JUnit 5. You can find the tests in the `Booksho
 - Add user authentication and authorization
 - Improve concurrent access handling
 
----
+
 
 ## 🫶 Contributing
 
