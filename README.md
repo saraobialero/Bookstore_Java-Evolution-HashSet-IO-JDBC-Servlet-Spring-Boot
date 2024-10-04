@@ -18,17 +18,16 @@ This project demonstrates the evolution of a Bookshop application through differ
 
 ```mermaid
 graph LR
-    V1[V1: HashSet] -->|Add CSV persistence| V2[V2: CSV]
-    V2 -->|Introduce database| V3[V3: JDBC]
-    V3 -->|Add web interface| V4[V4: Servlet & DAO]
-    V4 -->|Implement RESTful API| V5[V5: Spring Boot]
+    V1[V1: HashSet] -->|Add CSV| V2[V2: CSV]
+    V2 -->|Add Database| V3[V3: JDBC]
+    V3 -->|Add Web UI| V4[V4: Servlet & DAO]
+    V4 -->|Add REST API| V5[V5: Spring Boot]
 
-    V1 --- V1F[In-memory data<br>Basic CRUD & search]
-    V2 --- V2F[File I/O<br>Data persistence]
-    V3 --- V3F[SQL operations <br>Transactions]
-    V4 --- V4F[MVC pattern <br> Web forms <br> User authentication]
-    V5 --- V5F[Dependency injection <br> ORM <br> RESTful API <br> JWT security]
-
+    V1 --- F1[In-memory data, Basic CRUD]
+    V2 --- F2[File persistence]
+    V3 --- F3[Database operations]
+    V4 --- F4[Web interface, MVC]
+    V5 --- F5[API, ORM, Dependency Injection]
 ```
 
 
