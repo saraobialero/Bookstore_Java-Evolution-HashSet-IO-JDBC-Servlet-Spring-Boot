@@ -20,6 +20,8 @@ This is the first iteration of the Bookshop project, built using Java's `HashSet
 
 **Bookshop V1** is a command-line Java application designed to manage a collection of books and basic user interactions. It uses Java's `HashSet` for in-memory storage, ensuring fast and efficient operations. This first version is intended as a starting point, with future iterations adding persistence and advanced features.
 
+---
+
 ## ✨ Features
 
 - **Book Management**
@@ -65,6 +67,8 @@ src/
 - `BookException.java`: Custom exception for book-related errors.
 - `Bookshop.java`: Main class managing the bookshop operations.
 
+---
+
 ## 🚀 How to Run
 
 To get started, ensure you have Java 8 or higher installed, then follow these steps:
@@ -85,6 +89,8 @@ javac -cp .:junit-5.jar test/java/BookshopTest.java
 java -cp .:junit-5.jar org.junit.runner.JUnitCore BookshopTest
 ```
 
+---
+
 ## 💻 Usage
 
 The application provides a simple command-line interface. Follow the on-screen prompts to:
@@ -95,21 +101,29 @@ The application provides a simple command-line interface. Follow the on-screen p
 4. Return a book
 5. Exit the program
 
+---
+
 ## ⚠️  Limitations
 
 - *Data Persistence:* This version does not save data to files or databases. All data is stored in-memory, meaning it will be lost when the program exits. 
 - *Basic User Management:* No authentication or user roles are implemented in this version. 
 - *Error Handling:* Limited error handling for invalid inputs and operations.
 
+---
+
 ## ✅ Testing
 
 Unit tests for this version are implemented using JUnit 5. You can find the test cases in `test/java/BookshopTest.java. These tests ensure that basic operations like adding, removing, and searching for books work as expected.
+
+---
 
 ## 🚀 Future Improvements
 
 - Implement data persistence (addressed in V2)
 - Add more robust error handling
 - Expand book and user management features
+
+---
 
 ## 🫶 Contributing
 
