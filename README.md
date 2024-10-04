@@ -18,13 +18,13 @@ This is the third version of the Bookshop project, evolving from CSV file storag
 12. [Contributing](#-contributing)
 13. [Notes](#-notes)
 
----
+
 
 ## 📖 Project Overview
 
 **Bookshop V3** transitions from CSV-based storage to a robust relational database system, leveraging JDBC for database interactions. This version improves data persistence, performance, and security, making it more suitable for larger datasets and multi-user environments.
 
----
+
 
 ## ✨ Features
 
@@ -49,12 +49,12 @@ This is the third version of the Bookshop project, evolving from CSV file storag
 - **Logging**:
    - Integrated logging system for better monitoring and debugging (configured via `logback.xml`).
 
----
+
 
 ## 🛠 Technologies Used
 
 | Category           | Technology                                                                                                                            |
-|--------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+|--|--|
 | **Language**       | [![Java Version](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) |
 | **Database**       | [![MySQL](https://img.shields.io/badge/MySQL-blue.svg)](https://www.mysql.com/)                                                       |
 | **JDBC**           | [![JDBC](https://img.shields.io/badge/JDBC-white.svg)](https://docs.oracle.com/javase/tutorial/jdbc/)                                 |
@@ -62,7 +62,7 @@ This is the third version of the Bookshop project, evolving from CSV file storag
 | **Logging**        | [![Logback](https://img.shields.io/badge/Logback-1.2.3-red.svg)](http://logback.qos.ch/)                                              |
 | **Testing**        | [![JUnit5](https://img.shields.io/badge/JUnit-5.7.0-green.svg)](https://junit.org/junit5/)                                            |
 
----
+
 
 ## 📂 Project Structure
 
@@ -98,7 +98,7 @@ src/
 - `database.properties`: Database configuration
 - `logback.xml`: Logging configuration
 
----
+
 
 
 ## 💻 Prerequisites
@@ -134,7 +134,7 @@ Follow these steps to set up the project:
      mvn clean compile
      ```
 
----
+
 
 ## 🚀 How to Run
 
@@ -144,7 +144,7 @@ Follow these steps to set up the project:
        ```bash
        mvn test
        ```
----
+
 
 ## ❗️ Key Improvements from V2
 
@@ -154,13 +154,13 @@ Follow these steps to set up the project:
 - Prepared statements: Protection against SQL injection
 - Logging: Enhanced debugging and monitoring capabilities
 
----
+
 
 ## 🗃 Database Schema
 
 - `books`: Stores book information
 
----
+
 
 ## ✅ Testing
 
@@ -171,7 +171,7 @@ Run `mvn test` to execute the unit tests, including database operation tests.
 - **No User Interface**: This version operates as a back-end system with no command-line interface or graphical interface.
 - **Security**: Basic security measures are in place, but there are no advanced security features like encryption or authentication.
 
----
+
 
 ## 🚀 Future Improvements
 
